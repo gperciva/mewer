@@ -1,12 +1,12 @@
 -main ExtraMetro
--js extraMetro.js
+-js out/extraMetro.js
 
 --next
 
--swf mewer.swf
+-swf out/mewer.swf
 -swf-header 480:320:40:FF0000
 -swf-version 9
--resource exercises/headers.txt@headers
+-resource exercise-headers.txt@headers
 -resource data/0.txt@level0
 -resource data/1.txt@level1
 -resource data/2.txt@level2
@@ -23,7 +23,7 @@
 --next
 
 -main Main
--js mewer.js
+-js out/mewer.js
 -lib xinf
 -resource exercises/headers.txt@headers
 -resource data/0.txt@level0

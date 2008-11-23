@@ -1,7 +1,8 @@
 
 all: compile.hxml main.hx
+	mkdir -p out
 	haxe compile.hxml
-	cp *.html ~/Sites/
+	cp html/* out/
 	cp *.swf ~/Sites/
 	cp *.js ~/Sites/
 
