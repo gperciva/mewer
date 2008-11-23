@@ -1,0 +1,40 @@
+-main ExtraMetro
+-js extraMetro.js
+
+--next
+
+-swf mewer.swf
+-swf-header 480:320:40:FF0000
+-swf-version 9
+-resource exercises/headers.txt@headers
+-resource data/0.txt@level0
+-resource data/1.txt@level1
+-resource data/2.txt@level2
+-resource data/3.txt@level3
+-resource data/4.txt@level4
+-resource data/5.txt@level5
+-resource data/6.txt@level6
+-resource data/7.txt@level7
+-resource data/8.txt@level8
+-resource data/9.txt@level9
+-main Main
+-lib xinf
+
+--next
+
+-main Main
+-js mewer.js
+-lib xinf
+-resource exercises/headers.txt@headers
+-resource data/0.txt@level0
+-resource data/1.txt@level1
+-resource data/2.txt@level2
+-resource data/3.txt@level3
+-resource data/4.txt@level4
+-resource data/5.txt@level5
+-resource data/6.txt@level6
+-resource data/7.txt@level7
+-resource data/8.txt@level8
+-resource data/9.txt@level9
+
+

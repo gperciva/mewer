@@ -1,0 +1,10 @@
+convert -size 480x10 xc:red beat.gif
+
+gifsicle --loop -d 10 beat.gif -d 90 nobeat.gif > animation.gif
+
+BPM   delay (always show "beat.gif" for 10)
+60    100
+75    80
+100   60
+120   50
+
