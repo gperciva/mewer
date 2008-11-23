@@ -25,7 +25,7 @@
 -main Main
 -js out/mewer.js
 -lib xinf
--resource exercises/headers.txt@headers
+-resource exercise-headers.txt@headers
 -resource data/0.txt@level0
 -resource data/1.txt@level1
 -resource data/2.txt@level2

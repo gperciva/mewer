@@ -1,15 +1,17 @@
+# for osx
+BUILDDIR = ~/Sites/
 
 all: compile.hxml main.hx
 	mkdir -p out
 	haxe compile.hxml
-	cp html/* out/
-	cp *.swf ~/Sites/
-	cp *.js ~/Sites/
+	cp out/* ${BUILDDIR}
+	cp html/* ${BUILDDIR}
 
-install:
-	cp -r metro ~/Sites/
-	cp -r data ~/Sites/
+install: all
+	mkdir -p ${BUILDDIR}/metro
+	cd buildmetro && sh dometro.sh ${BUILDDIR}/metro
+	#cp -r data ~/Sites/
 
 clean:
-	rm -f mewer.swf mewer.js extraMetro.js
+	rm -rf out/
 
