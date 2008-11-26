@@ -23,16 +23,22 @@ import Xinf;
 
 class Main {
 	var popWindow : Group;
+	var game : Game;
 //	var zoomToLevel : TextArea;
 
 	public function new() {
+		game = null;
+		drawMain();
+	}
+
+	public function drawMain() {
 		popWindow = new Group();
 		popWindow.transform = new Translate(50, 50);
-		Root.appendChild(popWindow);
 		popWindow.appendChild(UIgen.xinfButton(
 			"Easy", 0,0,90, selectEasy ));
 		popWindow.appendChild(UIgen.xinfButton(
 			"Hard", 0,40,90, selectHard ));
+		Root.appendChild(popWindow);
 
 /*
 		zoomToLevel = new TextArea({x: 50, y: 70});
@@ -45,14 +51,24 @@ class Main {
 */
 	}
 
+        function clearPop(event : MouseEvent) {
+                Root.removeChild(popWindow);
+                popWindow = null;
+#if flash9
+                flash.Lib.current.stage.focus = flash.Lib.current;
+#end
+        }
+
 	function selectEasy(event : MouseEvent) {
-		Root.removeChild(popWindow);
-		new Game(Easy);
+		clearPop(null);
+		game = null;
+		game = new Game(Easy, drawMain);
 	}
 
 	function selectHard(event : MouseEvent) {
-		Root.removeChild(popWindow);
-		new Game(Hard);
+		clearPop(null);
+		game = null;
+		game = new Game(Hard, drawMain);
 	}
 
 	public static function main() {

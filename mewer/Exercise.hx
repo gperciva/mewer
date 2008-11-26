@@ -42,6 +42,15 @@ class Exercise {
 		resultArea = null;
 	}
 
+	public function delete() {
+		Root.removeChild(musicArea);
+		musicArea = null;
+		if (resultArea != null) {
+			Root.removeChild(resultArea);
+			resultArea = null;
+		}
+	}
+
 	public function reload() {
 		if (resultArea != null) {
 			Root.removeChild(resultArea);
