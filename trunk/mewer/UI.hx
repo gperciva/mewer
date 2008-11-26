@@ -37,6 +37,7 @@ class UI {
 	var exerPrep : Dynamic;
 	var exerStart : Dynamic;
 	var exerStop : Dynamic;
+	var quit : Dynamic;
 
 	var popWindow : Group;
 	var statusArea : Group;
@@ -44,10 +45,12 @@ class UI {
 	var alignArea: Group;
 
 	public function new(exerPrepGet : Dynamic,
-			exerStartGet : Dynamic, exerStopGet : Dynamic) {
+			exerStartGet : Dynamic, exerStopGet :
+			Dynamic, quitGet : Dynamic) {
 		exerPrep = exerPrepGet;
 		exerStart = exerStartGet;
 		exerStop = exerStopGet;
+		quit = quitGet;
 
 		exerState = 0;
 
@@ -58,26 +61,50 @@ class UI {
 
 		statusArea = new Group();
 		statusArea.transform = new Translate(0,295);
-		Root.appendChild(statusArea);
 
 		statusText = new Text({
                         x:5, y:19, fill:"black",
                         font_size:18
                         });
 		statusArea.appendChild(statusText);
+		Root.appendChild(statusArea);
 
 		alignArea = new Group();
 		alignArea.transform = new Translate(0,270);
-		Root.appendChild(alignArea);
 		alignArea.display = xinf.ony.type.Display.None;
 		alignArea.appendChild(UIgen.xinfButtonSmall(
 			"Align to first", 10,10,60, setAlignFirst));
 		alignArea.appendChild(UIgen.xinfButtonSmall(
 			"Align to best", 200,10,64, setAlignBest));
+		Root.appendChild(alignArea);
+	}
+
+	public function delete() {
+trace("begin ui delete");
+		clearPop(null);
+		Root.removeChild(statusArea);
+		statusArea = null;
+		Root.removeChild(alignArea);
+		alignArea = null;
+
+		Root.removeEventListener(KeyboardEvent.KEY_DOWN, handleKey);
+#if flash9
+		if (useMic) {
+			mic.removeEventListener(
+				flash.events.ActivityEvent.ACTIVITY,
+				clap);
+		}
+#end
+trace("end");
 	}
 
 	public function handleKey(event:KeyboardEvent) {
 		//trace(haxe.Timer.stamp()+"  Event: "+event.code);
+
+		// ESC
+		if (event.code == 27) {
+			promptMain();
+		}
 
 		// ENTER
 		if (event.code == 13) {
@@ -92,6 +119,28 @@ class UI {
 				detected.add( haxe.Timer.stamp() );
 		}
 
+	}
+
+	public function promptMain() {
+		if (popWindow != null)
+			clearPop(null);
+		popWindow = new Group();
+		popWindow.transform = new Translate(140,50);
+
+                popWindow.appendChild( new Rectangle({
+                        x: 0, y: 0, width: 200, height: 60,
+			fill:Paint.RGBColor(0.3,0.3,0.9)
+		}));
+		popWindow.appendChild( new Text({
+			text:"Return to menu?", font_size: 20,
+			fill: "black",
+			x:30, y:20,
+		}));
+		popWindow.appendChild(UIgen.xinfButton(
+			"Cancel", 20,30,70, clearPop));
+		popWindow.appendChild(UIgen.xinfButton(
+			"Yes, quit", 110,30,80, quit));
+		Root.appendChild(popWindow);
 	}
 
 	public function showMain() {
@@ -205,6 +254,30 @@ class UI {
 		Root.appendChild(popWindow);
 	}
 
+	public function showWin(maxLevel : Int)
+	{
+		popWindow = new Group();
+		popWindow.transform = new Translate(110,50);
+
+                popWindow.appendChild( new Rectangle({
+                                x: 0, y: 0, width: 260,
+                                height: 100, fill:"white"
+		}));
+		popWindow.appendChild( new Text({
+			text:"Fireworks and Balloons!", font_size: 20,
+			fill: "black",
+			x:50, y:20,
+		}));
+		popWindow.appendChild( new Text({
+			text:"Congratulations, you completed the final level!",
+			font_size: 18,
+			fill: "black",
+			x:5, y:45,
+		}));
+		popWindow.appendChild(UIgen.xinfButton(
+			"Repeat level "+maxLevel, 100,75,60, clearPop));
+		Root.appendChild(popWindow);
+	}
 
 	public function showGrade(result:Result, grade:Float,
 		level : Int, passed : Int, passNum : Int) {

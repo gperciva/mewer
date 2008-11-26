@@ -45,7 +45,12 @@ class Game {
 	var graded : Bool;
 	var reload : Bool;
 
-	public function new(difficulty : Difficulty) {
+	var drawMain : Dynamic;
+
+	public function new(difficulty : Difficulty, drawMainGet :
+			Dynamic) {
+trace("in new");
+		drawMain = drawMainGet;
 		if (difficulty == Easy) {
 			passGrade = 50;
 			passNum = 2;
@@ -63,9 +68,11 @@ class Game {
 		passedExercises = 0;
 		reload = false;
 
+trace("metro is "+metronome);
 		metronome = new Metronome();
+trace("metro is "+metronome);
 		exercise = new Exercise();
-		ui = new UI(exerPrep, exerStart, exerStop);
+		ui = new UI(exerPrep, exerStart, exerStop, quit);
 
 		ui.showMain();
 	}
@@ -129,6 +136,7 @@ class Game {
 				}
 				var maxLevel = headers.length - 1;
 				if (level > maxLevel) {
+					ui.showWin(maxLevel);
 					ui.showGrade(Win, grade, level, passedExercises, passNum);
 					level = maxLevel;
 				} else
@@ -146,6 +154,23 @@ class Game {
 			ui.showGrade(Fail, grade, level, passedExercises, passNum);
 		}
 		graded = true;
+	}
+
+	function quit(event : Dynamic) {
+trace("begin quit");
+trace("metro is "+metronome);
+		metronome.delete();
+		metronome = null;
+trace("metro is "+metronome);
+trace("try exercise");
+
+		exercise.delete();
+		exercise = null;
+trace("try ui delete");
+		ui.delete();
+		ui = null;
+
+		drawMain();
 	}
 
 	function pickbpm(level : Int) : Float {
