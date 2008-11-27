@@ -24,7 +24,6 @@ import Xinf;
 class Main {
 	var mainWindow : Group;
 	var game : Game;
-//	var zoomToLevel : TextArea;
 
 	public function new() {
 		game = new Game(drawMain);
@@ -35,20 +34,12 @@ class Main {
 		mainWindow = new Group();
 		mainWindow.transform = new Translate(50, 50);
 		mainWindow.appendChild(UIgen.xinfButton(
-			"Easy", 0,0,90, selectEasy ));
+			"Tutorial", 0,0,90, selectTutorial ));
 		mainWindow.appendChild(UIgen.xinfButton(
-			"Hard", 0,40,90, selectHard ));
+			"Easy", 0,40,90, selectEasy ));
+		mainWindow.appendChild(UIgen.xinfButton(
+			"Hard", 0,80,90, selectHard ));
 		Root.appendChild(mainWindow);
-
-/*
-		zoomToLevel = new TextArea({x: 50, y: 70});
-		//zoomToLevel.transform = new Translate(0,60);
-		zoomToLevel.text = "Zoom to level";
-		zoomToLevel.width = 100;
-		zoomToLevel.height = 20;
-		zoomToLevel.editable = xinf.ony.type.Editability.Simple;
-		mainWindow.appendChild(zoomToLevel);
-*/
 	}
 
         function clearMain(event : MouseEvent) {
@@ -58,6 +49,11 @@ class Main {
                 flash.Lib.current.stage.focus = flash.Lib.current;
 #end
         }
+
+	function selectTutorial(event : MouseEvent) {
+		clearMain(null);
+		game.start(Tutorial,0);
+	}
 
 	function selectEasy(event : MouseEvent) {
 		clearMain(null);

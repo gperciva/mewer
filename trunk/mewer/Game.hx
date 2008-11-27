@@ -23,6 +23,7 @@ import mewer.Exercise;
 import mewer.Metronome;
 
 enum Difficulty {
+  Tutorial;
   Easy;
   Hard;
 }
@@ -37,6 +38,7 @@ class Game {
 	var showMain : Dynamic;
 
 	// stable for each game
+	var difficulty : Difficulty;
 	var passGrade : Int;
 	var passNum : Int;
 	var gradeScale : Int;
@@ -84,13 +86,18 @@ class Game {
 	}
 
 // ********* PER GAME
-	public function start(difficulty : Difficulty, levelGet : Int) {
-		if (difficulty == Easy) {
+	public function start(difficultyGet : Difficulty, levelGet : Int) {
+		difficulty = difficultyGet;
+		switch (difficulty) {
+		case Tutorial:
+			passGrade = 50;
+			passNum = 1;
+			gradeScale = 70;
+		case Easy:
 			passGrade = 50;
 			passNum = 2;
 			gradeScale = 70;
-		}
-		if (difficulty == Hard) {
+		case Hard:
 			passGrade = 70;
 			passNum = 3;
 			gradeScale = 100;
@@ -130,37 +137,52 @@ class Game {
 		if (detected.length != exercise.getLength())
 			ui.warnOnsets(exercise.getLength(),
 				detected.length);
-
 		if (grade > passGrade) {
-			if (!graded) {
-				passedExercises++;
-				reload = false;
-			}
-			if ((level == 0) || (passedExercises >= passNum)) {
-				if (!graded) {
-					level++;
-					passedExercises = 0;
-				}
-				var maxLevel = headers.length - 1;
-				if (level > maxLevel) {
-					ui.showWin(maxLevel);
-					ui.showGrade(Win, grade, level, passedExercises, passNum);
-					level = maxLevel;
-				} else
-					ui.showGrade(Advance, grade, level, passedExercises, passNum);
-			} else {
-				ui.showGrade(Pass, grade, level, passedExercises, passNum);
-			}
+			passed(grade);
 		} else {
 			if (!graded) {
 				passedExercises--;
 				if (passedExercises < 0)
 					passedExercises = 0;
-				reload = true;
+				graded = true;
 			}
+			reload = true;
 			ui.showGrade(Fail, grade, level, passedExercises, passNum);
 		}
-		graded = true;
+	}
+
+	function passed(grade : Float) {
+		var passNum;
+		switch (difficulty) {
+		case Tutorial:
+			passNum = 1;
+		case Easy:
+			passNum = 2;
+		case Hard:
+			passNum = 3;
+		}
+		if (!graded) {
+			passedExercises++;
+			reload = false;
+		}
+		if (passedExercises >= passNum) {
+			if (!graded) {
+				level++;
+				passedExercises = 0;
+				graded = true;
+			}
+			var maxLevel = headers.length - 1;
+			if (difficulty == Tutorial)
+				maxLevel = 0;
+			if (level > maxLevel) {
+				ui.showWin(maxLevel);
+				ui.showGrade(Win, grade, level, passedExercises, passNum);
+				level = maxLevel;
+			} else
+				ui.showGrade(Advance, grade, level, passedExercises, passNum);
+		} else {
+			ui.showGrade(Pass, grade, level, passedExercises, passNum);
+		}
 	}
 
 	function pickbpm(level : Int) : Float {

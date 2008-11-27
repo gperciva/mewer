@@ -93,6 +93,8 @@ class UI {
 
 	public function reset() {
 		clearPop(null);
+		statusArea.display = xinf.ony.type.Display.None;
+		alignArea.display = xinf.ony.type.Display.None;
 #if flash9
 		if (useMic) {
 			mic.removeEventListener(
@@ -206,6 +208,7 @@ class UI {
 
 	public function prep() {
 		detected = new List();
+		statusArea.display = xinf.ony.type.Display.Inline;
 		alignArea.display = xinf.ony.type.Display.None;
 		exerState = Prep;
 		statusText.text = "Press ENTER to begin exercise.";
@@ -269,16 +272,17 @@ class UI {
 	public function showWin(maxLevel : Int)
 	{
 		popWindow = new Group();
-		popWindow.transform = new Translate(110,50);
+		popWindow.transform = new Translate(50,50);
 
                 popWindow.appendChild( new Rectangle({
-                                x: 0, y: 0, width: 260,
-                                height: 100, fill:"white"
+                                x: 0, y: 0, width: 380,
+                                height: 100,
+				fill:Paint.RGBColor(0.3,0.3,0.9)
 		}));
 		popWindow.appendChild( new Text({
 			text:"Fireworks and Balloons!", font_size: 20,
 			fill: "black",
-			x:50, y:20,
+			x:100, y:20,
 		}));
 		popWindow.appendChild( new Text({
 			text:"Congratulations, you completed the final level!",
@@ -286,8 +290,16 @@ class UI {
 			fill: "black",
 			x:5, y:45,
 		}));
+		popWindow.appendChild( new Text({
+			text:"(press ESC to return to the main menu)",
+			font_size: 18,
+			fill: "black",
+			x:40, y:65,
+		}));
 		popWindow.appendChild(UIgen.xinfButton(
-			"Repeat level "+maxLevel, 100,75,60, clearPop));
+			"Repeat level "+maxLevel, 100,75,125, clearPop));
+		popWindow.appendChild(UIgen.xinfButton(
+			"Quit to main", 260,75,110, quit));
 		Root.appendChild(popWindow);
 	}
 
@@ -296,11 +308,11 @@ class UI {
 
 		switch(result) {
 			case Win:
-				statusText.text = "You win!  Score: " + grade + "%";
+				statusText.text = "You win! Score: " + grade + "%  (press ENTER)";
 			case Advance:
-				statusText.text = "Advance to level "+level+"!  Score: " + grade + "% (press ENTER)";
+				statusText.text = "Advance to level "+level+"!  Score: " + grade + "%  (press ENTER)";
 			case Pass:
-				statusText.text = "Passed "+passed+"/"+passNum+".  Score: " + grade + "% (press ENTER)";
+				statusText.text = "Passed "+passed+"/"+passNum+".  Score: " + grade + "%  (press ENTER)";
 			case Fail:
 				statusText.text = "Fail.  Score: " + grade + "%   (press ENTER)";
 		}
