@@ -108,12 +108,16 @@ trace("end");
 
 		// ENTER
 		if (event.code == 13) {
-			if (exerState == 0)
-				exerRecord(1);
-			else if (exerState == 1)
-				exerRecord(2);
-			else if (exerState == 2)
-				exerRecord(0);
+			if (popWindow != null) {
+				clearPop(null);
+			} else {
+				if (exerState == 0)
+					exerRecord(1);
+				else if (exerState == 1)
+					exerRecord(2);
+				else if (exerState == 2)
+					exerRecord(0);
+			}
 		} else {
 			if (exerState == 1)
 				detected.add( haxe.Timer.stamp() );

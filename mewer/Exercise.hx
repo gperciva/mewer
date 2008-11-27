@@ -39,36 +39,24 @@ class Exercise {
 		musicArea.transform = new Translate(0, flashVertical);
 		Root.appendChild(musicArea);
 
-		resultArea = null;
+		resultArea = new Group();
+		resultArea.transform = new Translate(0, 37+flashVertical);
+		Root.appendChild(resultArea);
 	}
 
 	public function reset() {
 		musicArea.display = xinf.ony.type.Display.None;
-		//Root.removeChild(musicArea);
-	//	musicArea = null;
-
-		if (resultArea != null) {
-			Root.removeChild(resultArea);
-			resultArea = null;
-		}
+		resultArea.display = xinf.ony.type.Display.None;
 	}
 
 	public function reload() {
-		if (resultArea != null) {
-			Root.removeChild(resultArea);
-			resultArea = null;
-		}
+		resultArea.display = xinf.ony.type.Display.None;
 	}
 
 	public function load(level : Int, bpm : Float,
 			levelInfo : Array<Int>) {
-trace("exercise load");
+		reload();
 		musicArea.display = xinf.ony.type.Display.Inline;
-
-		if (resultArea != null) {
-			Root.removeChild(resultArea);
-			resultArea = null;
-		}
 
 		// get picture
 		var numExercises = levelInfo[2];
@@ -172,9 +160,9 @@ trace("exercise load");
   		var offset = 36;
 		var height = 240 - flashVertical;
 
-		if (resultArea != null) {
-			Root.removeChild(resultArea);
-			resultArea = null;
+		resultArea.display = xinf.ony.type.Display.Inline;
+		while (resultArea.childNodes.hasNext()) {
+			resultArea.removeChild(resultArea.childNodes.next());
 		}
 
 		var fillColor;
@@ -183,14 +171,10 @@ trace("exercise load");
 		else
 			fillColor = "yellow";
 
-		resultArea = new Group();
-		resultArea.transform = new Translate(0, 37+flashVertical);
+		var scale = (480 - offset) / (timeScale*numBeats*numBeatDivisions*2);
 		resultArea.appendChild( new Rectangle({
 				x: 0, y: 0, width: 480,
 				height: height, fill: fillColor}));
-		Root.appendChild(resultArea);
-
-		var scale = (480 - offset) / (timeScale*numBeats*numBeatDivisions*2);
 
 		var ei = expected.iterator();
 		var di = detected.iterator();
