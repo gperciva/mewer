@@ -47,6 +47,97 @@ class Messages {
 			drawMain));
 		return window;
 	}
+
+
+	static public function showWin(maxLevel : Int,
+		clearPop : Dynamic, quit : Dynamic) : Group
+	{
+		var window = new Group();
+		window.transform = new Translate(50,50);
+
+                window.appendChild( new Rectangle({
+                                x: 0, y: 0, width: 380,
+                                height: 100,
+				fill:Paint.RGBColor(0.3,0.3,0.9)
+		}));
+		window.appendChild( new Text({
+			text:"Fireworks and Balloons!", font_size: 20,
+			fill: "black",
+			x:80, y:20,
+		}));
+		window.appendChild( new Text({
+			text:"Congratulations, you completed the final level!",
+			font_size: 18,
+			fill: "black",
+			x:5, y:45,
+		}));
+		window.appendChild(UIgen.xinfButton(
+			"Repeat level "+maxLevel, 100,75,125, clearPop));
+		window.appendChild(UIgen.xinfButton(
+			"Quit to main", 260,75,110, quit));
+		return window;
+	}
+
+	static public function showTutorialWin(quit : Dynamic) : Group
+	{
+		var window = new Group();
+		window.transform = new Translate(50,50);
+
+                window.appendChild( new Rectangle({
+                                x: 0, y: 0, width: 380,
+                                height: 100,
+				fill:Paint.RGBColor(0.3,0.3,0.9)
+		}));
+		window.appendChild( new Text({
+			text:"Fireworks and Balloons!", font_size: 20,
+			fill: "black",
+			x:80, y:20,
+		}));
+		window.appendChild( new Text({
+			text:"Congratulations, you completed the Tutorial!",
+			font_size: 18,
+			fill: "black",
+			x:5, y:45,
+		}));
+		window.appendChild(UIgen.xinfButton(
+			"Quit to main", 260,75,110, quit));
+		return window;
+	}
+
+	static public function warnOnsets(expectedNum : Int, detectedNum
+: Int, clearPop : Dynamic)
+	{
+		var window = new Group();
+		window.transform = new Translate(110,50);
+
+                window.appendChild( new Rectangle({
+                                x: 0, y: 0, width: 260,
+                                height: 100, fill:"white"
+		}));
+		window.appendChild( new Text({
+			text:"How many notes?", font_size: 20,
+			fill: "black",
+			x:50, y:20,
+		}));
+		window.appendChild( new Text({
+			text:"This exercise expects "+expectedNum+" notes,",
+			font_size: 18,
+			fill: "black",
+			x:5, y:45,
+		}));
+		window.appendChild( new Text({
+			text:"but MEWER detected "+detectedNum+" notes.",
+			font_size: 18,
+			fill: "black",
+			x:5, y:65,
+		}));
+		window.appendChild(UIgen.xinfButton(
+			"Oops!", 100,75,60, clearPop));
+		return window;
+	}
+
+
+
 }
 
 

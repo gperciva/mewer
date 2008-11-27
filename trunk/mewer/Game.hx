@@ -35,7 +35,7 @@ class Game {
 	var ui : mewer.UI;
 	var exercise : mewer.Exercise;
 	var metronome : mewer.Metronome;
-	var showMain : Dynamic;
+	var drawMain : Dynamic;
 
 	// stable for each game
 	var difficulty : Difficulty;
@@ -49,8 +49,8 @@ class Game {
 	var graded : Bool;
 	var reload : Bool;
 
-	public function new(showMainGet : Dynamic) {
-		showMain = showMainGet;
+	public function new(drawMainGet : Dynamic) {
+		drawMain = drawMainGet;
 		headers = loadLevels();
 
 		metronome = new Metronome();
@@ -82,8 +82,14 @@ class Game {
 		metronome.reset();
 		exercise.reset();
 		ui.reset();
-		showMain();
+		drawMain();
 	}
+
+#if flash9
+	public function chooseInput() {
+		ui.chooseInput(drawMain);
+	}
+#end
 
 // ********* PER GAME
 	public function start(difficultyGet : Difficulty, levelGet : Int) {
@@ -108,7 +114,7 @@ class Game {
 		passedExercises = 0;
 		reload = false;
 
-		ui.showMain();
+		exerPrep();
 	}
 
 	function exerPrep() {
@@ -152,15 +158,6 @@ class Game {
 	}
 
 	function passed(grade : Float) {
-		var passNum;
-		switch (difficulty) {
-		case Tutorial:
-			passNum = 1;
-		case Easy:
-			passNum = 2;
-		case Hard:
-			passNum = 3;
-		}
 		if (!graded) {
 			passedExercises++;
 			reload = false;
@@ -171,12 +168,14 @@ class Game {
 				passedExercises = 0;
 				graded = true;
 			}
+			if (difficulty == Tutorial) {
+				ui.showTutorialWin();
+				return;
+			}
 			var maxLevel = headers.length - 1;
-			if (difficulty == Tutorial)
-				maxLevel = 0;
 			if (level > maxLevel) {
-				ui.showWin(maxLevel);
 				ui.showGrade(Win, grade, level, passedExercises, passNum);
+				ui.showWin(maxLevel);
 				level = maxLevel;
 			} else
 				ui.showGrade(Advance, grade, level, passedExercises, passNum);
