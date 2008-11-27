@@ -25,8 +25,25 @@ class Messages {
 	static public function getTips(drawMain : Dynamic) : Group {
 		var window = new Group();
 
+		window.appendChild( new Text({
+			x:10, y:30, width:450, fill:"black",
+			font_size:16, text:
+		"1. You can use any key other than ESC and ENTER to indicate
+	notes.  If your space bar is unreliable, try using other keys!"
+		}));
+		window.appendChild( new Text({
+			x:10, y:70, width:450, fill:"black",
+			font_size:16, text:
+		"2. Don't REACT to the metronome -- if you wait for a
+	flash, your clap or tap will be late.  Instead, try to
+	INTERNALIZE the tempo so that you know when the next
+	beat will occur.  Try tapping your foot (quietly!) or
+	nodding your head with the metronome for a few bars
+	before you begin!"
+		}));
+
                 window.appendChild(UIgen.xinfButton(
-                        "Return to main", 10,10,130,
+                        "Return to main", 300,250,130,
 			drawMain));
 		return window;
 	}
