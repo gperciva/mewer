@@ -40,7 +40,7 @@ class Main {
 		clearMain();
 		mainWindow = new Group();
 		mainWindow.appendChild(new Text({
-			x:100, y:0, fill:"black", font_size:48,
+			x:100, y:10, fill:"black", font_size:48,
 			text:"MEWER"}));
 
 		mainWindow.transform = new Translate(50, 50);

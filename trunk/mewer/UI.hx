@@ -57,7 +57,6 @@ class UI {
 	var detected : List<Float>;
 	var popWindow : Group;
 
-
 	public function new(exerPrepGet : Dynamic,
 			exerStartGet : Dynamic, exerStopGet :
 			Dynamic, quitGet : Dynamic) {
@@ -243,6 +242,12 @@ class UI {
 		Root.appendChild(popWindow);
 	}
 
+	public function showTutorialHelp()
+	{
+		popWindow = Messages.showTutorialHelp(clearPop);
+		Root.appendChild(popWindow);
+	}
+
 	public function showWin(maxLevel : Int)
 	{
 		popWindow = Messages.showWin(maxLevel, clearPop, quit);
@@ -251,7 +256,7 @@ class UI {
 
 	public function showTutorialWin()
 	{
-		popWindow = Messages.showTutorialWin(quit);
+		popWindow = Messages.showTutorialWin(clearPop, quit);
 		Root.appendChild(popWindow);
 	}
 
