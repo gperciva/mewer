@@ -95,6 +95,7 @@ class UI {
 		clearPop(null);
 		statusArea.display = xinf.ony.type.Display.None;
 		alignArea.display = xinf.ony.type.Display.None;
+		exerState = Menu;
 #if flash9
 		if (useMic) {
 			mic.removeEventListener(
