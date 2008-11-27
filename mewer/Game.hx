@@ -127,6 +127,8 @@ class Game {
 			exercise.load(level, bpm, headers[level]);
 		}
 		ui.prep();
+		if (difficulty == Tutorial)
+			ui.showTutorialHelp();
 	}
 
 	function exerStart() {
@@ -136,6 +138,7 @@ class Game {
 
 	function exerStop(alignBest:Bool) {
 		ui.exerOver();
+
 		metronome.stop();
 		var detected = ui.getDetected();
 
@@ -169,7 +172,9 @@ class Game {
 				graded = true;
 			}
 			if (difficulty == Tutorial) {
+				ui.showGrade(Win, grade, level, passedExercises, passNum);
 				ui.showTutorialWin();
+				level = 0;
 				return;
 			}
 			var maxLevel = headers.length - 1;

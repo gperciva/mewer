@@ -72,13 +72,14 @@ class Messages {
 			x:5, y:45,
 		}));
 		window.appendChild(UIgen.xinfButton(
-			"Repeat level "+maxLevel, 100,75,125, clearPop));
+			"Repeat level "+maxLevel, 100,60,125, clearPop));
 		window.appendChild(UIgen.xinfButton(
-			"Quit to main", 260,75,110, quit));
+			"Quit to main", 260,60,110, quit));
 		return window;
 	}
 
-	static public function showTutorialWin(quit : Dynamic) : Group
+	static public function showTutorialWin(clearPop : Dynamic,
+			quit : Dynamic) : Group
 	{
 		var window = new Group();
 		window.transform = new Translate(50,50);
@@ -99,6 +100,8 @@ class Messages {
 			fill: "black",
 			x:5, y:45,
 		}));
+		window.appendChild(UIgen.xinfButton(
+			"Repeat tutorial", 100,75,125, clearPop));
 		window.appendChild(UIgen.xinfButton(
 			"Quit to main", 260,75,110, quit));
 		return window;
@@ -136,6 +139,62 @@ class Messages {
 		return window;
 	}
 
+
+	static public function showTutorialHelp(closePop : Dynamic) : Group
+	{
+		var window = new Group();
+		window.transform = new Translate(50,50);
+
+                window.appendChild( new Rectangle({
+                                x: 0, y: 0, width: 400,
+                                height: 230,
+				fill:Paint.RGBColor(0.3,0.3,0.9)
+		}));
+		window.appendChild( new Text({
+			text:"MEWER introduction", font_size: 20,
+			fill: "black", x:100, y:20,
+		}));
+		window.appendChild( new Text({
+			font_size: 18, fill: "black", x:5, y:45,
+			text:"1. Press ENTER to start/stop the exercise.",
+		}));
+		window.appendChild( new Text({
+			font_size: 18, fill: "black", x:5, y:65,
+			text:"2. Watch the metronome at the top of the screen.",
+		}));
+		window.appendChild( new Text({
+			font_size: 18, fill: "black", x:5, y:85,
+			text:"3. Clap or tap the rhythm in the exercise."
+		}));
+		window.appendChild( new Text({
+			font_size: 18, fill: "black", x:5, y:105,
+			text:"	  (there are only 8 notes!)",
+		}));
+		window.appendChild( new Text({
+			font_size: 18, fill: "black", x:5, y:125,
+			text:"4. Stop the exercise, and view the results:",
+		}));
+		window.appendChild( new Text({
+			font_size: 18, fill: "black", x:5, y:145,
+			text:"	  BLACK lines show the correct times,",
+		}));
+		window.appendChild( new Text({
+			font_size: 18, fill: "black", x:5, y:165,
+			text:"	  RED lines show what you did!",
+		}));
+		window.appendChild( new Text({
+			font_size: 18, fill: "black", x:5, y:185,
+			text:"5. Attempt new exercise, or press ESC to ",
+		}));
+		window.appendChild( new Text({
+			font_size: 18, fill: "black", x:5, y:205,
+			text:"	  return to the main menu.",
+		}));
+
+		window.appendChild(UIgen.xinfButton(
+			"Close", 280,200,80, closePop));
+		return window;
+	}
 
 
 }
