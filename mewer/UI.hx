@@ -27,22 +27,33 @@ enum Result {
   Win;
 }
 
+enum ExerciseState {
+  Menu;
+  Prep;
+  Running;
+  Stop;
+}
+
 
 class UI {
-	var useMic : Bool;
-	var exerState : Int;
-
-	var detected : List<Float>;
-
+	// persistent objects
 	var exerPrep : Dynamic;
 	var exerStart : Dynamic;
 	var exerStop : Dynamic;
 	var quit : Dynamic;
 
-	var popWindow : Group;
 	var statusArea : Group;
 	var statusText : Text;
 	var alignArea: Group;
+
+	// program options
+	var useMic : Bool;
+	var exerState : ExerciseState;
+
+	// per-game
+	var detected : List<Float>;
+	var popWindow : Group;
+
 
 	public function new(exerPrepGet : Dynamic,
 			exerStartGet : Dynamic, exerStopGet :
@@ -51,14 +62,15 @@ class UI {
 		exerStart = exerStartGet;
 		exerStop = exerStopGet;
 		quit = quitGet;
+		setArea();
 
-		exerState = 0;
-
-		popWindow = new Group();
-		popWindow.transform = new Translate(50,50);
+		useMic = false;
+		exerState = Menu;
 
 		Root.addEventListener(KeyboardEvent.KEY_DOWN, handleKey);
+	}
 
+	function setArea() {
 		statusArea = new Group();
 		statusArea.transform = new Translate(0,295);
 
@@ -80,14 +92,7 @@ class UI {
 	}
 
 	public function reset() {
-trace("begin ui delete");
 		clearPop(null);
-		Root.removeChild(statusArea);
-		statusArea = null;
-		Root.removeChild(alignArea);
-		alignArea = null;
-
-		Root.removeEventListener(KeyboardEvent.KEY_DOWN, handleKey);
 #if flash9
 		if (useMic) {
 			mic.removeEventListener(
@@ -95,11 +100,14 @@ trace("begin ui delete");
 				clap);
 		}
 #end
-trace("end");
 	}
 
 	public function handleKey(event:KeyboardEvent) {
 		//trace(haxe.Timer.stamp()+"  Event: "+event.code);
+
+		// do nothing if in menu
+		if (exerState == Menu)
+			return;
 
 		// ESC
 		if (event.code == 27) {
@@ -111,18 +119,17 @@ trace("end");
 			if (popWindow != null) {
 				clearPop(null);
 			} else {
-				if (exerState == 0)
-					exerRecord(1);
-				else if (exerState == 1)
-					exerRecord(2);
-				else if (exerState == 2)
-					exerRecord(0);
+				switch (exerState) {
+				case Prep: exerRecord(Running);
+				case Running: exerRecord(Stop);
+				case Stop: exerRecord(Prep);
+				case Menu: return;
+				}
 			}
 		} else {
-			if (exerState == 1)
+			if (exerState == Running)
 				detected.add( haxe.Timer.stamp() );
 		}
-
 	}
 
 	public function promptMain() {
@@ -200,12 +207,13 @@ trace("end");
 	public function prep() {
 		detected = new List();
 		alignArea.display = xinf.ony.type.Display.None;
-#if flash9
-		flash.Lib.current.stage.focus = flash.Lib.current;
-#end
+		exerState = Prep;
 		statusText.text = "Press ENTER to begin exercise.";
 		if (popWindow != null)
 			clearPop(null);
+#if flash9
+		flash.Lib.current.stage.focus = flash.Lib.current;
+#end
 	}
 
 	public function start() {
@@ -298,15 +306,15 @@ trace("end");
 		}
 	}
 
-	function exerRecord(go:Int) {
+	function exerRecord(go:ExerciseState) {
 		exerState = go;
-		if (exerState == 0) {
+		if (exerState == Prep) {
 			exerPrep();
 		}
-		if (exerState == 1) {
+		if (exerState == Running) {
 			exerStart();
 		}
-		if (exerState == 2) {
+		if (exerState == Stop) {
 			exerStop(true);
 		}
 	}
