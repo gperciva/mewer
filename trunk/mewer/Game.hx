@@ -28,53 +28,32 @@ enum Difficulty {
 }
 
 class Game {
+	// peristent objects
 	static inline var allowedMetro = [60, 62.5, 75, 80, 93.75, 100, 120];
+	var headers : Array<Array<Int>>;
+	var ui : mewer.UI;
+	var exercise : mewer.Exercise;
+	var metronome : mewer.Metronome;
+	var showMain : Dynamic;
 
+	// stable for each game
 	var passGrade : Int;
 	var passNum : Int;
 	var gradeScale : Int;
 
-	var ui : mewer.UI;
-	var exercise : mewer.Exercise;
-	var metronome : mewer.Metronome;
-
-	var headers : Array<Array<Int>>;
-
+	// changes
 	var level : Int;
 	var passedExercises : Int;
 	var graded : Bool;
 	var reload : Bool;
 
-	var drawMain : Dynamic;
-
-	public function new(difficulty : Difficulty, drawMainGet :
-			Dynamic) {
-trace("in new");
-		drawMain = drawMainGet;
-		if (difficulty == Easy) {
-			passGrade = 50;
-			passNum = 2;
-			gradeScale = 70;
-		}
-		if (difficulty == Hard) {
-			passGrade = 70;
-			passNum = 3;
-			gradeScale = 100;
-		}
-
-		// loads levels, removes last entry (which is empty)
+	public function new(showMainGet : Dynamic) {
+		showMain = showMainGet;
 		headers = loadLevels();
-		level = 0;
-		passedExercises = 0;
-		reload = false;
 
-trace("metro is "+metronome);
 		metronome = new Metronome();
-trace("metro is "+metronome);
 		exercise = new Exercise();
 		ui = new UI(exerPrep, exerStart, exerStop, quit);
-
-		ui.showMain();
 	}
 
 	function loadLevels() : Array<Array<Int>> {
@@ -95,6 +74,34 @@ trace("metro is "+metronome);
 			myHeaders[i] = myLevel;
 		}
 		return myHeaders;
+	}
+
+	function quit(event : Dynamic) {
+		metronome.reset();
+		exercise.reset();
+		ui.reset();
+		showMain();
+	}
+
+// ********* PER GAME
+	public function start(difficulty : Difficulty, levelGet : Int) {
+		if (difficulty == Easy) {
+			passGrade = 50;
+			passNum = 2;
+			gradeScale = 70;
+		}
+		if (difficulty == Hard) {
+			passGrade = 70;
+			passNum = 3;
+			gradeScale = 100;
+		}
+
+		// loads levels, removes last entry (which is empty)
+		level = levelGet;
+		passedExercises = 0;
+		reload = false;
+
+		ui.showMain();
 	}
 
 	function exerPrep() {
@@ -154,23 +161,6 @@ trace("metro is "+metronome);
 			ui.showGrade(Fail, grade, level, passedExercises, passNum);
 		}
 		graded = true;
-	}
-
-	function quit(event : Dynamic) {
-trace("begin quit");
-trace("metro is "+metronome);
-		metronome.delete();
-		metronome = null;
-trace("metro is "+metronome);
-trace("try exercise");
-
-		exercise.delete();
-		exercise = null;
-trace("try ui delete");
-		ui.delete();
-		ui = null;
-
-		drawMain();
 	}
 
 	function pickbpm(level : Int) : Float {

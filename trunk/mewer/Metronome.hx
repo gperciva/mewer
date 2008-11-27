@@ -34,11 +34,8 @@ class Metronome {
 #end
 	}
 
-	public function delete() {
-#if flash9
-		jsconnect.close();
-	trace(jsconnect);
-#end
+	public function reset() {
+		// do nothing
 	}
 
 	public function set(bpmGet : Float) {

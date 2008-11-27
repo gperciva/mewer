@@ -22,23 +22,23 @@ import mewer.UIgen;
 import Xinf;
 
 class Main {
-	var popWindow : Group;
+	var mainWindow : Group;
 	var game : Game;
 //	var zoomToLevel : TextArea;
 
 	public function new() {
-		game = null;
+		game = new Game(drawMain);
 		drawMain();
 	}
 
 	public function drawMain() {
-		popWindow = new Group();
-		popWindow.transform = new Translate(50, 50);
-		popWindow.appendChild(UIgen.xinfButton(
+		mainWindow = new Group();
+		mainWindow.transform = new Translate(50, 50);
+		mainWindow.appendChild(UIgen.xinfButton(
 			"Easy", 0,0,90, selectEasy ));
-		popWindow.appendChild(UIgen.xinfButton(
+		mainWindow.appendChild(UIgen.xinfButton(
 			"Hard", 0,40,90, selectHard ));
-		Root.appendChild(popWindow);
+		Root.appendChild(mainWindow);
 
 /*
 		zoomToLevel = new TextArea({x: 50, y: 70});
@@ -47,28 +47,26 @@ class Main {
 		zoomToLevel.width = 100;
 		zoomToLevel.height = 20;
 		zoomToLevel.editable = xinf.ony.type.Editability.Simple;
-		popWindow.appendChild(zoomToLevel);
+		mainWindow.appendChild(zoomToLevel);
 */
 	}
 
-        function clearPop(event : MouseEvent) {
-                Root.removeChild(popWindow);
-                popWindow = null;
+        function clearMain(event : MouseEvent) {
+                Root.removeChild(mainWindow);
+                mainWindow = null;
 #if flash9
                 flash.Lib.current.stage.focus = flash.Lib.current;
 #end
         }
 
 	function selectEasy(event : MouseEvent) {
-		clearPop(null);
-		game = null;
-		game = new Game(Easy, drawMain);
+		clearMain(null);
+		game.start(Easy,1);
 	}
 
 	function selectHard(event : MouseEvent) {
-		clearPop(null);
-		game = null;
-		game = new Game(Hard, drawMain);
+		clearMain(null);
+		game.start(Hard,1);
 	}
 
 	public static function main() {

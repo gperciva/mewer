@@ -79,7 +79,7 @@ class UI {
 		Root.appendChild(alignArea);
 	}
 
-	public function delete() {
+	public function reset() {
 trace("begin ui delete");
 		clearPop(null);
 		Root.removeChild(statusArea);

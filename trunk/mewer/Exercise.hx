@@ -42,9 +42,11 @@ class Exercise {
 		resultArea = null;
 	}
 
-	public function delete() {
-		Root.removeChild(musicArea);
-		musicArea = null;
+	public function reset() {
+		musicArea.display = xinf.ony.type.Display.None;
+		//Root.removeChild(musicArea);
+	//	musicArea = null;
+
 		if (resultArea != null) {
 			Root.removeChild(resultArea);
 			resultArea = null;
@@ -60,6 +62,9 @@ class Exercise {
 
 	public function load(level : Int, bpm : Float,
 			levelInfo : Array<Int>) {
+trace("exercise load");
+		musicArea.display = xinf.ony.type.Display.Inline;
+
 		if (resultArea != null) {
 			Root.removeChild(resultArea);
 			resultArea = null;
