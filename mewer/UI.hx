@@ -41,6 +41,9 @@ class UI {
 	var exerStart : Dynamic;
 	var exerStop : Dynamic;
 	var quit : Dynamic;
+#if flash9
+	var drawMain : Dynamic;
+#end
 
 	var statusArea : Group;
 	var statusText : Text;
@@ -157,10 +160,6 @@ class UI {
 		Root.appendChild(popWindow);
 	}
 
-	public function showMain() {
-		chooseInput();
-	}
-
 	public function getDetected() : List<Float> {
 		return detected;
 	}
@@ -180,12 +179,14 @@ class UI {
 #end
 	}
 
-	function chooseInput() {
+#if flash9
+	public function chooseInput(drawMainGet : Dynamic) {
+		drawMain = drawMainGet;
+
 		popWindow = new Group();
 		popWindow.transform = new Translate(50,50);
 		Root.appendChild(popWindow);
 
-#if flash9
 		popWindow.appendChild( new Text({
 			text:"Select input source:", font_size: 20,
 			x:0, y:20,
@@ -195,17 +196,14 @@ class UI {
 			"Keyboard (tapping)", 10,30,190, selectKey ));
 		popWindow.appendChild(UIgen.xinfButton(
 			"Microphone (clapping)", 10,60,190, selectMic ));
-#elseif js
-		popWindow.appendChild(UIgen.xinfButton(
-			"Play", 5,10,50, selectKey));
-#end
 	}
 
 	function selectKey(event:MouseEvent) {
 		useMic = false;
 		Root.removeChild(popWindow);
-		exerPrep();
+		drawMain();
 	}
+#end
 
 	public function prep() {
 		detected = new List();
@@ -239,68 +237,21 @@ class UI {
 #end
 	}
 
-	public function warnOnsets(expectedNum : Int, detectedNum
-: Int) {
-		popWindow = new Group();
-		popWindow.transform = new Translate(110,50);
-
-                popWindow.appendChild( new Rectangle({
-                                x: 0, y: 0, width: 260,
-                                height: 100, fill:"white"
-		}));
-		popWindow.appendChild( new Text({
-			text:"How many notes?", font_size: 20,
-			fill: "black",
-			x:50, y:20,
-		}));
-		popWindow.appendChild( new Text({
-			text:"This exercise expects "+expectedNum+" notes,",
-			font_size: 18,
-			fill: "black",
-			x:5, y:45,
-		}));
-		popWindow.appendChild( new Text({
-			text:"but MEWER detected "+detectedNum+" notes.",
-			font_size: 18,
-			fill: "black",
-			x:5, y:65,
-		}));
-		popWindow.appendChild(UIgen.xinfButton(
-			"Oops!", 100,75,60, clearPop));
+	public function warnOnsets(expectedNum : Int, detectedNum : Int)
+	{
+		popWindow = Messages.warnOnsets(expectedNum, detectedNum, clearPop);
 		Root.appendChild(popWindow);
 	}
 
 	public function showWin(maxLevel : Int)
 	{
-		popWindow = new Group();
-		popWindow.transform = new Translate(50,50);
+		popWindow = Messages.showWin(maxLevel, clearPop, quit);
+		Root.appendChild(popWindow);
+	}
 
-                popWindow.appendChild( new Rectangle({
-                                x: 0, y: 0, width: 380,
-                                height: 100,
-				fill:Paint.RGBColor(0.3,0.3,0.9)
-		}));
-		popWindow.appendChild( new Text({
-			text:"Fireworks and Balloons!", font_size: 20,
-			fill: "black",
-			x:100, y:20,
-		}));
-		popWindow.appendChild( new Text({
-			text:"Congratulations, you completed the final level!",
-			font_size: 18,
-			fill: "black",
-			x:5, y:45,
-		}));
-		popWindow.appendChild( new Text({
-			text:"(press ESC to return to the main menu)",
-			font_size: 18,
-			fill: "black",
-			x:40, y:65,
-		}));
-		popWindow.appendChild(UIgen.xinfButton(
-			"Repeat level "+maxLevel, 100,75,125, clearPop));
-		popWindow.appendChild(UIgen.xinfButton(
-			"Quit to main", 260,75,110, quit));
+	public function showTutorialWin()
+	{
+		popWindow = Messages.showTutorialWin(quit);
 		Root.appendChild(popWindow);
 	}
 
@@ -406,7 +357,7 @@ class UI {
 			flash.Lib.current.getChildByName("silenceWindow");
 		flash.Lib.current.removeChild(silenceWindow);
 		useMic = true;
-		exerPrep();
+		drawMain();
 	}
 #end
 
