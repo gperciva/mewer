@@ -39,11 +39,13 @@ class Exercise {
 	public function new() {
 		musicArea = new Group();
 		musicArea.transform = new Translate(0, flashVertical);
-		Root.appendChild(musicArea);
 
 		resultArea = new Group();
 		resultArea.transform = new Translate(0, 37+flashVertical);
 		Root.appendChild(resultArea);
+
+		// do this last so it overwrites resultArea.
+		Root.appendChild(musicArea);
 	}
 
 	public function reset() {
