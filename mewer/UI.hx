@@ -140,22 +140,7 @@ class UI {
 	public function promptMain() {
 		if (popWindow != null)
 			clearPop(null);
-		popWindow = new Group();
-		popWindow.transform = new Translate(140,50);
-
-                popWindow.appendChild( new Rectangle({
-                        x: 0, y: 0, width: 200, height: 60,
-			fill:Paint.RGBColor(0.3,0.3,0.9)
-		}));
-		popWindow.appendChild( new Text({
-			text:"Return to menu?", font_size: 20,
-			fill: "black",
-			x:30, y:20,
-		}));
-		popWindow.appendChild(UIgen.xinfButton(
-			"Cancel", 20,30,70, clearPop));
-		popWindow.appendChild(UIgen.xinfButton(
-			"Yes, quit", 110,30,80, quit));
+		popWindow = Messages.showPromptMain(clearPop, quit);
 		Root.appendChild(popWindow);
 	}
 
