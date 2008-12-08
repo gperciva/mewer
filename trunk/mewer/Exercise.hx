@@ -46,17 +46,23 @@ class Exercise {
 
 	public function reset() {
 		musicArea.display = xinf.ony.type.Display.None;
+		while (musicArea.childNodes.hasNext())
+			musicArea.removeChild(musicArea.childNodes.next());
+
 		resultArea.display = xinf.ony.type.Display.None;
+		while (resultArea.childNodes.hasNext())
+			resultArea.removeChild(resultArea.childNodes.next());
 	}
 
 	public function reload() {
 		resultArea.display = xinf.ony.type.Display.None;
+		while (resultArea.childNodes.hasNext())
+			resultArea.removeChild(resultArea.childNodes.next());
 	}
 
 	public function load(level : Int, bpm : Float,
 			levelInfo : Array<Int>) {
-		reload();
-		musicArea.display = xinf.ony.type.Display.Inline;
+		reset();
 
 		// get picture
 		var numExercises = levelInfo[2];
@@ -94,6 +100,8 @@ class Exercise {
 		//img.href = "http://127.0.0.1:80/~gperciva/"+exerName + ".png";
 		img.href = exerName + ".png";
 		musicArea.appendChild(img);
+
+		musicArea.display = xinf.ony.type.Display.Inline;
 	}
 
 	public function grade(detected : List<Float>,
@@ -160,10 +168,6 @@ class Exercise {
   		var offset = 36;
 		var height = 240 - flashVertical;
 
-		resultArea.display = xinf.ony.type.Display.Inline;
-		while (resultArea.childNodes.hasNext()) {
-			resultArea.removeChild(resultArea.childNodes.next());
-		}
 
 		var fillColor;
 		if (detected.length == expected.length)
@@ -193,6 +197,7 @@ class Exercise {
 				height: (height*2)/3, fill: "red"});
 			resultArea.appendChild( line );
 		}
+		resultArea.display = xinf.ony.type.Display.Inline;
 
 	}
 
