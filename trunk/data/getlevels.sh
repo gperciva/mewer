@@ -27,6 +27,7 @@ do
   pushd $i
   cat *.txt > ../$i.txt
   rm *.txt
+  convert $i/0001.png -scale 70% $i.png
   popd
   i=$((++i))
 done

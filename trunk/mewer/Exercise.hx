@@ -29,6 +29,8 @@ class Exercise {
 	var musicArea : Group;
 	var resultArea : Group;
 
+	var currentExercise : Int;
+
 	var expected : List<Float>;
 	var timeScale : Float;
 	var numBeatDivisions : Int;
@@ -66,7 +68,11 @@ class Exercise {
 
 		// get picture
 		var numExercises = levelInfo[2];
-		var nextExercise :Dynamic= Std.random(numExercises)+1;
+		var nextExercise: Dynamic;
+		do {
+			nextExercise = Std.random(numExercises) + 1;
+		} while (nextExercise == currentExercise);
+
 		if (nextExercise<10)
 			nextExercise = '000' + nextExercise;
 		else if (nextExercise<100)
@@ -103,6 +109,7 @@ class Exercise {
 
 		musicArea.display = xinf.ony.type.Display.Inline;
 	}
+
 
 	public function grade(detected : List<Float>,
 		alignBest : Bool, gradeScale : Int) : Float {

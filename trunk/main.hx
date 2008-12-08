@@ -93,8 +93,9 @@ class Main {
 	}
 
 	function gotSkip(event : MouseEvent) {
-		trace(event);
-		drawMain();
+		clearMain();
+		var level = Std.int( event.y / 31 ) + 1;
+		game.start(Easy,level);
 	}
 
 	function selectTips(event : MouseEvent) {

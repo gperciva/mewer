@@ -19,6 +19,8 @@
 package mewer;
 
 import Xinf;
+import xinf.ony.type.PreserveAspectRatio;
+
 
 class Messages {
 	inline static var popBackground = Paint.RGBColor(0,0,0.7);
@@ -50,13 +52,32 @@ class Messages {
 		return window;
 	}
 
+	// this is really ugly.  :(
 	static public function showSkips(gotSkip : Dynamic,
 		drawMain : Dynamic) : Group
 	{
 		var window = new Group();
+		for (i in 1...10) {
+			var levelArea = new Group();
+			levelArea.appendChild( new Text({
+				text:i, font_size: 20,
+				fill: "black",
+				x:0, y:25,
+			}));
+
+			var img = new Image();
+			img.href = "data/"+i+".png";
+			img.x = 20;
+
+			levelArea.appendChild(img);
+			levelArea.addEventListener(MouseEvent.MOUSE_DOWN,
+				gotSkip);
+			levelArea.transform = new Translate(0,31*(i-1));
+			window.appendChild(levelArea);
+		}
 
                 window.appendChild(UIgen.xinfButton(
-                        "Return to main", 300,250,130,
+                        "Return to main", 340,290,130,
 			drawMain));
 		return window;
 	}
