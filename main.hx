@@ -45,16 +45,18 @@ class Main {
 
 		mainWindow.transform = new Translate(50, 50);
 		mainWindow.appendChild(UIgen.xinfButton(
-			"Tutorial", 0,20,110, selectTutorial ));
+			"Tutorial", 0,20,170, selectTutorial));
 		mainWindow.appendChild(UIgen.xinfButton(
-			"Easy", 0,60,110, selectEasy ));
+			"Easy Game", 0,60,170, selectEasy));
 		mainWindow.appendChild(UIgen.xinfButton(
-			"Hard", 0,100,110, selectHard ));
+			"Skip to Level (easy)", 0,100,170, selectSkip));
 		mainWindow.appendChild(UIgen.xinfButton(
-			"Tips", 0,140,110, selectTips ));
+			"Hard Game", 0,140,170, selectHard));
+		mainWindow.appendChild(UIgen.xinfButton(
+			"Tips", 0,180,170, selectTips));
 #if flash9
 		mainWindow.appendChild(UIgen.xinfButton(
-			"Input source", 0,180,110, selectInput));
+			"Input source", 0,220,170, selectInput));
 #end
 		Root.appendChild(mainWindow);
 	}
@@ -82,6 +84,17 @@ class Main {
 	function selectHard(event : MouseEvent) {
 		clearMain();
 		game.start(Hard,1);
+	}
+
+	function selectSkip(event : MouseEvent) {
+		clearMain();
+		mainWindow = Messages.showSkips(gotSkip, drawMain);
+		Root.appendChild(mainWindow);
+	}
+
+	function gotSkip(event : MouseEvent) {
+		trace(event);
+		drawMain();
 	}
 
 	function selectTips(event : MouseEvent) {

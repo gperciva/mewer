@@ -50,6 +50,16 @@ class Messages {
 		return window;
 	}
 
+	static public function showSkips(gotSkip : Dynamic,
+		drawMain : Dynamic) : Group
+	{
+		var window = new Group();
+
+                window.appendChild(UIgen.xinfButton(
+                        "Return to main", 300,250,130,
+			drawMain));
+		return window;
+	}
 
 	static public function showWin(maxLevel : Int,
 		clearPop : Dynamic, quit : Dynamic) : Group
