@@ -136,7 +136,7 @@ class Exercise {
 			alignD = alignD / detected.length;
 			offset = alignE - alignD;
 		} else {
-			offset = -1*detected.first();
+			offset = -1*detected.first() + expected.first();
 		}
 		detected = detected.map( function(x) : Float {
 			return x + offset; });
