@@ -38,7 +38,14 @@ class Messages {
 		window.appendChild( new Text({
 			x:10, y:70, width:450, fill:"black",
 			font_size:16, text:
-		"2. Don't REACT to the metronome -- if you wait for a
+		"2. You can wait as long as you want before starting (or ending)
+	the exercise.  Watch the metronome for a bit at the beginning,
+	and don't be in a rush to stop the exercise afterwards."
+		}));
+		window.appendChild( new Text({
+			x:10, y:130, width:450, fill:"black",
+			font_size:16, text:
+		"3. Don't REACT to the metronome -- if you wait for a
 	flash, your clap or tap will be late.  Instead, try to
 	INTERNALIZE the tempo so that you know when the next
 	beat will occur.  Try tapping your foot (quietly!) or
