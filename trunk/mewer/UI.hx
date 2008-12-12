@@ -36,6 +36,7 @@ enum ExerciseState {
 
 
 class UI {
+	static inline var SILENCE_ADD = 3;
 	// persistent objects
 	var exerPrep : Dynamic;
 	var exerStart : Dynamic;
@@ -334,9 +335,9 @@ class UI {
 		if (event.activating == true) {
 			var activity : Int =
 				Std.int(mic.activityLevel);
-			mic.setSilenceLevel( (activity+1),100);
+			mic.setSilenceLevel( (activity+SILENCE_ADD),100);
 			silencePrompt.text = "CALIBRATING SILENCE: " +
-				(activity+1);
+				(activity+SILENCE_ADD);
 		}
 	}
 
