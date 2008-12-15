@@ -37,6 +37,8 @@ enum ExerciseState {
 
 class UI {
 	static inline var SILENCE_ADD = 3;
+	static inline var SILENCE_LENGTH = 3000;
+
 	// persistent objects
 	var exerPrep : Dynamic;
 	var exerStart : Dynamic;
@@ -44,6 +46,7 @@ class UI {
 	var quit : Dynamic;
 #if flash9
 	var drawMain : Dynamic;
+	var gotMicPermission: Bool;
 #end
 
 	var statusArea : Group;
@@ -69,6 +72,10 @@ class UI {
 
 		useMic = false;
 		exerState = Menu;
+
+#if flash9
+		gotMicPermission = false;
+#end
 
 		Root.addEventListener(KeyboardEvent.KEY_DOWN, handleKey);
 	}
@@ -298,36 +305,51 @@ class UI {
 			mic.setSilenceLevel(1, 50);
 			var trans = new flash.media.SoundTransform(0);
 			mic.soundTransform = trans;
-			mic.addEventListener(
-				flash.events.StatusEvent.STATUS,onMicStatus);
+			if (gotMicPermission)
+				onMicStatus(null);
+			else
+				mic.addEventListener(
+					flash.events.StatusEvent.STATUS,
+					onMicStatus);
 		}
 	}
 
 
 	function onMicStatus(event:flash.events.StatusEvent) {
-		mic.removeEventListener(
-			flash.events.StatusEvent.STATUS,onMicStatus);
-    		if (event.code == "Microphone.Unmuted") {
-			var silenceWindow = new flash.display.Sprite();
-			silenceWindow.name = "silenceWindow";
-			flash.Lib.current.addChild(silenceWindow);
-			silenceWindow.x = 50;
-			silenceWindow.y = 50;
-			silencePrompt = new flash.text.TextField();
-       		 	silencePrompt.defaultTextFormat =
-				new flash.text.TextFormat(22);
-			silencePrompt.text = "CALIBRATING SILENCE: 1";
-			silencePrompt.autoSize =
-				flash.text.TextFieldAutoSize.LEFT;
-			silenceWindow.addChild(silencePrompt);
+		if (event == null) {
+			setupSilence();
+		}
+		else {
+			mic.removeEventListener(
+				flash.events.StatusEvent.STATUS,
+				onMicStatus);
+    			if (event.code == "Microphone.Unmuted") {
+				gotMicPermission = true;
+				setupSilence();
+			}
+			else if (event.code == "Microphone.Muted") {
+				gotMicPermission == false;
+				trace("Microphone access was denied.");
+			}
+		}
+	}
+	private function setupSilence() {
+		var silenceWindow = new flash.display.Sprite();
+		silenceWindow.name = "silenceWindow";
+		flash.Lib.current.addChild(silenceWindow);
+		silenceWindow.x = 50;
+		silenceWindow.y = 50;
+		silencePrompt = new flash.text.TextField();
+       	 	silencePrompt.defaultTextFormat =
+			new flash.text.TextFormat(22);
+		silencePrompt.text = "CALIBRATING SILENCE: 1";
+		silencePrompt.autoSize =
+			flash.text.TextFieldAutoSize.LEFT;
+		silenceWindow.addChild(silencePrompt);
 
-			mic.addEventListener(
-				flash.events.ActivityEvent.ACTIVITY, silence);
-			haxe.Timer.delay(finishedSilence, 2000);
-		}
-		else if (event.code == "Microphone.Muted") {
-			trace("Microphone access was denied.");
-		}
+		mic.addEventListener(
+			flash.events.ActivityEvent.ACTIVITY, silence);
+		haxe.Timer.delay(finishedSilence, SILENCE_LENGTH);
 	}
 
 	private function silence(event: Dynamic) {
