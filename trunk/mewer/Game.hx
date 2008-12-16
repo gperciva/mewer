@@ -98,15 +98,15 @@ class Game {
 		case Tutorial:
 			passGrade = 50;
 			passNum = 1;
-			gradeScale = 70;
+			gradeScale = 60;
 		case Easy:
 			passGrade = 50;
 			passNum = 2;
-			gradeScale = 70;
+			gradeScale = 60;
 		case Hard:
 			passGrade = 70;
 			passNum = 3;
-			gradeScale = 100;
+			gradeScale = 80;
 		}
 
 		// loads levels, removes last entry (which is empty)
