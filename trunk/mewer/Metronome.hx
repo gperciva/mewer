@@ -17,36 +17,38 @@
 */
 
 package mewer;
+#if flash9
 import Xinf;
+#end
 
 class Metronome {
 	var bpm : Float;
 
+#if flash9
 	var timer : haxe.Timer;
 	var lastTime : Int;
 	var timerInterval : Int; // milliseconds
 	var targetDelay : Int; // milliseconds
 
 	var beatDisplay : Rectangle;
-
-#if flash9
 	var soundArray : Array<Float>;
 	var sound : flash.media.Sound;
 #end
 
 	public function new() {
+#if flash9
 		lastTime = Math.floor(haxe.Timer.stamp() * 1000);
 		timerInterval = 10;
 
-#if flash9
 		soundArray = getBeep();
 		sound = new flash.media.Sound();
 		sound.addEventListener("sampleData", copySine);
-#end
+
 		beatDisplay = new Rectangle({
 			x: 0, y: 0, width: 480,
 			height: 10, fill: "white"});
 		Root.appendChild(beatDisplay);
+#end
 
 		set(60);
 	}
@@ -57,29 +59,39 @@ class Metronome {
 
 	public function set(bpmGet : Float) {
 		bpm = bpmGet;
+#if flash9
 		targetDelay = Math.round(60000/bpm);
-	}
-
-	public function start() {
-		timer = new haxe.Timer(timerInterval);
-		timer.run = handleTimer;
-	}
-
-	public function stop() {
-		timer.stop();
-#if js
-// workaround for bug
-		timer = null;
 #end
 	}
 
+	public function start() {
+#if flash9
+		timer = new haxe.Timer(timerInterval);
+		timer.run = handleTimer;
+#elseif js
+		var writeDiv = js.Lib.document.getElementById("metro");
+		writeDiv.innerHTML = '<img src="metro/metro-' + bpm + '.gif">';
+#end
+	}
+
+	public function stop() {
+#if flash9
+		timer.stop();
+#elseif js
+        	var writeDiv = js.Lib.document.getElementById("metro");
+        	writeDiv.innerHTML = '<img src="metro/nobeat.gif">';
+#end
+	}
+
+
+
+#if flash9
 	inline function handleTimer() {
 		var currentTime:Int = Math.floor(haxe.Timer.stamp() * 1000);
 		var delta:Int = currentTime - lastTime;
 		var err:Int = delta-targetDelay;
 
 		if ( err > -(timerInterval / 2)) {
-//trace(err);
 			lastTime = currentTime - err;
 			if (err < 3*timerInterval)
 				beat();
@@ -92,9 +104,9 @@ class Metronome {
 			x: 0, y: 0, width: 480,
 			height: 10, fill: "red"});
 		Root.appendChild(beatDisplay);
-#if flash9
+
 		sound.play();
-#end
+
 		haxe.Timer.delay(noBeat,100);
 	}
 
@@ -106,7 +118,6 @@ class Metronome {
 		Root.appendChild(beatDisplay);
 	}
 
-#if flash9
 	function getBeep():Array<Float> {
 		var array = new Array<Float>();
 		for ( c in 0...1024 )
