@@ -21,8 +21,9 @@ package mewer;
 import Xinf;
 
 class Exercise {
-#if flash9
-	//static inline var flashVertical : Int = 1;
+#if metrogif
+	static inline var flashVertical : Int = 1;
+#elseif metroflash
 	static inline var flashVertical : Int = 11;
 #elseif js
 	static inline var flashVertical : Int = 11;

@@ -27,9 +27,6 @@ class Main {
 	var game : Game;
 
 	public function new() {
-#if metroflash
-trace("fasdfjsdaf");
-#end
 		game = new Game(drawMain);
 		mainWindow = null;
 #if flash9

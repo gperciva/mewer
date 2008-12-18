@@ -5,7 +5,8 @@
 
 -main Main
 -lib xinf
--swf out/mewer.swf
+-D metrogif
+-swf out/mewer-metrogif.swf
 -swf-header 480:320:50:FFFFFF
 -swf-version 10
 -resource exercise-headers.txt@headers

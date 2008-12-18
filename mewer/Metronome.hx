@@ -17,14 +17,14 @@
 */
 
 package mewer;
-#if flash9
+#if metroflash
 import Xinf;
 #end
 
 class Metronome {
 	var bpm : Float;
 
-#if flash9
+#if metroflash
 	var timer : haxe.Timer;
 	var lastTime : Int;
 	var timerInterval : Int; // milliseconds
@@ -34,9 +34,13 @@ class Metronome {
 	var soundArray : Array<Float>;
 	var sound : flash.media.Sound;
 #end
+#if metrogif
+        var ctx : haxe.remoting.Context;
+        var jsconnect : haxe.remoting.ExternalConnection;
+#end
 
 	public function new() {
-#if flash9
+#if metroflash
 		lastTime = Math.floor(haxe.Timer.stamp() * 1000);
 		timerInterval = 10;
 
@@ -49,6 +53,11 @@ class Metronome {
 			height: 10, fill: "white"});
 		Root.appendChild(beatDisplay);
 #end
+#if metrogif
+                ctx = new haxe.remoting.Context();
+                ctx.addObject("Metronome",Metronome);
+                jsconnect = haxe.remoting.ExternalConnection.jsConnect("default",ctx);
+#end
 
 		set(60);
 	}
@@ -59,33 +68,39 @@ class Metronome {
 
 	public function set(bpmGet : Float) {
 		bpm = bpmGet;
-#if flash9
+#if metroflash
 		targetDelay = Math.round(60000/bpm);
 #end
 	}
 
 	public function start() {
-#if flash9
+#if metroflash
 		timer = new haxe.Timer(timerInterval);
 		timer.run = handleTimer;
 #elseif js
 		var writeDiv = js.Lib.document.getElementById("metro");
 		writeDiv.innerHTML = '<img src="metro/metro-' + bpm + '.gif">';
 #end
+#if metrogif
+                jsconnect.ExtraMetro.start.call([bpm]);
+#end
 	}
 
 	public function stop() {
-#if flash9
+#if metroflash
 		timer.stop();
 #elseif js
         	var writeDiv = js.Lib.document.getElementById("metro");
         	writeDiv.innerHTML = '<img src="metro/nobeat.gif">';
 #end
+#if metrogif
+                jsconnect.ExtraMetro.stop.call([]);
+#end
 	}
 
 
 
-#if flash9
+#if metroflash
 	inline function handleTimer() {
 		var currentTime:Int = Math.floor(haxe.Timer.stamp() * 1000);
 		var delta:Int = currentTime - lastTime;
