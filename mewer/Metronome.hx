@@ -82,7 +82,7 @@ class Metronome {
 		writeDiv.innerHTML = '<img src="metro/metro-' + bpm + '.gif">';
 #end
 #if metrogif
-                jsconnect.ExtraMetro.start.call([bpm]);
+                jsconnect.MetroGif.start.call([bpm]);
 #end
 	}
 
@@ -94,7 +94,7 @@ class Metronome {
         	writeDiv.innerHTML = '<img src="metro/nobeat.gif">';
 #end
 #if metrogif
-                jsconnect.ExtraMetro.stop.call([]);
+                jsconnect.MetroGif.stop.call([]);
 #end
 	}
 
