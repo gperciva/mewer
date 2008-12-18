@@ -1,5 +1,5 @@
 -main ExtraMetro
--js out/extraMetro.js
+-js out/mewer-extraMetro.js
 
 --next
 
@@ -8,7 +8,7 @@
 -D metrogif
 -swf out/mewer-metrogif.swf
 -swf-header 480:320:50:FFFFFF
--swf-version 10
+-swf-version 9
 -resource exercise-headers.txt@headers
 -resource data/0.txt@level0
 -resource data/1.txt@level1
