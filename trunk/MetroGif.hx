@@ -16,14 +16,14 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-class ExtraMetro
+class MetroGif
 {
 	static var cnx = null;
 
 	static function main()
 	{
 		var ctx = new haxe.remoting.Context();
-		ctx.addObject("ExtraMetro",ExtraMetro);
+		ctx.addObject("MetroGif",MetroGif);
 		cnx = haxe.remoting.ExternalConnection.flashConnect("default","myFlashObject",ctx);
 	}
 

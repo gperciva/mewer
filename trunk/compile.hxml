@@ -1,5 +1,5 @@
--main ExtraMetro
--js out/mewer-extraMetro.js
+-main MetroGif
+-js out/metrogif.js
 
 --next
 
