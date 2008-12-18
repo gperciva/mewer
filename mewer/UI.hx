@@ -264,7 +264,7 @@ class UI {
 			case Pass:
 				statusText.text = "Passed "+passed+"/"+passNum+".  Score: " + grade + "%  (press ENTER)";
 			case Fail:
-				statusText.text = "Fail.  Score: " + grade + "%   (press ENTER)";
+				statusText.text = "Try again.  Score: " + grade + "%   (press ENTER)";
 		}
 	}
 
@@ -281,7 +281,7 @@ class UI {
 		}
 	}
 
-	function clap(event) {
+	inline function clap(event) {
 		if (event.activating == true) {
 			detected.add( haxe.Timer.stamp() );
 		}

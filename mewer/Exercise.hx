@@ -22,7 +22,8 @@ import Xinf;
 
 class Exercise {
 #if flash9
-	static inline var flashVertical : Int = 1;
+	//static inline var flashVertical : Int = 1;
+	static inline var flashVertical : Int = 11;
 #elseif js
 	static inline var flashVertical : Int = 11;
 #end
