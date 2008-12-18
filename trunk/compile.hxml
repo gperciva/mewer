@@ -1,11 +1,8 @@
--main ExtraMetro
--js out/extraMetro.js
-
---next
-
+-main Main
+-lib xinf
 -swf out/mewer.swf
--swf-header 480:320:40:FF0000
--swf-version 9
+-swf-header 480:320:50:FF0000
+-swf-version 10
 -resource exercise-headers.txt@headers
 -resource data/0.txt@level0
 -resource data/1.txt@level1
@@ -17,14 +14,12 @@
 -resource data/7.txt@level7
 -resource data/8.txt@level8
 -resource data/9.txt@level9
--main Main
--lib xinf
 
 --next
 
 -main Main
--js out/mewer.js
 -lib xinf
+-js out/mewer.js
 -resource exercise-headers.txt@headers
 -resource data/0.txt@level0
 -resource data/1.txt@level1
