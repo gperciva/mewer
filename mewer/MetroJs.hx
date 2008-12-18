@@ -20,22 +20,14 @@ package mewer;
 
 class Metronome {
 
-#if flash9
-	var ctx : haxe.remoting.Context;
-	var jsconnect : haxe.remoting.ExternalConnection;
-#end
 	var bpm : Float;
 
 	public function new() {
-#if flash9
-		ctx = new haxe.remoting.Context();
-		ctx.addObject("Metronome",Metronome);
-		jsconnect = haxe.remoting.ExternalConnection.jsConnect("default",ctx);
-#end
+		set(60);
 	}
 
 	public function reset() {
-		// do nothing
+		stop();
 	}
 
 	public function set(bpmGet : Float) {
@@ -43,18 +35,14 @@ class Metronome {
 	}
 
 	public function start() {
-#if flash9
-		jsconnect.ExtraMetro.start.call([bpm]);
-#elseif js
+#if js
         	var writeDiv = js.Lib.document.getElementById("metro");
         	writeDiv.innerHTML = '<img src="metro/metro-' + bpm + '.gif">';
 #end
 	}
 
 	public function stop() {
-#if flash9
-		jsconnect.ExtraMetro.stop.call([]);
-#elseif js
+#if js
         	var writeDiv = js.Lib.document.getElementById("metro");
         	writeDiv.innerHTML = '<img src="metro/nobeat.gif">';
 #end
