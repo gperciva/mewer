@@ -26,7 +26,7 @@ class Exercise {
 #elseif metroflash
 	static inline var flashVertical : Int = 11;
 #elseif js
-	static inline var flashVertical : Int = 11;
+	static inline var flashVertical : Int = 15;
 #end
 	var musicArea : Group;
 	var resultArea : Group;
