@@ -52,18 +52,15 @@ class Exercise {
 
 	public function reset() {
 		musicArea.display = xinf.ony.type.Display.None;
-		while (musicArea.childNodes.hasNext())
-			musicArea.removeChild(musicArea.childNodes.next());
+		musicArea.removeChildren();
 
 		resultArea.display = xinf.ony.type.Display.None;
-		while (resultArea.childNodes.hasNext())
-			resultArea.removeChild(resultArea.childNodes.next());
+		resultArea.removeChildren();
 	}
 
 	public function reload() {
 		resultArea.display = xinf.ony.type.Display.None;
-		while (resultArea.childNodes.hasNext())
-			resultArea.removeChild(resultArea.childNodes.next());
+		resultArea.removeChildren();
 	}
 
 	public function load(level : Int, bpm : Float,
