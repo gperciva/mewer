@@ -23,6 +23,12 @@ import mewer.Messages;
 import Xinf;
 
 class Main {
+#if flash9
+	static inline var jsTweak = 0;
+#else
+	static inline var jsTweak = 20;
+#end
+
 	var mainWindow : Group;
 	var game : Game;
 
@@ -40,7 +46,7 @@ class Main {
 		clearMain();
 		mainWindow = new Group();
 		mainWindow.appendChild(new Text({
-			x:100, y:10, fill:"black", font_size:48,
+			x:100, y:5+jsTweak, fill:"black", font_size:48,
 			text:"MEWER"}));
 
 		mainWindow.transform = new Translate(50, 50);
