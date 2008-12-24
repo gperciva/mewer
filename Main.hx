@@ -46,7 +46,8 @@ class Main {
 		clearMain();
 		mainWindow = new Group();
 		mainWindow.appendChild(new Text({
-			x:100, y:5+jsTweak, fill:"black", font_size:48,
+			x:100, y:5+jsTweak, fill:"black", 
+			fontSize: 40, fontFamily: "Arial Bold", 
 			text:"MEWER"}));
 
 		mainWindow.transform = new Translate(50, 50);
