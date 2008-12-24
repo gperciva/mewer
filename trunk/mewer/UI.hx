@@ -86,7 +86,7 @@ class UI {
 
 		statusText = new Text({
                         x:5, y:19, fill:"black",
-                        font_size:18
+                        fontSize:18
                         });
 		statusArea.appendChild(statusText);
 		Root.appendChild(statusArea);
@@ -180,7 +180,7 @@ class UI {
 		Root.appendChild(popWindow);
 
 		popWindow.appendChild( new Text({
-			text:"Select input source:", font_size: 20,
+			text:"Select input source:", fontSize: 20,
 			x:0, y:20,
 		}));
 

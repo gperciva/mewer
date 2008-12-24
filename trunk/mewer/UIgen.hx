@@ -35,7 +35,7 @@ class UIgen {
 
 		var buttonText = new Text({
 			x:3, y:17, text: textGet, fill:"black",
-			font_size:18
+			fontSize:18
 			});
 		button.appendChild(buttonText);
 
@@ -62,7 +62,7 @@ class UIgen {
 
 		var buttonText = new Text({
 			x:2, y:10, text: textGet, fill:"black",
-			font_size:10
+			fontSize:10
 			});
 		button.appendChild(buttonText);
 

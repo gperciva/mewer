@@ -31,20 +31,20 @@ class Messages {
 
 		window.appendChild( new Text({
 			x:10, y:30, width:450, fill:"black",
-			font_size:16, text:
+			fontSize:16, text:
 		"1. You can use any key other than ESC and ENTER to indicate
 	notes.  If your space bar is unreliable, try using other keys!"
 		}));
 		window.appendChild( new Text({
 			x:10, y:70, width:450, fill:"black",
-			font_size:16, text:
+			fontSize:16, text:
 		"2. You can wait as long as you want before starting (or ending)
 	the exercise.  Watch the metronome for a bit at the beginning,
 	and don't be in a rush to stop the exercise afterwards."
 		}));
 		window.appendChild( new Text({
 			x:10, y:130, width:450, fill:"black",
-			font_size:16, text:
+			fontSize:16, text:
 		"3. Don't REACT to the metronome -- if you wait for a
 	flash, your clap or tap will be late.  Instead, try to
 	INTERNALIZE the tempo so that you know when the next
@@ -67,7 +67,7 @@ class Messages {
 		for (i in 1...10) {
 			var levelArea = new Group();
 			levelArea.appendChild( new Text({
-				text:i, font_size: 20,
+				text:i, fontSize: 20,
 				fill: "black",
 				x:0, y:25,
 			}));
@@ -101,13 +101,13 @@ class Messages {
 				fill:popBackground
 		}));
 		window.appendChild( new Text({
-			text:"Fireworks and Balloons!", font_size: 20,
+			text:"Fireworks and Balloons!", fontSize: 20,
 			fill: popText,
 			x:80, y:20,
 		}));
 		window.appendChild( new Text({
 			text:"Congratulations, you completed the final level!",
-			font_size: 18,
+			fontSize: 18,
 			fill: popText,
 			x:5, y:45,
 		}));
@@ -130,13 +130,13 @@ class Messages {
 				fill:popBackground
 		}));
 		window.appendChild( new Text({
-			text:"Fireworks and Balloons!", font_size: 20,
+			text:"Fireworks and Balloons!", fontSize: 20,
 			fill: popText,
 			x:80, y:20,
 		}));
 		window.appendChild( new Text({
 			text:"Congratulations, you completed the Tutorial!",
-			font_size: 18,
+			fontSize: 18,
 			fill: popText,
 			x:5, y:45,
 		}));
@@ -158,19 +158,19 @@ class Messages {
                                 height: 100, fill:popBackground
 		}));
 		window.appendChild( new Text({
-			text:"How many notes?", font_size: 20,
+			text:"How many notes?", fontSize: 20,
 			fill: popText,
 			x:50, y:20,
 		}));
 		window.appendChild( new Text({
 			text:"This exercise expects "+expectedNum+" notes,",
-			font_size: 18,
+			fontSize: 18,
 			fill: popText,
 			x:5, y:45,
 		}));
 		window.appendChild( new Text({
 			text:"but MEWER detected "+detectedNum+" notes.",
-			font_size: 18,
+			fontSize: 18,
 			fill: popText,
 			x:5, y:65,
 		}));
@@ -191,43 +191,43 @@ class Messages {
 				fill:popBackground
 		}));
 		window.appendChild( new Text({
-			text:"MEWER introduction", font_size: 20,
+			text:"MEWER introduction", fontSize: 20,
 			fill: popText, x:100, y:20,
 		}));
 		window.appendChild( new Text({
-			font_size: 18, fill: popText, x:5, y:45,
+			fontSize: 18, fill: popText, x:5, y:45,
 			text:"1. Press ENTER to start/stop the exercise.",
 		}));
 		window.appendChild( new Text({
-			font_size: 18, fill: popText, x:5, y:65,
+			fontSize: 18, fill: popText, x:5, y:65,
 			text:"2. Watch the metronome at the top of the screen.",
 		}));
 		window.appendChild( new Text({
-			font_size: 18, fill: popText, x:5, y:85,
+			fontSize: 18, fill: popText, x:5, y:85,
 			text:"3. Clap or tap the rhythm in the exercise."
 		}));
 		window.appendChild( new Text({
-			font_size: 18, fill: popText, x:5, y:105,
+			fontSize: 18, fill: popText, x:5, y:105,
 			text:"	  (there are only 8 notes!)",
 		}));
 		window.appendChild( new Text({
-			font_size: 18, fill: popText, x:5, y:125,
+			fontSize: 18, fill: popText, x:5, y:125,
 			text:"4. Stop the exercise, and view the results:",
 		}));
 		window.appendChild( new Text({
-			font_size: 18, fill: popText, x:5, y:145,
+			fontSize: 18, fill: popText, x:5, y:145,
 			text:"	  BLACK lines show the correct times,",
 		}));
 		window.appendChild( new Text({
-			font_size: 18, fill: popText, x:5, y:165,
+			fontSize: 18, fill: popText, x:5, y:165,
 			text:"	  RED lines show what you did!",
 		}));
 		window.appendChild( new Text({
-			font_size: 18, fill: popText, x:5, y:185,
+			fontSize: 18, fill: popText, x:5, y:185,
 			text:"5. Attempt new exercise, or press ESC to ",
 		}));
 		window.appendChild( new Text({
-			font_size: 18, fill: popText, x:5, y:205,
+			fontSize: 18, fill: popText, x:5, y:205,
 			text:"	  return to the main menu.",
 		}));
 
@@ -247,7 +247,7 @@ class Messages {
 			fill:popBackground
 		}));
 		window.appendChild( new Text({
-			text:"Return to menu?", font_size: 20,
+			text:"Return to menu?", fontSize: 20,
 			fill: popText, x:30, y:20,
 		}));
 		window.appendChild(UIgen.xinfButton(
