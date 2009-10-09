@@ -69,18 +69,19 @@ class Exercise {
 
 		// get picture
 		var numExercises = levelInfo[2];
-		var nextExercise: Dynamic;
+		var nextExercise: Int;
 		do {
 			nextExercise = Std.random(numExercises) + 1;
 		} while (nextExercise == currentExercise);
 
+		var nextExerciseString: String;
 		if (nextExercise<10)
-			nextExercise = '000' + nextExercise;
+			nextExerciseString = '000' + nextExercise;
 		else if (nextExercise<100)
-			nextExercise = '00' + nextExercise;
+			nextExerciseString = '00' + nextExercise;
 		else if (nextExercise<10)
-			nextExercise = '0' + nextExercise;
-		var exerName = "data/" + level + "/" + nextExercise;
+			nextExerciseString = '0' + nextExercise;
+		var exerName = "data/" + level + "/" + nextExerciseString;
 
 		// get time scaling
 		numBeats = levelInfo[0];	
