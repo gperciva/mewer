@@ -1,7 +1,7 @@
 # for osx
 BUILDDIR = ~/Sites/
 
-all: compile.hxml main.hx
+all: compile.hxml Main.hx
 	mkdir -p out
 	haxe compile.hxml
 	cp out/* ${BUILDDIR}
