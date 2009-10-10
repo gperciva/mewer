@@ -46,14 +46,14 @@ for tol in tolerances:
 	shift = -1*newpos[0]
 	for n in range(len(newpos)):
 		newpos[n] += shift
-	writePos(outfile_name+str(i)+".exp", newpos)
+	writePos(outfile_name+"-"+str(i)+".exp", newpos)
 	i = i+1
 
 i = 1
 while (i < len(tolerances)+1):
 	make_clap_command = "python make-clap.py "
-	make_clap_command += outfile_name+str(i)+".exp "
-	make_clap_command += outfile_name+str(i)+".wav "
+	make_clap_command += outfile_name+"-"+str(i)+".exp "
+	make_clap_command += outfile_name+"-"+str(i)+".wav "
 	os.system(make_clap_command)
 	i = i+1
 
