@@ -7,6 +7,7 @@ import glob
 
 WIDTH = 400
 HEIGHT = 50
+ERROR_SCALE = 80.0
 
 try:
         perfect_name = sys.argv[1]
@@ -28,7 +29,7 @@ def getOnsets(filename):
 
 def findNearest(list, value):
 	bestDelta = abs(float(list[0]) - value)
-	for i in len(list):
+	for i in range(len(list)):
 		delta = abs(list[i] - value)
 		if (delta < bestDelta):
 			bestDelta = delta
@@ -36,23 +37,26 @@ def findNearest(list, value):
 
 def gradeExercise(perfect, exercise, offset):
 	error = 0.0
-	for line in perfect:
-		note = float(line.split()[0])
-		if (note==0):
-			continue
-		time = float(line.split()[1])
+	for time in perfect:
 		noteError = findNearest(exercise, time-offset)
-
-	for line in exercise:
-		print foo
+		noteError = noteError * noteError
+		error += noteError
+	for time in exercise:
+		noteError = findNearest(perfect, time+offset)
+		noteError = noteError * noteError
+		error += noteError
+	error = error*ERROR_SCALE
+	grade = 100 - error
+	if (grade<0):
+		grade = 0
+	return grade
 
 
 perfect = getOnsets(perfect_name)
 
 scores = []
 for exp in glob.glob('*-*.exp'):
-	base = exp.split('-')[0]
-	number = exp.split('-')[1].split('.')[0]
+	base = exp.split('.')[0]
 
 	onsets = getOnsets(exp)
 
@@ -66,12 +70,15 @@ for exp in glob.glob('*-*.exp'):
 	for o in onsets:
 		xpos = (o + offset) * WIDTH / 8.0
 		draw.line((xpos,0, xpos,HEIGHT),fill='blue')
-	image_name = base+'-'+number+'.png'
-	image.save(image_name, 'png')
+	image.save(base+'.png', 'png')
 
+	grade = gradeExercise(perfect, onsets, offset)
+	scores.append([base, grade])
 
-	sys.exit(1)
-	gradeExercise(perfect, onsets, offset)
+scores_file = open('scores.txt', 'w')
+for s in scores:
+	scores_file.write(s[0]+'\t')
+	scores_file.write(str(s[1])+'\n')
+scores_file.close()
 
-
-
+print scores
