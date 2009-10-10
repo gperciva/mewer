@@ -7,7 +7,7 @@ import glob
 
 WIDTH = 400
 HEIGHT = 50
-ERROR_SCALE = 80.0
+ERROR_SCALE = 300.0
 
 try:
         perfect_name = sys.argv[1]
