@@ -29,7 +29,12 @@ out_file = wave.open(outfile_name, 'wb')
 out_file.sr = 44100
 out_file.setparams((1, 2, 44100, 44100*4, 'NONE', 'noncompressed'))
 
-#out_file.writeframes(clap)
+# initial silence; currently needed in MEAWS
+fill_zeros = ''
+for i in range( 22050 ):
+	fill_zeros += struct.pack('h', 0)
+out_file.writeframes(fill_zeros)
+
 now = 0
 for line in positions:
 	splitline = line.split()
