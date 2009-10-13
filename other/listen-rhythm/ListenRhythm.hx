@@ -1,16 +1,21 @@
+import ui.UI;
+
 class ListenRhythm {
 
 	public function new() {
 		showMain();
 	}
 
-	function showMain() {
-		var tf = new flash.text.TextField();
-		tf.text = "Rhythmic Grading";
-		tf.x = 110;
-		tf.y = 20;
-		flash.Lib.current.addChild(tf);
+	function clicked(event : flash.events.MouseEvent) {
+		trace("clicked");
+	}
 
+	function showMain() {
+		var label = UI.label("Rhythmic Grading", 110, 20);
+		flash.Lib.current.addChild(label);
+
+		var rect = UI.button("foo", 50, 50, clicked);
+		flash.Lib.current.addChild(rect);
 	}
 
 	static function main() {
