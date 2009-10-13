@@ -9,15 +9,38 @@ class ListenRhythm {
 	}
 
 	function clicked(event : flash.events.MouseEvent) {
-		trace("clicked");
+		trace(event);
 	}
+
+	function clickedTry(event : flash.events.MouseEvent) {
+		var name: String = event.target.name;
+		trace(name);
+
+		var sound:flash.media.Sound;
+		sound = flash.media.Sound.attach(name+"-mp3");
+		trace(sound.length);
+		//sound.play();
+	}
+
+	function setupTry(number: Int) {
+		var name:String;
+		name = "foo-" + number;
+		var s:flash.display.Sprite = flash.Lib.attach(name+"-png");
+		s.name = name; 
+		s.width = 400;
+		s.y = 60*(number-1);
+
+		s.addEventListener(flash.events.MouseEvent.MOUSE_UP, clickedTry);
+		flash.Lib.current.addChild(s);
+	}
+
 
 	function showLevel(event : flash.events.MouseEvent) {
 		UI.clearScreen();
 
-		var s:flash.display.MovieClip = flash.Lib.attach("foo-1-png");
-		flash.Lib.current.addChild(s);
-
+		for (i in 1...5) {
+			setupTry(i);
+		}
 	}
 
 	function showMain() {
