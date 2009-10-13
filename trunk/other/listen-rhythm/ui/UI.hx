@@ -11,9 +11,11 @@ class UI {
 		return label;
 	}
 
-	static public function foo(event : flash.events.MouseEvent) {
-trace("foo");
-}
+	static public function clearScreen() {
+		for (i in 0...flash.Lib.current.numChildren) {
+			flash.Lib.current.removeChildAt(0);
+		}
+	}
 
 	static public function button(
 		text: String, x: Int, y: Int, ?pressed: Dynamic
