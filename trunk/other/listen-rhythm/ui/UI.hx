@@ -4,15 +4,46 @@ import arctic.ArcticView;
 import arctic.ArcticBlock;
 
 class UI {
-	var arcticView: ArcticView;
+	var arcticView : ArcticView;
+	var parent : ArcticMovieClip;
 
-	public function new() {
-		var helloWorld = Arctic.makeSimpleButton("Hello world", null, 50);
-		//var ratingButtons = Arctic.makeTextChoice([ "1", "2", "3"], null);
+	public function new(parentMC : ArcticMovieClip) {
+		arcticView = null;
+		parent = parentMC;
+	}
 
-		arcticView = new ArcticView(helloWorld, flash.Lib.current);
+	public function showMain(attempts : Array<Attempt>) {
+		if (arcticView != null) { arcticView.destroy(); }
+
+		var beginFunc = attempts[1].selected;
+
+		var mainLabel = LineStack( [
+			ColumnStack( [ Filler,
+				Arctic.makeText("Rhythmic Grading",50),
+				Filler]),
+			Filler,
+			ColumnStack( [ Filler,
+				Arctic.makeSimpleButton("blah blah",
+					beginFunc, 40),
+Filler,
+Arctic.makeTextChoice([ "Excellent", "Good", "Ok", "Bad", "Terrible"],
+	null, 2, 20).block,
+				]),
+			Filler
+		]);
+		arcticView = new ArcticView( mainLabel, parent);
 		var root = arcticView.display(true);
 	}
+/*
+		UI.clearScreen();
+
+		var label = UI.label("Rhythmic Grading", 110, 20);
+		flash.Lib.current.addChild(label);
+
+		var rect = UI.button("foo", 50, 50, showLevel);
+		flash.Lib.current.addChild(rect);
+	}
+*/
 
 
 	static public function label(
