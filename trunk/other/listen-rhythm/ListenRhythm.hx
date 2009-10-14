@@ -1,12 +1,14 @@
-import ui.UI;
+//import ui.UI;
 
 class ListenRhythm {
+	var ui : ui.UI;
+	var cnx : haxe.remoting.HttpAsyncConnection;
 	var level : Int;
-	var cnx: haxe.remoting.HttpAsyncConnection;
 
 	public function new() {
+		ui = new ui.UI();
 		level = 1;
-		showMain();
+//		showMain();
 	}
 
 	function clicked(event : flash.events.MouseEvent) {
@@ -40,12 +42,13 @@ class ListenRhythm {
 		s.y = 60*(number-1);
 
 		s.addEventListener(flash.events.MouseEvent.MOUSE_UP, clickedTry);
+
 		flash.Lib.current.addChild(s);
 	}
 
 
 	function showLevel(event : flash.events.MouseEvent) {
-		UI.clearScreen();
+//		UI.clearScreen();
 
 		for (i in 1...5) {
 			setupTry(i);
@@ -57,6 +60,7 @@ class ListenRhythm {
 	}
 
 	function showMain() {
+/*
 		UI.clearScreen();
 
 		var label = UI.label("Rhythmic Grading", 110, 20);
@@ -64,6 +68,7 @@ class ListenRhythm {
 
 		var rect = UI.button("foo", 50, 50, showLevel);
 		flash.Lib.current.addChild(rect);
+*/
 	}
 
 	static function main() {

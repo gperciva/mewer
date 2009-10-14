@@ -1,6 +1,20 @@
 package ui;
+import arctic.Arctic;
+import arctic.ArcticView;
+import arctic.ArcticBlock;
 
 class UI {
+	var arcticView: ArcticView;
+
+	public function new() {
+		var helloWorld = Arctic.makeSimpleButton("Hello world", null, 50);
+		//var ratingButtons = Arctic.makeTextChoice([ "1", "2", "3"], null);
+
+		arcticView = new ArcticView(helloWorld, flash.Lib.current);
+		var root = arcticView.display(true);
+	}
+
+
 	static public function label(
 		text: String, x: Int, y: Int
 	) {
