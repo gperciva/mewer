@@ -5,14 +5,22 @@ class ListenRhythm {
 	var cnx : haxe.remoting.HttpAsyncConnection;
 	var level : Int;
 
+	var attempt : Array<Attempt>;
+
 	public function new() {
-		ui = new ui.UI();
+		ui = new ui.UI(flash.Lib.current);
 		level = 1;
-//		showMain();
+
+		attempt = new Array();
+		for (i in 0...4) {
+			attempt[i] = new Attempt(i,i);
+		}
+
+		ui.showMain(attempt);
 	}
 
-	function clicked(event : flash.events.MouseEvent) {
-		trace(event);
+	function clicked() {
+		trace("foo");
 	}
 
 	function clickedTry(event : flash.events.MouseEvent) {
@@ -59,17 +67,6 @@ class ListenRhythm {
 		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
 	}
 
-	function showMain() {
-/*
-		UI.clearScreen();
-
-		var label = UI.label("Rhythmic Grading", 110, 20);
-		flash.Lib.current.addChild(label);
-
-		var rect = UI.button("foo", 50, 50, showLevel);
-		flash.Lib.current.addChild(rect);
-*/
-	}
 
 	static function main() {
 		new ListenRhythm();
