@@ -3,11 +3,18 @@ class Server {
 
 	}
 
-	function record(x,y) {
-		//neko.Lib.print(data);
+	function record(data) {
+//		neko.Lib.print("got data");
+	//	neko.Lib.print(data);
 //		trace("** this is my trace **");
 //		trace(data);
-		return x+y;
+//		return x+y;
+
+		var save : haxe.io.Output = neko.io.File.write("foo", false);
+		save.writeString("1");
+		save.close();
+
+		return 0;
 	}
 
 	static function main() {
