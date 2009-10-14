@@ -12,40 +12,57 @@ class UI {
 		parent = parentMC;
 	}
 
-	public function showMain(attempts : Array<Attempt>) {
+	public function showMain(beginFunc : Dynamic) {
 		if (arcticView != null) { arcticView.destroy(); }
 
-		var beginFunc = attempts[1].selected;
-
-		var mainLabel = LineStack( [
-			ColumnStack( [ Filler,
-				Arctic.makeText("Rhythmic Grading",50),
-				Filler]),
-			Filler,
-			ColumnStack( [ Filler,
-				Arctic.makeSimpleButton("blah blah",
-					beginFunc, 40),
+//		var beginFunc = attempts[1].selected;
+/*
 Filler,
 Arctic.makeTextChoice([ "Excellent", "Good", "Ok", "Bad", "Terrible"],
 	null, 2, 20).block,
 				]),
 			Filler
-		]);
+*/
+
+		var mainLabel = LineStack( [
+			ColumnStack( [ Filler,
+				Arctic.makeText("Rhythmic Evaluation",50),
+				Filler]),
+			Filler,
+			ColumnStack( [ Filler,
+				Arctic.makeSimpleButton("Begin grading",
+					beginFunc, 40), Filler]),
+			Filler,]);
 		arcticView = new ArcticView( mainLabel, parent);
 		var root = arcticView.display(true);
 	}
-/*
-		UI.clearScreen();
 
-		var label = UI.label("Rhythmic Grading", 110, 20);
-		flash.Lib.current.addChild(label);
 
-		var rect = UI.button("foo", 50, 50, showLevel);
-		flash.Lib.current.addChild(rect);
+	function drawAttempt(data : Attempt) {
+		return 
+			Picture(data.imageName(),800,100,2.0);
 	}
-*/
+
+	public function showLevel(attempt : Array<Attempt>) {
+		if (arcticView != null) { arcticView.destroy(); }
+
+		var drawed : Array<Dynamic> = new Array();
+		for (i in 0...4) {
+			drawed[i] = drawAttempt( attempt[i] );
+		}
+		var scene = LineStack( [
+			drawed[0], Filler,
+			drawed[1], Filler,
+			drawed[2], Filler,
+			drawed[3]
+			]);
+
+		arcticView = new ArcticView(scene, parent);
+		var root = arcticView.display(true);
+	}
 
 
+/*
 	static public function label(
 		text: String, x: Int, y: Int
 	) {
@@ -73,8 +90,7 @@ myRectangle.graphics.drawRect ( 0, 0, 50, 50);
 
 myRectangle.addEventListener(flash.events.MouseEvent.MOUSE_UP, pressed);
 return myRectangle;
-
-
 	}
+*/
 
 }

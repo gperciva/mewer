@@ -1,14 +1,19 @@
 class Attempt {
+	var phaseNumber : Int;
 	var realNumber : Int;
-	var orderNumber : Int;
 
-	public function new(realNumberGet : Int, orderNumberGet: Int) {
+	public function new(phaseNumberGet : Int, realNumberGet : Int) {
+		phaseNumber = phaseNumberGet;
 		realNumber = realNumberGet;
-		orderNumber = orderNumberGet;
 	}
 
 	public function selected() {
 		trace(realNumber);
+	}
+
+	public function imageName() {
+		return Std.string(phaseNumber) + "-" +
+			Std.string(realNumber) + "-png";
 	}
 
 }

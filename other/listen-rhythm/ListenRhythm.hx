@@ -3,26 +3,20 @@
 class ListenRhythm {
 	var ui : ui.UI;
 	var cnx : haxe.remoting.HttpAsyncConnection;
-	var level : Int;
+	var phase : Int;
 
 	var attempt : Array<Attempt>;
+	var results : Array<Array<Int>>;
 
 	public function new() {
+		phase = 0;
+		results = new Array();
+
 		ui = new ui.UI(flash.Lib.current);
-		level = 1;
-
-		attempt = new Array();
-		for (i in 0...4) {
-			attempt[i] = new Attempt(i,i);
-		}
-
-		ui.showMain(attempt);
+		ui.showMain(showLevel);
 	}
 
-	function clicked() {
-		trace("foo");
-	}
-
+/*
 	function clickedTry(event : flash.events.MouseEvent) {
 		var name: String = event.target.name;
 		var choice:Int = Std.parseInt( name.split('-')[1] );
@@ -53,18 +47,41 @@ class ListenRhythm {
 
 		flash.Lib.current.addChild(s);
 	}
+*/
 
+	function showLevel() {
+		phase++;
+		attempt = new Array();
 
-	function showLevel(event : flash.events.MouseEvent) {
-//		UI.clearScreen();
-
-		for (i in 1...5) {
-			setupTry(i);
+		// randomize order
+		var order : Array<Int> = new Array();
+		while (order.length < 4) {
+			var tryInt : Int = Std.random(4) + 1;
+			for (i in 0...4) {
+				if (order[i] == tryInt) {
+					tryInt = 0;
+				}
+				if (order[i] == 0) {
+					order[i] = tryInt;
+					tryInt = 0;
+				}
+				if (tryInt == 0) {
+					break;
+				}
+			}
 		}
 
+		for (i in 0...4) {
+			attempt[i] = new Attempt(phase, order[i]);
+		}
+
+		ui.showLevel(attempt);
+
+/*
 		var URL = "http://localhost:2000/remoting.n";
 		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
 		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
+*/
 	}
 
 
