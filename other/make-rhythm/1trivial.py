@@ -55,5 +55,11 @@ while (i < len(tolerances)+1):
 	make_clap_command += outfile_name+"-"+str(i)+".exp "
 	make_clap_command += outfile_name+"-"+str(i)+".wav "
 	os.system(make_clap_command)
+
+	make_mp3 = "lame -b 56 "
+	make_mp3 += outfile_name+"-"+str(i)+".wav "
+	make_mp3 += outfile_name+"-"+str(i)+".mp3 "
+	os.system(make_mp3)
+
 	i = i+1
 
