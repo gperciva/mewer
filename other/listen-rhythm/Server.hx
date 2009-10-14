@@ -3,10 +3,11 @@ class Server {
 
 	}
 
-	function record(data:Int) {
-		neko.Lib.print(data);
-		trace("** this is my trace **");
-		trace(data);
+	function record(x,y) {
+		//neko.Lib.print(data);
+//		trace("** this is my trace **");
+//		trace(data);
+		return x+y;
 	}
 
 	static function main() {

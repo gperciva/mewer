@@ -14,7 +14,7 @@ class ListenRhythm {
 
 	function clickedTry(event : flash.events.MouseEvent) {
 		var name: String = event.target.name;
-		trace(name);
+//		trace(name);
 
 		//var sound:flash.media.Sound;
 		//sound = flash.media.Sound.attach(name+"-mp3");
@@ -23,8 +23,12 @@ class ListenRhythm {
 
     var URL = "http://localhost:2000/remoting.n";
     var cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
-    cnx.setErrorHandler( function(err) trace("Error : "+Std.string(err)) );
-    cnx.Server.record.call([1]);
+    cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
+    cnx.Server.record.call([1,2], display);
+	}
+
+	static function display(v) {
+		trace(v);
 	}
 
 	function setupTry(number: Int) {
