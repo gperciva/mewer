@@ -1,5 +1,6 @@
 -swf listen-rhythm.swf
 -swf-lib 1trivial.swf
+-lib arctic
 -swf-version 9
 -main ListenRhythm
 
