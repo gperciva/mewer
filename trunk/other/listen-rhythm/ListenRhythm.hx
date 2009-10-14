@@ -24,7 +24,7 @@ class ListenRhythm {
     var URL = "http://localhost:2000/remoting.n";
     var cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
     cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
-    cnx.Server.record.call([1,2], display);
+    cnx.Server.record.call([1], display);
 	}
 
 	static function display(v) {
