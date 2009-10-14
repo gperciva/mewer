@@ -16,15 +16,20 @@ class ListenRhythm {
 		var name: String = event.target.name;
 		trace(name);
 
-		var sound:flash.media.Sound;
-		sound = flash.media.Sound.attach(name+"-mp3");
-		trace(sound.length);
+		//var sound:flash.media.Sound;
+		//sound = flash.media.Sound.attach(name+"-mp3");
+		//trace(sound.length);
 		//sound.play();
+
+    var URL = "http://localhost:2000/remoting.n";
+    var cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
+    cnx.setErrorHandler( function(err) trace("Error : "+Std.string(err)) );
+    cnx.Server.record.call([1]);
 	}
 
 	function setupTry(number: Int) {
 		var name:String;
-		name = "foo-" + number;
+		name = "1-" + number;
 		var s:flash.display.Sprite = flash.Lib.attach(name+"-png");
 		s.name = name; 
 		s.width = 400;
