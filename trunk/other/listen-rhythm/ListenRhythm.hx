@@ -2,6 +2,7 @@ import ui.UI;
 
 class ListenRhythm {
 	var level : Int;
+	var cnx: haxe.remoting.HttpAsyncConnection;
 
 	public function new() {
 		level = 1;
@@ -14,20 +15,19 @@ class ListenRhythm {
 
 	function clickedTry(event : flash.events.MouseEvent) {
 		var name: String = event.target.name;
-//		trace(name);
+		var choice:Int = Std.parseInt( name.split('-')[1] );
 
 		//var sound:flash.media.Sound;
 		//sound = flash.media.Sound.attach(name+"-mp3");
 		//trace(sound.length);
 		//sound.play();
 
-    var URL = "http://localhost:2000/remoting.n";
-    var cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
-    cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
-    cnx.Server.record.call([1], display);
+		cnx.Server.record.call([choice], display);
 	}
 
 	static function display(v) {
+		if (v==0)
+			return;
 		trace(v);
 	}
 
@@ -50,6 +50,10 @@ class ListenRhythm {
 		for (i in 1...5) {
 			setupTry(i);
 		}
+
+		var URL = "http://localhost:2000/remoting.n";
+		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
+		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
 	}
 
 	function showMain() {

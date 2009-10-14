@@ -1,18 +1,15 @@
 class Server {
-	function new() {
+	var save: haxe.io.Output;
 
+	function new() {
+//		save = neko.io.File.write("choices.txt", false);
+		save = neko.io.File.append("choices.txt", false);
 	}
 
 	function record(data) {
-//		neko.Lib.print("got data");
-	//	neko.Lib.print(data);
-//		trace("** this is my trace **");
-//		trace(data);
-//		return x+y;
-
-		var save : haxe.io.Output = neko.io.File.write("foo", false);
-		save.writeString("1");
-		save.close();
+		save.writeString(Std.string( data ));
+		save.flush();
+//		save.close();
 
 		return 0;
 	}
