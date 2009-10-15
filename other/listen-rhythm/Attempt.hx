@@ -1,4 +1,5 @@
-class Foo extends flash.media.Sound {}
+class Attempt_1_1_mp3 extends flash.media.Sound {}
+
 
 class Attempt {
 	var phaseNumber : Int;
@@ -22,14 +23,14 @@ class Attempt {
 	public function startPlay() {
 		var soundFile = name + "-mp3";
 		trace("trying to load sound");
-		var sound : flash.media.Sound = new Foo();
-/*
-		var sound : flash.media.Sound = Type.createInstance(
-			Type.resolveClass("resources.classes.1-1-mp3"), []);
-*/
+		//var sound : flash.media.Sound = new Attempt_1_1_mp3();
+		var sound : flash.media.Sound = cast Type.createInstance(
+			Type.resolveClass("Attempt_1_1_mp3"), []);
+		trace(sound);
+
 		trace(sound.length);
-		sound.play();
-		trace("trying to play");
+//		sound.play();
+//		trace("trying to play");
 	}
 
 	public function stopPlay() {
