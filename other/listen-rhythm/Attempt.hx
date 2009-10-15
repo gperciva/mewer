@@ -1,4 +1,7 @@
 class Attempt_1_1_mp3 extends flash.media.Sound {}
+class Attempt_1_2_mp3 extends flash.media.Sound {}
+class Attempt_1_3_mp3 extends flash.media.Sound {}
+class Attempt_1_4_mp3 extends flash.media.Sound {}
 
 
 class Attempt {
@@ -9,7 +12,8 @@ class Attempt {
 	public function new(phaseNumberGet : Int, realNumberGet : Int) {
 		phaseNumber = phaseNumberGet;
 		realNumber = realNumberGet;
-		name = Std.string(phaseNumber)+"-"+Std.string(realNumber);
+		name = "Attempt_" + Std.string(phaseNumber)
+			+ "_"+Std.string(realNumber);
 	}
 
 	public function selected() {
@@ -17,15 +21,15 @@ class Attempt {
 	}
 
 	public function imageName() {
-		return name + "-png";
+		return name + "_png";
 	}
 
 	public function startPlay() {
-		var soundFile = name + "-mp3";
+		var soundFile = name + "_mp3";
+
 		trace("trying to load sound");
-		//var sound : flash.media.Sound = new Attempt_1_1_mp3();
 		var sound : flash.media.Sound = cast Type.createInstance(
-			Type.resolveClass("Attempt_1_1_mp3"), []);
+			Type.resolveClass(soundFile), []);
 		trace(sound);
 
 		trace(sound.length);
