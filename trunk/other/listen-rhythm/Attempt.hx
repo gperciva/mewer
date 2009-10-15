@@ -16,6 +16,14 @@ class Attempt {
 			Std.string(realNumber) + "-png";
 	}
 
+	public function startPlay() {
+
+	}
+
+	public function stopPlay() {
+
+	}
+
 }
 
 
