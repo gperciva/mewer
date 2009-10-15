@@ -9,11 +9,18 @@ class Attempt {
 	var realNumber : Int;
 	var name : String;
 
-	public function new(phaseNumberGet : Int, realNumberGet : Int) {
+	var callbackStopSounds : Dynamic;
+	var sound : flash.media.Sound;
+
+	public function new(phaseNumberGet : Int, realNumberGet : Int,
+		callbackStopSoundsGet : Dynamic) {
 		phaseNumber = phaseNumberGet;
 		realNumber = realNumberGet;
+		callbackStopSounds = callbackStopSoundsGet;
+
 		name = "Attempt_" + Std.string(phaseNumber)
 			+ "_"+Std.string(realNumber);
+		sound = Type.createInstance(Type.resolveClass(name+"_mp3"), []);
 	}
 
 	public function selected() {
@@ -25,20 +32,18 @@ class Attempt {
 	}
 
 	public function startPlay() {
-		var soundFile = name + "_mp3";
-
-		trace("trying to load sound");
-		var sound : flash.media.Sound = cast Type.createInstance(
-			Type.resolveClass(soundFile), []);
-		trace(sound);
-
+		callbackStopSounds();
 		trace(sound.length);
-//		sound.play();
-//		trace("trying to play");
+		sound.play();
+	}
+
+	public function stopPlayActual() {
+		trace("stop playing " + name);
+		sound.stop();
 	}
 
 	public function stopPlay() {
-		trace("stop playing " + name);
+		callbackStopSounds();
 	}
 
 }
