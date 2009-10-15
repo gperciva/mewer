@@ -72,7 +72,7 @@ class ListenRhythm {
 		}
 
 		for (i in 0...4) {
-			attempt[i] = new Attempt(phase, order[i]);
+			attempt[i] = new Attempt(phase, order[i], stopSounds);
 		}
 
 		ui.showLevel(attempt);
@@ -82,6 +82,12 @@ class ListenRhythm {
 		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
 		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
 */
+	}
+
+	function stopSounds() {
+		for (i in 0...4) {
+			attempt[i].stopPlay();
+		}
 	}
 
 
