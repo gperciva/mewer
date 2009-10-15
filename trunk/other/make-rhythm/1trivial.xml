@@ -2,14 +2,14 @@
 <movie version="9">
   <frame>
     <library>
-        <clip id="1-1-png" import="1-1.png"/>
-        <clip id="1-2-png" import="1-2.png"/>
-        <clip id="1-3-png" import="1-3.png"/>
-        <clip id="1-4-png" import="1-4.png"/>
-	<sound id="1-1-mp3" import="1-1.mp3"/>
-	<sound id="1-2-mp3" import="1-2.mp3"/>
-	<sound id="1-3-mp3" import="1-3.mp3"/>
-	<sound id="1-4-mp3" import="1-4.mp3"/>
+        <clip id="Attempt_1_1_png" import="1-1.png"/>
+        <clip id="Attempt_1_2_png" import="1-2.png"/>
+        <clip id="Attempt_1_3_png" import="1-3.png"/>
+        <clip id="Attempt_1_4_png" import="1-4.png"/>
+	<sound id="Attempt_1_1_mp3" import="1-1.mp3"/>
+	<sound id="Attempt_1_2_mp3" import="1-2.mp3"/>
+	<sound id="Attempt_1_3_mp3" import="1-3.mp3"/>
+	<sound id="Attempt_1_4_mp3" import="1-4.mp3"/>
     </library>
   </frame>
 </movie>
