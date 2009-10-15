@@ -15,15 +15,6 @@ class UI {
 	public function showMain(beginFunc : Dynamic) {
 		if (arcticView != null) { arcticView.destroy(); }
 
-//		var beginFunc = attempts[1].selected;
-/*
-Filler,
-Arctic.makeTextChoice([ "Excellent", "Good", "Ok", "Bad", "Terrible"],
-	null, 2, 20).block,
-				]),
-			Filler
-*/
-
 		var mainLabel = LineStack( [
 			ColumnStack( [ Filler,
 				Arctic.makeText("Rhythmic Evaluation",50),
@@ -39,8 +30,37 @@ Arctic.makeTextChoice([ "Excellent", "Good", "Ok", "Bad", "Terrible"],
 
 
 	function drawAttempt(data : Attempt) {
-		return 
-			Picture(data.imageName(),800,100,2.0);
+		var choices = Arctic.makeTextChoiceBlocks([
+			"1      ", "2      ", "3      ",
+			"4      ", "5      ", "6      ", "7"],
+			null, 3, 18);
+		var choicesBox = { block: ColumnStack(choices.blocks),
+			selectFn: choices.selectFn};
+
+		return Background(0xeeeeee, ColumnStack ( [
+			LineStack( [
+				Picture(data.imageName(),400,50,1.0),
+				ColumnStack( [
+					Filler,
+					Background(0xCC0000,
+						Arctic.makeSimpleButton("Stop",
+						data.stopPlay, 20)),
+					Background(0x00CC00,
+						Arctic.makeSimpleButton("Play",
+						data.startPlay, 20)),
+					Filler ]),
+				]),
+			LineStack( [
+				Filler,
+				ColumnStack( [
+					Arctic.makeText("Bad", 18), Filler,
+					Arctic.makeText("Ok", 18), Filler,
+					Arctic.makeText("Good", 18),
+				]),
+				choicesBox.block,
+				Filler
+			])
+		]));
 	}
 
 	public function showLevel(attempt : Array<Attempt>) {
@@ -51,9 +71,9 @@ Arctic.makeTextChoice([ "Excellent", "Good", "Ok", "Bad", "Terrible"],
 			drawed[i] = drawAttempt( attempt[i] );
 		}
 		var scene = LineStack( [
-			drawed[0], Filler,
-			drawed[1], Filler,
-			drawed[2], Filler,
+			drawed[0],
+			drawed[1],
+			drawed[2],
 			drawed[3]
 			]);
 
