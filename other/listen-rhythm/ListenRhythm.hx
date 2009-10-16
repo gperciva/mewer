@@ -86,7 +86,7 @@ class ListenRhythm {
 
 	function stopSounds() {
 		for (i in 0...4) {
-			attempt[i].stopPlay();
+			attempt[i].stopPlayActual();
 		}
 	}
 
