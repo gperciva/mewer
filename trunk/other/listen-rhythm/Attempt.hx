@@ -11,6 +11,7 @@ class Attempt {
 
 	var callbackStopSounds : Dynamic;
 	var sound : flash.media.Sound;
+	var soundChannel : flash.media.SoundChannel;
 
 	public function new(phaseNumberGet : Int, realNumberGet : Int,
 		callbackStopSoundsGet : Dynamic) {
@@ -21,6 +22,7 @@ class Attempt {
 		name = "Attempt_" + Std.string(phaseNumber)
 			+ "_"+Std.string(realNumber);
 		sound = Type.createInstance(Type.resolveClass(name+"_mp3"), []);
+		soundChannel = null;
 	}
 
 	public function selected() {
@@ -32,17 +34,23 @@ class Attempt {
 	}
 
 	public function startPlay() {
+		trace("start playing");
 		callbackStopSounds();
 		trace(sound.length);
-		sound.play();
+		soundChannel = sound.play();
+		trace(soundChannel);
 	}
 
 	public function stopPlayActual() {
-		trace("stop playing " + name);
-		sound.stop();
+		trace("stop playing actual" + name);
+		if (soundChannel != null) {
+			trace("stopping sound channel");
+			soundChannel.stop();
+		}
 	}
 
 	public function stopPlay() {
+		trace("stopPlay");
 		callbackStopSounds();
 	}
 
