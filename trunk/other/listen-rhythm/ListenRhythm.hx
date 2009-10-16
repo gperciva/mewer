@@ -40,8 +40,8 @@ class ListenRhythm {
 		name = "1-" + number;
 		var s:flash.display.Sprite = flash.Lib.attach(name+"-png");
 		s.name = name; 
-		s.width = 400;
-		s.y = 60*(number-1);
+		s.width = 300;
+		s.y = 40*(number-1);
 
 		s.addEventListener(flash.events.MouseEvent.MOUSE_UP, clickedTry);
 
@@ -56,7 +56,7 @@ class ListenRhythm {
 		// randomize order
 		var order : Array<Int> = new Array();
 		while (order.length < 4) {
-			var tryInt : Int = Std.random(4) + 1;
+			var tryInt : Int = Std.random(4) + 2;
 			for (i in 0...4) {
 				if (order[i] == tryInt) {
 					tryInt = 0;
@@ -71,8 +71,9 @@ class ListenRhythm {
 			}
 		}
 
+		attempt[0] = new Attempt(phase, 1, stopSounds);
 		for (i in 0...4) {
-			attempt[i] = new Attempt(phase, order[i], stopSounds);
+			attempt[i+1] = new Attempt(phase, order[i], stopSounds);
 		}
 
 		ui.showLevel(attempt);
@@ -85,7 +86,7 @@ class ListenRhythm {
 	}
 
 	function stopSounds() {
-		for (i in 0...4) {
+		for (i in 0...5) {
 			attempt[i].stopPlayActual();
 		}
 	}
