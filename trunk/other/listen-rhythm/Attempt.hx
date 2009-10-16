@@ -27,7 +27,7 @@ class Attempt {
 	}
 
 	public function isPerfect() {
-		if (realNumber == 0)
+		if (realNumber == 1)
 			return 1;
 		return 0;
 	}

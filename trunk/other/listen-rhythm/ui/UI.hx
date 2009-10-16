@@ -30,18 +30,24 @@ class UI {
 
 
 	function drawAttempt(data : Attempt) {
-		var rightSide;
-/*
-		var isPerfect = data.isPerfect();
-		if (isPerfect == 1) {
-*/
+		var rightSide : Dynamic;
+		if (data.isPerfect() == 1) {
+			rightSide = LineStack([
+				Filler,
+				ColumnStack( [
+					Filler,
+					Arctic.makeText("Perfect example", 24),
+					Filler
+				]),
+				Filler
+			]);
+		} else {
 			var choices = Arctic.makeTextChoiceBlocks([
 				"1    ", "2    ", "3    ",
 				"4    ", "5    ", "6    ", "7"],
 				null, 3, 18);
 			var choicesBox = { block: ColumnStack(choices.blocks),
 				selectFn: choices.selectFn};
-/*
 			rightSide = LineStack( [
 				Filler,
 				ColumnStack( [
@@ -52,12 +58,7 @@ class UI {
 				choicesBox.block,
 				Filler
 			]);
-		} else {
-			rightSide = LineStack([
-				Filler
-			]);
 		}
-*/
 
 		return Background(0xeeeeee, ColumnStack ( [
 			LineStack( [
@@ -72,16 +73,8 @@ class UI {
 						data.startPlay, 16)),
 					Filler ]),
 				]),
-			LineStack( [
-				Filler,
-				ColumnStack( [
-					Arctic.makeText("Bad", 18), Filler,
-					Arctic.makeText("Ok", 18), Filler,
-					Arctic.makeText("Good", 18),
-				]),
-				choicesBox.block,
-				Filler
-		]) ]));
+				rightSide
+		]));
 	}
 
 	public function showLevel(attempt : Array<Attempt>) {
