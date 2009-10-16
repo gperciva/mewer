@@ -2,6 +2,7 @@ class Attempt_1_1_mp3 extends flash.media.Sound {}
 class Attempt_1_2_mp3 extends flash.media.Sound {}
 class Attempt_1_3_mp3 extends flash.media.Sound {}
 class Attempt_1_4_mp3 extends flash.media.Sound {}
+class Attempt_1_5_mp3 extends flash.media.Sound {}
 
 
 class Attempt {
@@ -25,6 +26,12 @@ class Attempt {
 		soundChannel = null;
 	}
 
+	public function isPerfect() {
+		if (realNumber == 0)
+			return 1;
+		return 0;
+	}
+
 	public function selected() {
 		trace(realNumber);
 	}
@@ -34,23 +41,19 @@ class Attempt {
 	}
 
 	public function startPlay() {
-		trace("start playing");
 		callbackStopSounds();
-		trace(sound.length);
 		soundChannel = sound.play();
-		trace(soundChannel);
+		trace("playing "+name);
 	}
 
 	public function stopPlayActual() {
-		trace("stop playing actual" + name);
 		if (soundChannel != null) {
-			trace("stopping sound channel");
 			soundChannel.stop();
+			soundChannel = null;
 		}
 	}
 
 	public function stopPlay() {
-		trace("stopPlay");
 		callbackStopSounds();
 	}
 

@@ -30,24 +30,46 @@ class UI {
 
 
 	function drawAttempt(data : Attempt) {
-		var choices = Arctic.makeTextChoiceBlocks([
-			"1      ", "2      ", "3      ",
-			"4      ", "5      ", "6      ", "7"],
-			null, 3, 18);
-		var choicesBox = { block: ColumnStack(choices.blocks),
-			selectFn: choices.selectFn};
+		var rightSide;
+/*
+		var isPerfect = data.isPerfect();
+		if (isPerfect == 1) {
+*/
+			var choices = Arctic.makeTextChoiceBlocks([
+				"1    ", "2    ", "3    ",
+				"4    ", "5    ", "6    ", "7"],
+				null, 3, 18);
+			var choicesBox = { block: ColumnStack(choices.blocks),
+				selectFn: choices.selectFn};
+/*
+			rightSide = LineStack( [
+				Filler,
+				ColumnStack( [
+					Arctic.makeText("Bad", 18), Filler,
+					Arctic.makeText("Ok", 18), Filler,
+					Arctic.makeText("Good", 18),
+				]),
+				choicesBox.block,
+				Filler
+			]);
+		} else {
+			rightSide = LineStack([
+				Filler
+			]);
+		}
+*/
 
 		return Background(0xeeeeee, ColumnStack ( [
 			LineStack( [
-				Picture(data.imageName(),400,50,1.0),
+				Picture(data.imageName(),300,30,1.0),
 				ColumnStack( [
 					Filler,
 					Background(0xCC0000,
 						Arctic.makeSimpleButton("Stop",
-						data.stopPlay, 20)),
+						data.stopPlay, 16)),
 					Background(0x00CC00,
 						Arctic.makeSimpleButton("Play",
-						data.startPlay, 20)),
+						data.startPlay, 16)),
 					Filler ]),
 				]),
 			LineStack( [
@@ -59,22 +81,22 @@ class UI {
 				]),
 				choicesBox.block,
 				Filler
-			])
-		]));
+		]) ]));
 	}
 
 	public function showLevel(attempt : Array<Attempt>) {
 		if (arcticView != null) { arcticView.destroy(); }
 
 		var drawed : Array<Dynamic> = new Array();
-		for (i in 0...4) {
+		for (i in 0...5) {
 			drawed[i] = drawAttempt( attempt[i] );
 		}
 		var scene = LineStack( [
 			drawed[0],
 			drawed[1],
 			drawed[2],
-			drawed[3]
+			drawed[3],
+			drawed[4]
 			]);
 
 		arcticView = new ArcticView(scene, parent);
