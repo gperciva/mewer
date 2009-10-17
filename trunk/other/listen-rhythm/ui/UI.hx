@@ -38,7 +38,7 @@ class UI {
 				Filler,
 				ColumnStack( [
 					Filler,
-					Arctic.makeText("Perfect example", 24),
+					Arctic.makeText("(perfect rhythm)", 18),
 					Filler
 				]),
 				Filler
@@ -93,7 +93,12 @@ class UI {
 			drawed[i] = drawAttempt( attempt[i] );
 		}
 
-		var notation = Picture(phase+"_notation_png",300,40,1.0);
+		var notation = ColumnStack( [
+			Picture(phase+"_notation_png",300,40,1.0),
+			Filler,
+			Arctic.makeText("Rank the below exercise attempts", 20),
+			Filler
+		]);
 
 		var status = Background(0xcccccc, ColumnStack([
 			Arctic.makeText("Phase "+phase+" of "+MAX_PHASE, 20),
