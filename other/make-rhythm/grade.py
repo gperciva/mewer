@@ -74,7 +74,7 @@ for exp in glob.glob(attempt_name + '-*.exp'):
 	image = Image.new('RGB', [WIDTH, HEIGHT], 'white')
 	draw = ImageDraw.Draw(image)
 	for o in onsets:
-		xpos = (o + offset) * (WIDTH-X_OFFSET) / 8.0 + X_OFFSET
+		xpos = (o + offset) * (WIDTH-X_OFFSET) / 4.0 + X_OFFSET
 		draw.line((xpos,0, xpos,HEIGHT),fill='blue')
 	image.save(base+'.png', 'png')
 
