@@ -5,8 +5,9 @@ import Image
 import ImageDraw
 import glob
 
-WIDTH = 400
-HEIGHT = 50
+WIDTH = 300
+X_OFFSET = 30
+HEIGHT = 40
 ERROR_SCALE = 300.0
 
 try:
@@ -68,7 +69,7 @@ for exp in glob.glob('*-*.exp'):
 	image = Image.new('RGB', [WIDTH, HEIGHT], 'white')
 	draw = ImageDraw.Draw(image)
 	for o in onsets:
-		xpos = (o + offset) * WIDTH / 8.0
+		xpos = (o + offset) * (WIDTH-X_OFFSET) / 8.0 + X_OFFSET
 		draw.line((xpos,0, xpos,HEIGHT),fill='blue')
 	image.save(base+'.png', 'png')
 

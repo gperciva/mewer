@@ -29,7 +29,7 @@ out_file = wave.open(outfile_name, 'wb')
 out_file.sr = 44100
 out_file.setparams((1, 2, 44100, 44100*4, 'NONE', 'noncompressed'))
 
-# initial silence; currently needed in MEAWS
+# initial silence; currently needed in MEAWS.  500 ms
 fill_zeros = ''
 for i in range( 22050 ):
 	fill_zeros += struct.pack('h', 0)

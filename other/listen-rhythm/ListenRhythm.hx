@@ -76,7 +76,7 @@ class ListenRhythm {
 			attempt[i+1] = new Attempt(phase, order[i], stopSounds);
 		}
 
-		ui.showLevel(attempt);
+		ui.showLevel(phase, attempt);
 
 /*
 		var URL = "http://localhost:2000/remoting.n";

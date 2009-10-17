@@ -4,6 +4,8 @@ import arctic.ArcticView;
 import arctic.ArcticBlock;
 
 class UI {
+	static inline var MAX_PHASE = 1;
+
 	var arcticView : ArcticView;
 	var parent : ArcticMovieClip;
 
@@ -59,37 +61,48 @@ class UI {
 				Filler
 			]);
 		}
+		// arctic 1.0.1 has problems with two fillers
+		var center = 100;
 
 		return Background(0xeeeeee, ColumnStack ( [
 			LineStack( [
-				Picture(data.imageName(),300,30,1.0),
+				Picture(data.imageName(),300,40,1.0),
 				ColumnStack( [
-					Filler,
+					ConstrainWidth(center,center, Filler),
 					Background(0xCC0000,
 						Arctic.makeSimpleButton("Stop",
 						data.stopPlay, 16)),
 					Background(0x00CC00,
 						Arctic.makeSimpleButton("Play",
 						data.startPlay, 16)),
-					Filler ]),
-				]),
-				rightSide
+					ConstrainWidth(center,center, Filler),
+				 ]),
+			]),
+			rightSide
 		]));
 	}
 
-	public function showLevel(attempt : Array<Attempt>) {
+	public function showLevel(phase : Int, attempt : Array<Attempt>) {
 		if (arcticView != null) { arcticView.destroy(); }
 
 		var drawed : Array<Dynamic> = new Array();
 		for (i in 0...5) {
 			drawed[i] = drawAttempt( attempt[i] );
 		}
+
+		var status = Background(0xcccccc, ColumnStack([
+			Arctic.makeText("Phase "+phase+" of "+MAX_PHASE, 20),
+			Filler,
+			Background(0x9999ee, Arctic.makeSimpleButton(
+				"Next phase", null, 20))
+		]));
 		var scene = LineStack( [
 			drawed[0],
 			drawed[1],
 			drawed[2],
 			drawed[3],
-			drawed[4]
+			drawed[4],
+			status
 			]);
 
 		arcticView = new ArcticView(scene, parent);
