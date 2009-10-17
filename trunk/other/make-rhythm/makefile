@@ -1,4 +1,6 @@
 all:
-	swfmill simple 1trivial.xml 1trivial.swf
+	lilypond -dpreview trivial.ly
+	python 
+	swfmill simple trivial.xml trivial.swf
 
 
