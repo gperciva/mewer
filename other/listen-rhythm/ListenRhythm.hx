@@ -1,4 +1,3 @@
-//import ui.UI;
 
 class ListenRhythm {
 	var ui : ui.UI;

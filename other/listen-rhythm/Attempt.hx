@@ -42,8 +42,7 @@ class Attempt {
 
 	public function startPlay() {
 		callbackStopSounds();
-		soundChannel = sound.play();
-		//trace("playing "+name);
+		soundChannel = sound.play(0.0);
 	}
 
 	public function stopPlayActual() {
