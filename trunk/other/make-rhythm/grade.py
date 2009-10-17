@@ -13,7 +13,12 @@ ERROR_SCALE = 300.0
 try:
         perfect_name = sys.argv[1]
 except:
-        print "Please enter perfect exercise filename"
+        print "Please enter the perfect exercise filename"
+        sys.exit(1)
+try:
+        attempt_name = sys.argv[2]
+except:
+        print "Please enter attempt basename"
         sys.exit(1)
 
 
@@ -56,7 +61,7 @@ def gradeExercise(perfect, exercise, offset):
 perfect = getOnsets(perfect_name)
 
 scores = []
-for exp in glob.glob('*-*.exp'):
+for exp in glob.glob(attempt_name + '-*.exp'):
 	base = exp.split('.')[0]
 
 	onsets = getOnsets(exp)
