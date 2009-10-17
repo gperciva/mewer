@@ -5,13 +5,10 @@ import random
 random.seed()
 
 tolerances = [0.00, 0.02, 0.06, 0.1, 0.14]
+
+inpositions_name = "trivial.exp"
 try:
-        inpositions_name = sys.argv[1]
-except:
-        print "Please enter input position filename"
-        sys.exit(1)
-try:
-        outfile_name = sys.argv[2]
+        outfile_name = sys.argv[1]
 except:
         print "Please enter output base filename"
         sys.exit(1)
