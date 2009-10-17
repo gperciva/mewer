@@ -4,7 +4,7 @@ import os
 import random
 random.seed()
 
-tolerances = [0.02, 0.06, 0.1, 0.14]
+tolerances = [0.00, 0.02, 0.06, 0.1, 0.14]
 try:
         inpositions_name = sys.argv[1]
 except:
