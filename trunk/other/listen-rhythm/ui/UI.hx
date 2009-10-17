@@ -57,14 +57,17 @@ class UI {
 					Arctic.makeText("Ok", 18), Filler,
 					Arctic.makeText("Good", 18),
 				]),
-				choicesBox.block,
+				GradientBackground("linear",
+					[0xaaaaff, 0xffff77], 0, 0,
+					choicesBox.block),
 				Filler
 			]);
 		}
 		// arctic 1.0.1 has problems with two fillers
 		var center = 100;
 
-		return Background(0xeeeeee, ColumnStack ( [
+		return Background(0x999999, Border(1,1,
+			Background(0xeeeeee, ColumnStack ( [
 			LineStack( [
 				Picture(data.imageName(),300,40,1.0),
 				ColumnStack( [
@@ -79,7 +82,7 @@ class UI {
 				 ]),
 			]),
 			rightSide
-		]));
+		]))));
 	}
 
 	public function showLevel(phase : Int, attempt : Array<Attempt>) {
@@ -90,13 +93,18 @@ class UI {
 			drawed[i] = drawAttempt( attempt[i] );
 		}
 
+		var notation = Picture(phase+"_notation_png",300,40,1.0);
+
 		var status = Background(0xcccccc, ColumnStack([
 			Arctic.makeText("Phase "+phase+" of "+MAX_PHASE, 20),
 			Filler,
-			Background(0x9999ee, Arctic.makeSimpleButton(
-				"Next phase", null, 20))
+			Background(0x444444,
+				Border(3,3, Background(0xeeeeee,
+					Arctic.makeSimpleButton(
+					"Next phase", null, 18))))
 		]));
 		var scene = LineStack( [
+			notation,
 			drawed[0],
 			drawed[1],
 			drawed[2],

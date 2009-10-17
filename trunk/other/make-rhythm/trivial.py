@@ -4,7 +4,7 @@ import os
 import random
 random.seed()
 
-tolerances = [0.00, 0.02, 0.06, 0.1, 0.14]
+tolerances = [0.00, 0.04, 0.08, 0.12, 0.16]
 
 inpositions_name = "trivial.exp"
 try:
@@ -29,7 +29,7 @@ def writePos(filename, positions):
 	file = open(filename, 'w')
 	for p in positions:
 		file.write('60 ' + str(p) + '\n')
-	file.write('0 8.0\n')
+	file.write('0 4.0\n')
 	file.close()
 
 

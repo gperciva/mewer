@@ -3,7 +3,7 @@
   indent=0\mm
   ragged-last=##f
   ragged-right=##f
-  line-width=67\mm  % produces 267 pixels
+  line-width=75\mm  % produces 267 pixels
   oddFooterMarkup=##f
   oddHeaderMarkup=##f
   bookTitleMarkup = ##f
