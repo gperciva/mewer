@@ -4,7 +4,7 @@ import arctic.ArcticView;
 import arctic.ArcticBlock;
 
 class UI {
-	static inline var MAX_PHASE = 1;
+	static inline var MAX_PHASE = 2;
 
 	var arcticView : ArcticView;
 	var parent : ArcticMovieClip;
@@ -96,19 +96,23 @@ class UI {
 		var notation = ColumnStack( [
 			Picture(phase+"_notation_png",300,40,1.0),
 			Filler,
-			Arctic.makeText("Rank the below exercise attempts", 20),
+			Arctic.makeText("Rank these exercise attempts", 20),
 			Filler
 		]);
 
 		var status = Background(0xcccccc, ColumnStack([
-			Arctic.makeText("Phase "+phase+" of "+MAX_PHASE, 20),
+			LineStack([Filler,
+				Arctic.makeText("Phase "+
+				phase+" of "+MAX_PHASE, 20),
+				Filler
+			]),
 			Filler,
 			Background(0x444444,
-				Border(3,3, Background(0xeeeeee,
+				Border(3,3, Background(0xaaeeaa,
 					Arctic.makeSimpleButton(
 					"Next phase", null, 18))))
 		]));
-		var scene = LineStack( [
+		var scene = Background(0xeeeeee, LineStack( [
 			notation,
 			drawed[0],
 			drawed[1],
@@ -116,7 +120,7 @@ class UI {
 			drawed[3],
 			drawed[4],
 			status
-			]);
+			]));
 
 		arcticView = new ArcticView(scene, parent);
 		var root = arcticView.display(true);
