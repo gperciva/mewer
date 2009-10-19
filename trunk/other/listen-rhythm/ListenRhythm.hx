@@ -12,7 +12,7 @@ class ListenRhythm {
 		results = new Array();
 
 		ui = new ui.UI(flash.Lib.current);
-		ui.showMain(showLevel);
+		ui.showMain(advanceLevel);
 	}
 
 /*
@@ -48,8 +48,9 @@ class ListenRhythm {
 	}
 */
 
-	function showLevel() {
+	function advanceLevel() {
 		phase++;
+
 		attempt = new Array();
 
 		// randomize order
@@ -75,7 +76,7 @@ class ListenRhythm {
 			attempt[i+1] = new Attempt(phase, order[i], stopSounds);
 		}
 
-		ui.showLevel(phase, attempt);
+		ui.showLevel(phase, attempt, advanceLevel);
 
 /*
 		var URL = "http://localhost:2000/remoting.n";

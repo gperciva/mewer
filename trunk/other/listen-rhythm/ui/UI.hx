@@ -85,8 +85,16 @@ class UI {
 		]))));
 	}
 
-	public function showLevel(phase : Int, attempt : Array<Attempt>) {
-		if (arcticView != null) { arcticView.destroy(); }
+	public function showLevel(phase : Int, attempt : Array<Attempt>,
+		advanceLevel : Dynamic)
+	{
+		trace("UI showLevel, phase: "+phase);
+
+		if (arcticView != null) {
+			trace("clear screen");
+			arcticView.destroy();
+			trace("********** screen blank now");
+		}
 
 		var drawed : Array<Dynamic> = new Array();
 		for (i in 0...5) {
@@ -110,7 +118,7 @@ class UI {
 			Background(0x444444,
 				Border(3,3, Background(0xaaeeaa,
 					Arctic.makeSimpleButton(
-					"Next phase", null, 18))))
+					"Next phase", advanceLevel, 18))))
 		]));
 		var scene = Background(0xeeeeee, LineStack( [
 			notation,
