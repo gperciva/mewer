@@ -4,8 +4,6 @@ import arctic.ArcticView;
 import arctic.ArcticBlock;
 
 class UI {
-	static inline var MAX_PHASE = 2;
-
 	var arcticView : ArcticView;
 	var parent : ArcticMovieClip;
 
@@ -85,16 +83,10 @@ class UI {
 		]))));
 	}
 
-	public function showLevel(phase : Int, attempt : Array<Attempt>,
-		advanceLevel : Dynamic)
+	public function showLevel(phase : Int, max_phase : Int,
+		attempt : Array<Attempt>, advanceLevel : Dynamic)
 	{
-		trace("UI showLevel, phase: "+phase);
-
-		if (arcticView != null) {
-			trace("clear screen");
-			arcticView.destroy();
-			trace("********** screen blank now");
-		}
+		if (arcticView != null) { arcticView.destroy(); }
 
 		var drawed : Array<Dynamic> = new Array();
 		for (i in 0...5) {
@@ -111,7 +103,7 @@ class UI {
 		var status = Background(0xcccccc, ColumnStack([
 			LineStack([Filler,
 				Arctic.makeText("Phase "+
-				phase+" of "+MAX_PHASE, 20),
+				phase+" of "+max_phase, 20),
 				Filler
 			]),
 			Filler,
@@ -132,6 +124,11 @@ class UI {
 
 		arcticView = new ArcticView(scene, parent);
 		var root = arcticView.display(true);
+	}
+
+	public function showFinalPhase() {
+		if (arcticView != null) { arcticView.destroy(); }
+		trace("TODO: thanks for cooperation");
 	}
 
 

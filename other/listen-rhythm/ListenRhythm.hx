@@ -1,5 +1,7 @@
 
 class ListenRhythm {
+	static inline var MAX_PHASE = 1;
+
 	var ui : ui.UI;
 	var cnx : haxe.remoting.HttpAsyncConnection;
 	var phase : Int;
@@ -50,6 +52,10 @@ class ListenRhythm {
 
 	function advanceLevel() {
 		phase++;
+		if (phase > MAX_PHASE) {
+			finalPhase();
+			return;
+		}
 
 		attempt = new Array();
 
@@ -76,13 +82,18 @@ class ListenRhythm {
 			attempt[i+1] = new Attempt(phase, order[i], stopSounds);
 		}
 
-		ui.showLevel(phase, attempt, advanceLevel);
+		ui.showLevel(phase, MAX_PHASE, attempt, advanceLevel);
 
 /*
 		var URL = "http://localhost:2000/remoting.n";
 		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
 		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
 */
+	}
+
+	function finalPhase() {
+		ui.showFinalPhase();
+		trace("TODO send data over network");
 	}
 
 	function stopSounds() {
