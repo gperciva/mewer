@@ -22,7 +22,7 @@ class Attempt {
 
 		name = "Attempt_" + Std.string(phaseNumber)
 			+ "_"+Std.string(realNumber);
-		sound = Type.createInstance(Type.resolveClass(name+"_mp3"), []);
+		//sound = Type.createInstance(Type.resolveClass(name+"_mp3"), []);
 		soundChannel = null;
 	}
 
