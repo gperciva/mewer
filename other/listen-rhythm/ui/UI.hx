@@ -15,15 +15,18 @@ class UI {
 	public function showMain(beginFunc : Dynamic) {
 		if (arcticView != null) { arcticView.destroy(); }
 
-		var mainLabel = LineStack( [
+		var mainLabel = Background(0xeeeeee, LineStack( [
 			ColumnStack( [ Filler,
 				Arctic.makeText("Rhythmic Evaluation",50),
 				Filler]),
 			Filler,
 			ColumnStack( [ Filler,
-				Arctic.makeSimpleButton("Begin grading",
-					beginFunc, 40), Filler]),
-			Filler,]);
+				Background(0x444444,
+					Border(3,3, Background(0xaaeeaa,
+					Arctic.makeSimpleButton("Begin grading",
+					beginFunc, 40)))),
+				Filler]),
+			Filler,]));
 		arcticView = new ArcticView( mainLabel, parent);
 		var root = arcticView.display(true);
 	}
@@ -31,6 +34,7 @@ class UI {
 
 	function drawAttempt(data : Attempt) {
 		var rightSide : Dynamic;
+		var backgroundAttempt;
 		if (data.isPerfect() == 1) {
 			rightSide = LineStack([
 				Filler,
@@ -41,6 +45,7 @@ class UI {
 				]),
 				Filler
 			]);
+			backgroundAttempt = 0xeeeeaa;
 		} else {
 			var choices = Arctic.makeTextChoiceBlocks([
 				"1    ", "2    ", "3    ",
@@ -56,16 +61,17 @@ class UI {
 					Arctic.makeText("Good", 18),
 				]),
 				GradientBackground("linear",
-					[0xaaaaff, 0xffff77], 0, 0,
+					[0xbbbbee, 0xeeeeaa], 0, 0,
 					choicesBox.block),
 				Filler
 			]);
+			backgroundAttempt = 0xeeeeee;
 		}
 		// arctic 1.0.1 has problems with two fillers
 		var center = 100;
 
 		return Background(0x999999, Border(1,1,
-			Background(0xeeeeee, ColumnStack ( [
+			Background(backgroundAttempt, ColumnStack ( [
 			LineStack( [
 				Picture(data.imageName(),300,40,1.0),
 				ColumnStack( [
