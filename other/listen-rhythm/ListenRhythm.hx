@@ -7,7 +7,7 @@ class ListenRhythm {
 	var phase : Int;
 
 	var attempt : Array<Attempt>;
-	var results : List<List<Int>>;
+	var results : List<Array<Int>>;
 
 	public function new() {
 		phase = 0;
@@ -54,9 +54,13 @@ class ListenRhythm {
 	function advanceLevel() {
 		phase++;
 		if (attempt != null) {
-			var resultsPrevious = new List<Int>();
+			var resultsPrevious = new Array<Int>();
+			resultsPrevious[0] = 0;
+			resultsPrevious[1] = 0;
 			for (i in 1...5) {
-				resultsPrevious.push( attempt[i].getResult() );
+				var res = attempt[i].getResult();
+				var pos = attempt[i].getRealNumber();
+				resultsPrevious[pos] = res;
 			}
 			results.push( resultsPrevious );
 		}
