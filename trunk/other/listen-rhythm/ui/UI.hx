@@ -50,7 +50,7 @@ class UI {
 			var choices = Arctic.makeTextChoiceBlocks([
 				"1    ", "2    ", "3    ",
 				"4    ", "5    ", "6    ", "7"],
-				null, 3, 18);
+				data.setResult, 3, 18);
 			var choicesBox = { block: ColumnStack(choices.blocks),
 				selectFn: choices.selectFn};
 			rightSide = LineStack( [

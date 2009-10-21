@@ -7,11 +7,12 @@ class ListenRhythm {
 	var phase : Int;
 
 	var attempt : Array<Attempt>;
-	var results : Array<Array<Int>>;
+	var results : List<List<Int>>;
 
 	public function new() {
 		phase = 0;
-		results = new Array();
+		results = new List();
+		attempt = null;
 
 		ui = new ui.UI(flash.Lib.current);
 		ui.showMain(advanceLevel);
@@ -52,10 +53,18 @@ class ListenRhythm {
 
 	function advanceLevel() {
 		phase++;
+		if (attempt != null) {
+			var resultsPrevious = new List<Int>();
+			for (i in 1...5) {
+				resultsPrevious.push( attempt[i].getResult() );
+			}
+			results.push( resultsPrevious );
+		}
 		if (phase > MAX_PHASE) {
 			finalPhase();
 			return;
 		}
+
 
 		attempt = new Array();
 
@@ -92,6 +101,7 @@ class ListenRhythm {
 	}
 
 	function finalPhase() {
+		trace(results);
 		ui.showFinalPhase();
 		trace("TODO send data over network");
 	}
