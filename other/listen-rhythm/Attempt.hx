@@ -14,6 +14,8 @@ class Attempt {
 	var sound : flash.media.Sound;
 	var soundChannel : flash.media.SoundChannel;
 
+	var result : Int;
+
 	public function new(phaseNumberGet : Int, realNumberGet : Int,
 		callbackStopSoundsGet : Dynamic) {
 		phaseNumber = phaseNumberGet;
@@ -22,7 +24,7 @@ class Attempt {
 
 		name = "Attempt_" + Std.string(phaseNumber)
 			+ "_"+Std.string(realNumber);
-		//sound = Type.createInstance(Type.resolveClass(name+"_mp3"), []);
+		sound = Type.createInstance(Type.resolveClass(name+"_mp3"), []);
 		soundChannel = null;
 	}
 
@@ -56,6 +58,14 @@ class Attempt {
 		callbackStopSounds();
 	}
 
+	public function setResult(resultGet: Int, textGet: String) {
+		result = resultGet + 1;
+		// we don't need the text
+	}
+
+	public function getResult() {
+		return result;
+	}
 }
 
 
