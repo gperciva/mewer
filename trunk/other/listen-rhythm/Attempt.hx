@@ -21,6 +21,7 @@ class Attempt {
 		phaseNumber = phaseNumberGet;
 		realNumber = realNumberGet;
 		callbackStopSounds = callbackStopSoundsGet;
+		result = 4; // default choice from UI
 
 		name = "Attempt_" + Std.string(phaseNumber)
 			+ "_"+Std.string(realNumber);
@@ -32,10 +33,6 @@ class Attempt {
 		if (realNumber == 1)
 			return 1;
 		return 0;
-	}
-
-	public function selected() {
-		trace(realNumber);
 	}
 
 	public function imageName() {
@@ -65,6 +62,10 @@ class Attempt {
 
 	public function getResult() {
 		return result;
+	}
+
+	public function getRealNumber() {
+		return realNumber;
 	}
 }
 
