@@ -1,4 +1,5 @@
 
+
 class ListenRhythm {
 	static inline var MAX_PHASE = 1;
 
@@ -18,6 +19,20 @@ class ListenRhythm {
 		ui.showMain(advanceLevel);
 	}
 
+	public function sendData() {
+		var URL = "http://localhost:2000/remoting.n";
+		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
+		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
+
+		cnx.Server.record.call([results, Secret.word], networkAnswer);
+	}
+
+	public function networkAnswer(error: Int) {
+		if (error == 0) {
+			trace("Thank you");
+		}
+	}
+
 /*
 	function clickedTry(event : flash.events.MouseEvent) {
 		var name: String = event.target.name;
@@ -28,7 +43,6 @@ class ListenRhythm {
 		//trace(sound.length);
 		//sound.play();
 
-		cnx.Server.record.call([choice], display);
 	}
 
 	static function display(v) {
@@ -98,16 +112,13 @@ class ListenRhythm {
 		ui.showLevel(phase, MAX_PHASE, attempt, advanceLevel);
 
 /*
-		var URL = "http://localhost:2000/remoting.n";
-		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
-		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
 */
 	}
 
 	function finalPhase() {
 		trace(results);
 		ui.showFinalPhase();
-		trace("TODO send data over network");
+		sendData();
 	}
 
 	function stopSounds() {
