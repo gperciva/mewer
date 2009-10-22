@@ -6,11 +6,13 @@ class Server {
 		save = neko.io.File.append("choices.txt", false);
 	}
 
-	function record(data) {
-		save.writeString(Std.string( data ));
-		save.flush();
-//		save.close();
+	function record(results:List<Array<Int>>, secret:String) {
+		if (secret == Secret.word) {
+			save.writeString(Std.string( results ));
+			save.flush();
+		}
 
+//		save.close();
 		return 0;
 	}
 
