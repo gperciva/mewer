@@ -1,5 +1,4 @@
 
-
 class ListenRhythm {
 	static inline var MAX_PHASE = 1;
 
@@ -20,50 +19,18 @@ class ListenRhythm {
 	}
 
 	public function sendData() {
-		var URL = "http://localhost:2000/remoting.n";
-		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(URL);
+		// initial setup
+		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(Config.url);
 		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
-
-		cnx.Server.record.call([results, Secret.word], networkAnswer);
+		// send
+		cnx.Server.record.call([results, Config.secret], networkAnswer);
 	}
 
 	public function networkAnswer(error: Int) {
 		if (error == 0) {
-			trace("Thank you");
+			trace("TODO thank you");
 		}
 	}
-
-/*
-	function clickedTry(event : flash.events.MouseEvent) {
-		var name: String = event.target.name;
-		var choice:Int = Std.parseInt( name.split('-')[1] );
-
-		//var sound:flash.media.Sound;
-		//sound = flash.media.Sound.attach(name+"-mp3");
-		//trace(sound.length);
-		//sound.play();
-
-	}
-
-	static function display(v) {
-		if (v==0)
-			return;
-		trace(v);
-	}
-
-	function setupTry(number: Int) {
-		var name:String;
-		name = "1-" + number;
-		var s:flash.display.Sprite = flash.Lib.attach(name+"-png");
-		s.name = name; 
-		s.width = 300;
-		s.y = 40*(number-1);
-
-		s.addEventListener(flash.events.MouseEvent.MOUSE_UP, clickedTry);
-
-		flash.Lib.current.addChild(s);
-	}
-*/
 
 	function advanceLevel() {
 		phase++;
@@ -110,13 +77,9 @@ class ListenRhythm {
 		}
 
 		ui.showLevel(phase, MAX_PHASE, attempt, advanceLevel);
-
-/*
-*/
 	}
 
 	function finalPhase() {
-		trace(results);
 		ui.showFinalPhase();
 		sendData();
 	}

@@ -7,8 +7,8 @@ class Server {
 	}
 
 	function record(results:List<Array<Int>>, secret:String) {
-		if (secret == Secret.word) {
-			save.writeString(Std.string( results ));
+		if (secret == Config.secret) {
+			save.writeString(Std.string( results ) + '\n');
 			save.flush();
 		}
 
