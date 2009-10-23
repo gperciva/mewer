@@ -4,7 +4,7 @@ import os
 import random
 random.seed()
 
-tolerances = [0.00, 0.02, 0.07, 0.12, 0.17]
+tolerances = [0.00, 0.02, 0.08, 0.13, 0.17]
 
 inpositions_name = "trivial.exp"
 try:
@@ -33,21 +33,21 @@ def writePos(filename, positions):
 	file.close()
 
 
-i = 1
-for tol in tolerances:
+for j in range(len(tolerances)):
+	tol = tolerances[j]
+	i = j+1
 	newpos = []
 	for pos in positions:
-		rand_abs = random.uniform(tol/2, tol)
+		rand_abs = random.uniform(tol*3/4, tol)
 		rand = random.choice([-1, 1]) * rand_abs
 		newpos.append( pos + rand )
 	shift = -1*newpos[0]
 	for n in range(len(newpos)):
 		newpos[n] += shift
 	writePos(outfile_name+"-"+str(i)+".exp", newpos)
-	i = i+1
 
-i = 1
-while (i < len(tolerances)+1):
+for j in range(len(tolerances)):
+	i = j+1
 	make_clap_command = "python make-clap.py "
 	make_clap_command += outfile_name+"-"+str(i)+".exp "
 	make_clap_command += outfile_name+"-"+str(i)+".wav "
@@ -57,6 +57,4 @@ while (i < len(tolerances)+1):
 	make_mp3 += outfile_name+"-"+str(i)+".wav "
 	make_mp3 += outfile_name+"-"+str(i)+".mp3 "
 	os.system(make_mp3)
-
-	i = i+1
 
