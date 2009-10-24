@@ -2,18 +2,19 @@ class Server {
 	var save: haxe.io.Output;
 
 	function new() {
-//		save = neko.io.File.write("choices.txt", false);
-		save = neko.io.File.append("choices.txt", false);
 	}
 
 	function record(results:List<Array<Int>>, secret:String) {
 		if (secret == Config.secret) {
+			var filename : String;
+			var save_file : neko.io.FileOutput;
+			filename = "choices-"+neko.Sys.time()+".txt";
+			save = neko.io.File.write(filename, false);
 			save.writeString(Std.string( results ) + '\n');
-			save.flush();
+			save.close();
+			return 0;
 		}
-
-//		save.close();
-		return 0;
+		return 1;
 	}
 
 	static function main() {

@@ -1,6 +1,6 @@
 
 class ListenRhythm {
-	static inline var MAX_PHASE = 1;
+	static inline var MAX_PHASE = 2;
 
 	var ui : ui.UI;
 	var cnx : haxe.remoting.HttpAsyncConnection;
