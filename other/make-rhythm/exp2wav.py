@@ -9,11 +9,8 @@ try:
 except:
 	print "Please enter input position filename"
 	sys.exit(1)
-try:
-	outfile_name = sys.argv[2]
-except:
-	print "Please enter output filename"
-	sys.exit(1)
+
+outfile_name = inpositions_name[:-4] + ".wav"
 
 
 print "Reading clap position file " + inpositions_name

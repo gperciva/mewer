@@ -46,15 +46,16 @@ for j in range(len(tolerances)):
 		newpos[n] += shift
 	writePos(outfile_name+"-"+str(i)+".exp", newpos)
 
-for j in range(len(tolerances)):
-	i = j+1
-	make_clap_command = "python make-clap.py "
-	make_clap_command += outfile_name+"-"+str(i)+".exp "
-	make_clap_command += outfile_name+"-"+str(i)+".wav "
-	os.system(make_clap_command)
+#for j in range(len(tolerances)):
+#	i = j+1
+#	make_clap_command = "python make-clap.py "
+#	make_clap_command += outfile_name+"-"+str(i)+".exp "
+#	make_clap_command += outfile_name+"-"+str(i)+".wav "
+#	os.system(make_clap_command)
+#
+#	make_mp3 = "lame -b 64 "
+#	make_mp3 += outfile_name+"-"+str(i)+".wav "
+#	make_mp3 += outfile_name+"-"+str(i)+".mp3 "
+#	os.system(make_mp3)
 
-	make_mp3 = "lame -b 64 "
-	make_mp3 += outfile_name+"-"+str(i)+".wav "
-	make_mp3 += outfile_name+"-"+str(i)+".mp3 "
-	os.system(make_mp3)
 
