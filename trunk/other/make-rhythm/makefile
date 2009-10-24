@@ -12,9 +12,7 @@ all:
 	#
 	for f in *.exp; do python exp2wav.py $$f; done;
 	for f in *.wav; do lame -b 64 $$f; done;
-	#
-	swfmill simple trivial.xml trivial.swf
-	swfmill simple easy.xml easy.swf
+	swfmill simple phases.xml phases.swf
 
 clean:
 	rm -f *.eps *.pdf *.swf

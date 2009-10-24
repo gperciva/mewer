@@ -13,6 +13,18 @@
 	<sound id="Attempt_1_3_mp3" import="1-3.wav.mp3"/>
 	<sound id="Attempt_1_4_mp3" import="1-4.wav.mp3"/>
 	<sound id="Attempt_1_5_mp3" import="1-5.wav.mp3"/>
+
+        <clip id="2_notation_png" import="2-notation.png"/>
+        <clip id="Attempt_2_1_png" import="2-1.png"/>
+        <clip id="Attempt_2_2_png" import="2-2.png"/>
+        <clip id="Attempt_2_3_png" import="2-3.png"/>
+        <clip id="Attempt_2_4_png" import="2-4.png"/>
+        <clip id="Attempt_2_5_png" import="2-5.png"/>
+	<sound id="Attempt_2_1_mp3" import="2-1.wav.mp3"/>
+	<sound id="Attempt_2_2_mp3" import="2-2.wav.mp3"/>
+	<sound id="Attempt_2_3_mp3" import="2-3.wav.mp3"/>
+	<sound id="Attempt_2_4_mp3" import="2-4.wav.mp3"/>
+	<sound id="Attempt_2_5_mp3" import="2-5.wav.mp3"/>
     </library>
   </frame>
 </movie>
