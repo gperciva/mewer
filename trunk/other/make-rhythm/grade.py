@@ -81,7 +81,7 @@ for exp in glob.glob(attempt_name + '-*.exp'):
 	grade = gradeExercise(perfect, onsets, offset)
 	scores.append([base, grade])
 
-scores_file = open('scores.txt', 'w')
+scores_file = open(attempt_name + '-scores.txt', 'w')
 for s in scores:
 	scores_file.write(s[0]+'\t')
 	scores_file.write(str(s[1])+'\n')

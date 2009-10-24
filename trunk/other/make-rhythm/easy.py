@@ -6,7 +6,7 @@ random.seed()
 
 tolerances = [0.00, 0.02, 0.08, 0.13, 0.17]
 
-inpositions_name = "trivial.exp"
+inpositions_name = "easy.exp"
 try:
         outfile_name = sys.argv[1]
 except:
