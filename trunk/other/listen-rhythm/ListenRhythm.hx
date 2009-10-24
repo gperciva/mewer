@@ -6,6 +6,8 @@ class ListenRhythm {
 	var cnx : haxe.remoting.HttpAsyncConnection;
 	var phase : Int;
 
+	var userSkill : Int;
+
 	var attempt : Array<Attempt>;
 	var results : List<Array<Int>>;
 
@@ -13,9 +15,10 @@ class ListenRhythm {
 		phase = 0;
 		results = new List();
 		attempt = null;
+		userSkill = 0;
 
 		ui = new ui.UI(flash.Lib.current);
-		ui.showMain(advanceLevel);
+		ui.showMain(advanceLevel, setUserSkill);
 
 		// network setup
 		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(Config.url);
@@ -23,13 +26,19 @@ class ListenRhythm {
 	}
 
 	public function sendData() {
-		cnx.Server.record.call([results, Config.secret], networkAnswer);
+		cnx.Server.record.call( [userSkill, results, Config.secret],
+			networkAnswer);
 	}
 
 	public function networkAnswer(error: Int) {
 		if (error == 0) {
 			trace("TODO thank you");
 		}
+	}
+
+	function setUserSkill(userSkillGet: Int, textGet: String) {
+		userSkill = userSkillGet;
+		// we don't need the text
 	}
 
 	function advanceLevel() {

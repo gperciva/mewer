@@ -4,13 +4,16 @@ class Server {
 	function new() {
 	}
 
-	function record(results:List<Array<Int>>, secret:String) {
+	function record(userSkill : Int, results : List<Array<Int>>,
+		secret:String)
+	{
 		if (secret == Config.secret) {
 			var filename : String;
 			var save_file : neko.io.FileOutput;
 			filename = "choices-"+neko.Sys.time()+".txt";
 			save = neko.io.File.write(filename, false);
-			save.writeString(Std.string( results ) + '\n');
+			save.writeString(userSkill + '\t' +
+				Std.string( results ) + '\n');
 			save.close();
 			return 0;
 		}

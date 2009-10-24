@@ -10,5 +10,6 @@ all: compile.hxml
 	cd nekoserver && nekotools server
 
 clean:
-	rm listen-rhythm.swf
+	rm -f listen-rhythm.swf remoting.n
+	rm -f nekoserver/*
 
