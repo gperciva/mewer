@@ -1,6 +1,6 @@
 -swf listen-rhythm.swf
--swf-lib trivial.swf
 -swf-version 9
+-swf-lib phases.swf
 -main ListenRhythm
 
 --next
