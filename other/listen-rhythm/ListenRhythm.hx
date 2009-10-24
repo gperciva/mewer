@@ -16,13 +16,13 @@ class ListenRhythm {
 
 		ui = new ui.UI(flash.Lib.current);
 		ui.showMain(advanceLevel);
+
+		// network setup
+		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(Config.url);
+		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
 	}
 
 	public function sendData() {
-		// initial setup
-		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(Config.url);
-		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
-		// send
 		cnx.Server.record.call([results, Config.secret], networkAnswer);
 	}
 
