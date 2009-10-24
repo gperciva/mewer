@@ -12,7 +12,9 @@ class UI {
 		parent = parentMC;
 	}
 
-	public function showMain(beginFunc : Dynamic) {
+	public function showMain(beginFunc : Dynamic,
+		setUserSkill : Dynamic)
+	{
 		if (arcticView != null) { arcticView.destroy(); }
 
 		var mainLabel = Background(0xeeeeee, LineStack( [
@@ -20,13 +22,38 @@ class UI {
 				Arctic.makeText("Rhythmic Evaluation",50),
 				Filler]),
 			Filler,
-			ColumnStack( [ Filler,
+			ColumnStack([
+				Filler,
+				Background(0x777777,
+					Border(1,1, Background(0xffffcc,
+				LineStack( [
+				Arctic.makeText("1. Instructions", 34),
+				Arctic.makeText("On each of the next few screens, you will be asked to rank    ", 20),
+				Arctic.makeText("how well each of 4 rhythms match the notated rhythm.", 20),
+				Arctic.makeText("The correct rhythm is provided.", 20),
+				])))),
+				Filler,
+			]),
+			Filler,
+			ColumnStack([
+				Background(0x777777,
+				Border(1,1, Background(0xccffff,LineStack([
+				Arctic.makeText("2. Your musical skill:",34),
+				Arctic.makeTextChoice(
+					["Unskilled", "Student or Amateur",
+					"Professional"], setUserSkill,
+					0, 18).block,
+			])))),
+			Filler,
+			LineStack( [
+				Fixed(30,30),
 				Background(0x444444,
 					Border(3,3, Background(0xaaeeaa,
-					Arctic.makeSimpleButton("Begin grading",
-					beginFunc, 40)))),
-				Filler]),
-			Filler,]));
+					Arctic.makeSimpleButton("3. Begin ranking",
+					beginFunc, 34)))),
+				])
+			]),
+			Filler ]));
 		arcticView = new ArcticView( mainLabel, parent);
 		var root = arcticView.display(true);
 	}
@@ -40,7 +67,7 @@ class UI {
 				Filler,
 				ColumnStack( [
 					Filler,
-					Arctic.makeText("(perfect rhythm)", 18),
+					Arctic.makeText("(correct rhythm)", 18),
 					Filler
 				]),
 				Filler
@@ -108,7 +135,7 @@ class UI {
 
 		var status = Background(0xcccccc, ColumnStack([
 			LineStack([Filler,
-				Arctic.makeText("Phase "+
+				Arctic.makeText("Screen "+
 				phase+" of "+max_phase, 20),
 				Filler
 			]),
@@ -116,7 +143,7 @@ class UI {
 			Background(0x444444,
 				Border(3,3, Background(0xaaeeaa,
 					Arctic.makeSimpleButton(
-					"Next phase", advanceLevel, 18))))
+					"Next screen", advanceLevel, 18))))
 		]));
 		var scene = Background(0xeeeeee, LineStack( [
 			notation,
