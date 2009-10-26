@@ -32,7 +32,7 @@ class ListenRhythm {
 
 	public function networkAnswer(error: Int) {
 		if (error == 0) {
-			trace("TODO thank you");
+			ui.showThanks();
 		}
 	}
 
