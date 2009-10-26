@@ -149,7 +149,7 @@ class UI {
 		}
 
 		var notation = ColumnStack( [
-			Picture(phase+"_notation_png",300,40,1.0),
+			Picture(phase+"_notation_png",300,48,1.0),
 			Filler,
 			Arctic.makeText("Rank these exercise attempts", 20),
 			Filler
