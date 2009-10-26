@@ -213,10 +213,10 @@ class UI {
 			Arctic.makeText("... finished sending data", 20),
 			Filler,
 			Arctic.makeText("If you would like to see the survey results, please view", 20),
-			Arctic.makeText("<a href=\"" + result_url
+			Arctic.makeText("  <a href=\"" + result_url
 				+ "\">" + result_url
 				+ "</a>", 20, "#0000dd"),
-			Arctic.makeText("in a few weeks", 20),
+			Arctic.makeText("in a few weeks.", 20),
 			Filler
 			]),
 			Filler]));
