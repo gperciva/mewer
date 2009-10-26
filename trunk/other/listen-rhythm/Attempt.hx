@@ -3,11 +3,27 @@ class Attempt_1_2_mp3 extends flash.media.Sound {}
 class Attempt_1_3_mp3 extends flash.media.Sound {}
 class Attempt_1_4_mp3 extends flash.media.Sound {}
 class Attempt_1_5_mp3 extends flash.media.Sound {}
+
 class Attempt_2_1_mp3 extends flash.media.Sound {}
 class Attempt_2_2_mp3 extends flash.media.Sound {}
 class Attempt_2_3_mp3 extends flash.media.Sound {}
 class Attempt_2_4_mp3 extends flash.media.Sound {}
 class Attempt_2_5_mp3 extends flash.media.Sound {}
+
+class Attempt_3_1_mp3 extends flash.media.Sound {}
+class Attempt_3_2_mp3 extends flash.media.Sound {}
+class Attempt_3_3_mp3 extends flash.media.Sound {}
+class Attempt_3_4_mp3 extends flash.media.Sound {}
+class Attempt_3_5_mp3 extends flash.media.Sound {}
+
+class Attempt_4_1_mp3 extends flash.media.Sound {}
+class Attempt_4_2_mp3 extends flash.media.Sound {}
+class Attempt_4_3_mp3 extends flash.media.Sound {}
+class Attempt_4_4_mp3 extends flash.media.Sound {}
+class Attempt_4_5_mp3 extends flash.media.Sound {}
+
+
+
 
 class Attempt {
 	var phaseNumber : Int;
