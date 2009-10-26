@@ -1,7 +1,12 @@
 class Server {
-	var save: haxe.io.Output;
-
 	function new() {
+	}
+
+	function ping(secret:String) {
+		if (secret == Config.secret) {
+			return 0;
+		}
+		return 1;
 	}
 
 	function record(userSkill : Int, results : List<Array<Int>>,
@@ -11,10 +16,10 @@ class Server {
 			var filename : String;
 			var save_file : neko.io.FileOutput;
 			filename = "choices-"+neko.Sys.time()+".txt";
-			save = neko.io.File.write(filename, false);
-			save.writeString(userSkill + '\t' +
+			save_file = neko.io.File.write(filename, false);
+			save_file.writeString(userSkill + '\t' +
 				Std.string( results ) + '\n');
-			save.close();
+			save_file.close();
 			return 0;
 		}
 		return 1;
@@ -25,6 +30,5 @@ class Server {
 		ctx.addObject("Server", new Server());
 		if (haxe.remoting.HttpConnection.handleRequest(ctx))
 			return;
-		trace("Configured");
 	}
 }

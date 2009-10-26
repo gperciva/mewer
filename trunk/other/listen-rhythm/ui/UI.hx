@@ -14,6 +14,26 @@ class UI {
 		parent = parentMC;
 	}
 
+	public function networkError(error : Dynamic) {
+		if (arcticView != null) { arcticView.destroy(); }
+
+		var scene = Background(0xeeeeee, LineStack([
+			ColumnStack([Filler,
+				Arctic.makeText("Rhythmic Evaluation Survey",
+					40), Filler]),
+			Arctic.makeText(" ", 20),
+			Arctic.makeText("Sorry, a network error has occurred",
+				20),
+			Arctic.makeText(Std.string(error), 20),
+			Arctic.makeText(" ", 20),
+			Arctic.makeText("Please try again in a few minutes.", 20)
+		]));
+
+		arcticView = new ArcticView(scene, parent);
+		var root = arcticView.display(true);
+	}
+
+
 	public function showMain(beginFunc : Dynamic,
 		setUserSkill : Dynamic)
 	{
@@ -21,8 +41,8 @@ class UI {
 
 		var mainLabel = Background(0xeeeeee, LineStack( [
 			ColumnStack( [ Filler,
-				Arctic.makeText("Rhythmic Evaluation",50),
-				Filler]),
+				Arctic.makeText("Rhythmic Evaluation Survey",
+					40), Filler]),
 			Filler,
 			ColumnStack([
 				Filler,
@@ -38,6 +58,7 @@ class UI {
 			]),
 			Filler,
 			ColumnStack([
+				Filler,
 				Background(0x777777,
 				Border(1,1, Background(0xccffff,LineStack([
 				Arctic.makeText("2. Your musical skill:",30),
@@ -52,7 +73,7 @@ class UI {
 					Arctic.makeSimpleButton(
 						"3. Begin ranking",
 						beginFunc, 30)))),
-			Filler ]),
+				Filler ]),
 			Filler
 		]));
 		arcticView = new ArcticView( mainLabel, parent);
@@ -168,7 +189,9 @@ class UI {
 			Filler,
 			Arctic.makeText("Thank you for completing the survey", 30),
 			Arctic.makeText("  sending your answers over the network...", 20),
+			Arctic.makeText(" ", 20),
 			Filler,
+			Arctic.makeText(" ", 20),
 			Arctic.makeText(" ", 20),
 			Arctic.makeText(" ", 20),
 			Filler
@@ -186,12 +209,14 @@ class UI {
 			Filler, LineStack( [
 			Filler,
 			Arctic.makeText("Thank you for completing the survey", 30),
+			Arctic.makeText("  sending your answers over the network...", 20),
 			Arctic.makeText("... finished sending data", 20),
 			Filler,
 			Arctic.makeText("If you would like to see the survey results, please view", 20),
 			Arctic.makeText("<a href=\"" + result_url
 				+ "\">" + result_url
 				+ "</a>", 20, "#0000dd"),
+			Arctic.makeText("in a few weeks", 20),
 			Filler
 			]),
 			Filler]));
@@ -200,37 +225,5 @@ class UI {
 		var root = arcticView.display(true);
 
 	}
-
-
-/*
-	static public function label(
-		text: String, x: Int, y: Int
-	) {
-		var label = new flash.text.TextField();
-		label.text = text;
-		label.x = x;
-		label.y = y;
-		return label;
-	}
-
-	static public function clearScreen() {
-		for (i in 0...flash.Lib.current.numChildren) {
-			flash.Lib.current.removeChildAt(0);
-		}
-	}
-
-	static public function button(
-		text: String, x: Int, y: Int, ?pressed: Dynamic
-	) {
-var myRectangle : flash.display.Sprite= new flash.display.Sprite();
-myRectangle.graphics.beginFill ( 0x990000 );  // the color of the rectangle
-myRectangle.graphics.lineStyle ( 1, 0x000000, 1, false, flash.display.LineScaleMode.NONE ); // the border style
-// we add the rectangle at the high-left corner (coordinate 0,0 )of the screen, with a width and a length of 10.
-myRectangle.graphics.drawRect ( 0, 0, 50, 50);
-
-myRectangle.addEventListener(flash.events.MouseEvent.MOUSE_UP, pressed);
-return myRectangle;
-	}
-*/
 
 }
