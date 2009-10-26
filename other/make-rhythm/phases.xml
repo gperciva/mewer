@@ -25,6 +25,30 @@
 	<sound id="Attempt_2_3_mp3" import="2-3.wav.mp3"/>
 	<sound id="Attempt_2_4_mp3" import="2-4.wav.mp3"/>
 	<sound id="Attempt_2_5_mp3" import="2-5.wav.mp3"/>
+
+        <clip id="3_notation_png" import="3-notation.png"/>
+        <clip id="Attempt_3_1_png" import="3-1.png"/>
+        <clip id="Attempt_3_2_png" import="3-2.png"/>
+        <clip id="Attempt_3_3_png" import="3-3.png"/>
+        <clip id="Attempt_3_4_png" import="3-4.png"/>
+        <clip id="Attempt_3_5_png" import="3-5.png"/>
+	<sound id="Attempt_3_1_mp3" import="3-1.wav.mp3"/>
+	<sound id="Attempt_3_2_mp3" import="3-2.wav.mp3"/>
+	<sound id="Attempt_3_3_mp3" import="3-3.wav.mp3"/>
+	<sound id="Attempt_3_4_mp3" import="3-4.wav.mp3"/>
+	<sound id="Attempt_3_5_mp3" import="3-5.wav.mp3"/>
+
+        <clip id="4_notation_png" import="4-notation.png"/>
+        <clip id="Attempt_4_1_png" import="4-1.png"/>
+        <clip id="Attempt_4_2_png" import="4-2.png"/>
+        <clip id="Attempt_4_3_png" import="4-3.png"/>
+        <clip id="Attempt_4_4_png" import="4-4.png"/>
+        <clip id="Attempt_4_5_png" import="4-5.png"/>
+	<sound id="Attempt_4_1_mp3" import="4-1.wav.mp3"/>
+	<sound id="Attempt_4_2_mp3" import="4-2.wav.mp3"/>
+	<sound id="Attempt_4_3_mp3" import="4-3.wav.mp3"/>
+	<sound id="Attempt_4_4_mp3" import="4-4.wav.mp3"/>
+	<sound id="Attempt_4_5_mp3" import="4-5.wav.mp3"/>
     </library>
   </frame>
 </movie>
