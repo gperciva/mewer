@@ -4,6 +4,8 @@ import arctic.ArcticView;
 import arctic.ArcticBlock;
 
 class UI {
+	static inline var result_url : String = "http://markov.music.gla.ac.uk/cmt-wiki/GrahamPercival";
+
 	var arcticView : ArcticView;
 	var parent : ArcticMovieClip;
 
@@ -27,10 +29,10 @@ class UI {
 				Background(0x777777,
 					Border(1,1, Background(0xffffcc,
 				LineStack( [
-				Arctic.makeText("1. Instructions", 34),
-				Arctic.makeText("On each of the next few screens, you will be asked to rank    ", 20),
-				Arctic.makeText("how well each of 4 rhythms match the notated rhythm.", 20),
-				Arctic.makeText("The correct rhythm is provided.", 20),
+				Arctic.makeText("1. Instructions", 30),
+				Arctic.makeText("On each of the next few screens, you will be asked to rank    ", 16),
+				Arctic.makeText("how well each of 4 rhythms match the notated rhythm.", 16),
+				Arctic.makeText("The correct rhythm is provided.", 16),
 				])))),
 				Filler,
 			]),
@@ -38,22 +40,21 @@ class UI {
 			ColumnStack([
 				Background(0x777777,
 				Border(1,1, Background(0xccffff,LineStack([
-				Arctic.makeText("2. Your musical skill:",34),
+				Arctic.makeText("2. Your musical skill:",30),
 				Arctic.makeTextChoice(
 					["Unskilled", "Student or Amateur",
 					"Professional"], setUserSkill,
-					0, 18).block,
-			])))),
-			Filler,
-			LineStack( [
-				Fixed(30,30),
-				Background(0x444444,
+					0, 16).block,
+				])))),
+				Filler,
+				Background(0x777777,
 					Border(3,3, Background(0xaaeeaa,
-					Arctic.makeSimpleButton("3. Begin ranking",
-					beginFunc, 34)))),
-				])
-			]),
-			Filler ]));
+					Arctic.makeSimpleButton(
+						"3. Begin ranking",
+						beginFunc, 30)))),
+			Filler ]),
+			Filler
+		]));
 		arcticView = new ArcticView( mainLabel, parent);
 		var root = arcticView.display(true);
 	}
@@ -161,7 +162,43 @@ class UI {
 
 	public function showFinalPhase() {
 		if (arcticView != null) { arcticView.destroy(); }
-		trace("TODO: thanks for cooperation");
+
+		var scene = Background(0xeeeeee, ColumnStack([
+			Filler, LineStack( [
+			Filler,
+			Arctic.makeText("Thank you for completing the survey", 30),
+			Arctic.makeText("  sending your answers over the network...", 20),
+			Filler,
+			Arctic.makeText(" ", 20),
+			Arctic.makeText(" ", 20),
+			Filler
+			]),
+			Filler]));
+
+		arcticView = new ArcticView(scene, parent);
+		var root = arcticView.display(true);
+	}
+
+	public function showThanks() {
+		if (arcticView != null) { arcticView.destroy(); }
+
+		var scene = Background(0xeeeeee, ColumnStack([
+			Filler, LineStack( [
+			Filler,
+			Arctic.makeText("Thank you for completing the survey", 30),
+			Arctic.makeText("... finished sending data", 20),
+			Filler,
+			Arctic.makeText("If you would like to see the survey results, please view", 20),
+			Arctic.makeText("<a href=\"" + result_url
+				+ "\">" + result_url
+				+ "</a>", 20, "#0000dd"),
+			Filler
+			]),
+			Filler]));
+
+		arcticView = new ArcticView(scene, parent);
+		var root = arcticView.display(true);
+
 	}
 
 
