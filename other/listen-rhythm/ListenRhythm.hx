@@ -22,7 +22,8 @@ class ListenRhythm {
 
 		// network setup
 		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(Config.url);
-		cnx.setErrorHandler( function(err) trace("Error: "+Std.string(err)) );
+		cnx.setErrorHandler(ui.networkError);
+		cnx.Server.ping.call([Config.secret]);
 	}
 
 	public function sendData() {
