@@ -47,19 +47,17 @@ class ListenRhythm {
 		url += '&2=' + results.pop();
 		url += '&3=' + results.pop();
 		url += '&4=' + results.pop();
-		trace(url);
 
 		loader.load(new flash.net.URLRequest(url));
 	}
 
 	function ask_data(event:flash.events.Event) {
 		var response : String = loader.data;
-		trace(response);
-/*
-		if (error == 0) {
+		if (response == "written\n") {
 			ui.showThanks();
+		} else {
+			ui.networkError(null);
 		}
-*/
 	}
 
 	function setUserSkill(userSkillGet: Int, textGet: String) {
@@ -84,7 +82,6 @@ class ListenRhythm {
 			var store : String = '';
 			for (i in 2...6) {
 				store += resultsPrevious[i];
-				trace(store);
 			}
 			results.add( store );
 		}
