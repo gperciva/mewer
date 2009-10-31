@@ -11,6 +11,8 @@ class ListenRhythm {
 	var attempt : Array<Attempt>;
 	var results : List<Array<Int>>;
 
+	var loader : flash.net.URLLoader;
+
 	public function new() {
 		phase = 0;
 		results = new List();
@@ -18,16 +20,28 @@ class ListenRhythm {
 		userSkill = 0;
 
 		ui = new ui.UI(flash.Lib.current);
-		ui.showMain(advanceLevel, setUserSkill);
 
 		// network setup
-		cnx = haxe.remoting.HttpAsyncConnection.urlConnect(Config.url);
-		cnx.setErrorHandler(ui.networkError);
-		cnx.Server.ping.call([Config.secret]);
+		var url = Config.url + '?ping=1';
+		loader = new flash.net.URLLoader();
+		loader.addEventListener(flash.events.Event.COMPLETE, ask_ping);
+		loader.load(new flash.net.URLRequest(url));
 	}
 
+	private function ask_ping(event:flash.events.Event) : Void {
+		var response : String = loader.data;
+		if (response == "pong\n") {
+			ui.showMain(advanceLevel, setUserSkill);
+		} else {
+			ui.networkError(null);
+		}
+	}
+
+
 	public function sendData() {
-		cnx.Server.record.call( [userSkill, results, Config.secret],
+//		cnx.Server.record.call( [userSkill, results, Config.secret],
+//			networkAnswer);
+		cnx.call( [userSkill, results, Config.secret],
 			networkAnswer);
 	}
 
