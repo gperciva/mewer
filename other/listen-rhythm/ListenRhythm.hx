@@ -9,7 +9,7 @@ class ListenRhythm {
 	var userSkill : Int;
 
 	var attempt : Array<Attempt>;
-	var results : List<Array<Int>>;
+	var results : List<String>;
 
 	var loader : flash.net.URLLoader;
 
@@ -22,13 +22,13 @@ class ListenRhythm {
 		ui = new ui.UI(flash.Lib.current);
 
 		// network setup
-		var url = Config.url + '?ping=1';
 		loader = new flash.net.URLLoader();
 		loader.addEventListener(flash.events.Event.COMPLETE, ask_ping);
+		var url = Config.url + '?ping=1';
 		loader.load(new flash.net.URLRequest(url));
 	}
 
-	private function ask_ping(event:flash.events.Event) : Void {
+	function ask_ping(event:flash.events.Event) {
 		var response : String = loader.data;
 		if (response == "pong\n") {
 			ui.showMain(advanceLevel, setUserSkill);
@@ -38,17 +38,28 @@ class ListenRhythm {
 	}
 
 
-	public function sendData() {
-//		cnx.Server.record.call( [userSkill, results, Config.secret],
-//			networkAnswer);
-		cnx.call( [userSkill, results, Config.secret],
-			networkAnswer);
+	function sendData() {
+		loader = new flash.net.URLLoader();
+		loader.addEventListener(flash.events.Event.COMPLETE, ask_data);
+		var url = Config.url + '?action=record';
+		url += '&skill=' + userSkill;
+		url += '&1=' + results.pop();
+		url += '&2=' + results.pop();
+		url += '&3=' + results.pop();
+		url += '&4=' + results.pop();
+		trace(url);
+
+		loader.load(new flash.net.URLRequest(url));
 	}
 
-	public function networkAnswer(error: Int) {
+	function ask_data(event:flash.events.Event) {
+		var response : String = loader.data;
+		trace(response);
+/*
 		if (error == 0) {
 			ui.showThanks();
 		}
+*/
 	}
 
 	function setUserSkill(userSkillGet: Int, textGet: String) {
@@ -59,6 +70,7 @@ class ListenRhythm {
 	function advanceLevel() {
 		phase++;
 		if (attempt != null) {
+			// un-randomize Attempts
 			var resultsPrevious = new Array<Int>();
 			resultsPrevious[0] = 0;
 			resultsPrevious[1] = 0;
@@ -67,7 +79,14 @@ class ListenRhythm {
 				var pos = attempt[i].getRealNumber();
 				resultsPrevious[pos] = res;
 			}
-			results.push( resultsPrevious );
+
+			// convert to string
+			var store : String = '';
+			for (i in 2...6) {
+				store += resultsPrevious[i];
+				trace(store);
+			}
+			results.add( store );
 		}
 		if (phase > MAX_PHASE) {
 			finalPhase();
