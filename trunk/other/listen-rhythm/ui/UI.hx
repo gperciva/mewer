@@ -14,7 +14,7 @@ class UI {
 		parent = parentMC;
 	}
 
-	public function networkError(error : Dynamic) {
+	public function networkError(url : String) {
 		if (arcticView != null) { arcticView.destroy(); }
 
 		var scene = Background(0xeeeeee, LineStack([
@@ -22,9 +22,9 @@ class UI {
 				Arctic.makeText("Rhythmic Evaluation Survey",
 					40), Filler]),
 			Arctic.makeText(" ", 20),
-			Arctic.makeText("Sorry, a network error has occurred",
+			Arctic.makeText("Sorry, a network error has occurred while trying to access",
 				20),
-			Arctic.makeText(Std.string(error), 20),
+			Arctic.makeText(url, 10),
 			Arctic.makeText(" ", 20),
 			Arctic.makeText("Please try again in a few minutes.", 20)
 		]));
@@ -99,7 +99,7 @@ class UI {
 			var choices = Arctic.makeTextChoiceBlocks([
 				"1    ", "2    ", "3    ",
 				"4    ", "5    ", "6    ", "7"],
-				data.setResult, 3, 18);
+				data.setResult, 8, 18);
 			var choicesBox = { block: ColumnStack(choices.blocks),
 				selectFn: choices.selectFn};
 			rightSide = LineStack( [
@@ -119,10 +119,10 @@ class UI {
 		// arctic 1.0.1 has problems with two fillers
 		var center = 100;
 
+//				Picture(data.imageName(),300,40,1.0),
 		return Background(0x999999, Border(1,1,
 			Background(backgroundAttempt, ColumnStack ( [
 			LineStack( [
-				Picture(data.imageName(),300,40,1.0),
 				ColumnStack( [
 					ConstrainWidth(center,center, Filler),
 					Background(0xCC0000,
