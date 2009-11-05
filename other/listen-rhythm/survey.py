@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import cgi
-import time
 
 num_phases = 4
 num_fields = 2 + num_phases
@@ -11,7 +10,10 @@ def sorry():
 def verify_write(form):
 	if (len(form) != num_fields):
 		sorry()
-	log_line = str( int( form["skill"].value )) + '\t'
+	import os
+	log_line = ''
+	log_line += os.environ['REMOTE_ADDR'] + '\t'
+	log_line += str( int( form["skill"].value )) + '\t'
 	log_line += str( int( form["1"].value )) + '\t'
 	log_line += str( int( form["2"].value )) + '\t'
 	log_line += str( int( form["3"].value )) + '\t'
@@ -19,7 +21,9 @@ def verify_write(form):
 	write_log(log_line)
 
 def write_log(log_line):
-	outfilename = "data-"+str(int(time.time()))+".txt"
+	import time
+	nowtime = str(int(time.time()))
+	outfilename = "data-"+nowtime+".txt"
 	outfile = open(outfilename,'a')
 	outfile.write(log_line)
 	outfile.close()
