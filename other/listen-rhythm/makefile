@@ -14,5 +14,4 @@ all: compile.hxml
 
 clean:
 	rm -f listen-rhythm.swf remoting.n
-	rm -f nekoserver/*
 
