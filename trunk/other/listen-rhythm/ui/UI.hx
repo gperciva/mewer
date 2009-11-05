@@ -81,7 +81,7 @@ class UI {
 	}
 
 
-	function drawAttempt(data : Attempt) {
+	function drawAttempt(number : Int, data : Attempt) {
 		var rightSide : Dynamic;
 		var backgroundAttempt;
 		if (data.isPerfect() == 1) {
@@ -119,11 +119,7 @@ class UI {
 		// arctic 1.0.1 has problems with two fillers
 		var center = 100;
 
-//				Picture(data.imageName(),300,40,1.0),
-		return Background(0x999999, Border(1,1,
-			Background(backgroundAttempt, ColumnStack ( [
-			LineStack( [
-				ColumnStack( [
+		var playControls = ColumnStack( [
 					ConstrainWidth(center,center, Filler),
 					Background(0xCC0000,
 						Arctic.makeSimpleButton("Stop",
@@ -132,10 +128,28 @@ class UI {
 						Arctic.makeSimpleButton("Play",
 						data.startPlay, 16)),
 					ConstrainWidth(center,center, Filler),
-				 ]),
-			]),
-			rightSide
-		]))));
+				 ]);
+
+		var leftSide : Dynamic;
+		if (number == 0) {
+			leftSide = LineStack( [
+				Picture(data.imageName(),300,40,1.0),
+				playControls
+			]);
+		} else {
+			leftSide = LineStack( [
+				Filler,
+				playControls
+			]);
+		}
+
+
+		return Background(0x999999, Border(1,1,
+			Background(backgroundAttempt, ColumnStack ( [
+				leftSide,
+				rightSide
+			])
+		)));
 	}
 
 	public function showLevel(phase : Int, max_phase : Int,
@@ -145,7 +159,7 @@ class UI {
 
 		var drawed : Array<Dynamic> = new Array();
 		for (i in 0...5) {
-			drawed[i] = drawAttempt( attempt[i] );
+			drawed[i] = drawAttempt( i, attempt[i] );
 		}
 
 		var notation = ColumnStack( [
