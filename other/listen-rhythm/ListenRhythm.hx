@@ -14,12 +14,15 @@ class ListenRhythm {
 	var loader : flash.net.URLLoader;
 	var url : String;
 
+	var lastNewScreenTime : Float;
+
 	public function new() {
 		phase = 0;
 		results = new List();
 		attempt = null;
 		userSkill = 0;
 		url = '';
+		lastNewScreenTime = 0;
 
 		ui = new ui.UI(flash.Lib.current);
 
@@ -68,6 +71,12 @@ class ListenRhythm {
 	}
 
 	function advanceLevel() {
+		var nowTime = Date.now().getTime();
+		// wait at least 1 second
+		if (nowTime < (lastNewScreenTime + 1000))
+			return;
+		lastNewScreenTime = nowTime;
+
 		phase++;
 		if (attempt != null) {
 			// un-randomize Attempts
