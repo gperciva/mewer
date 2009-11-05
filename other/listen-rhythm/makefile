@@ -10,6 +10,7 @@ all: compile.hxml
 	cp survey.py ~/public_html/cgi-bin/
 	chmod a+x ~/public_html/cgi-bin/survey.py
 	chgrp www-data ~/public_html/cgi-bin/
+	chmod g+w ~/public_html/cgi-bin/
 
 clean:
 	rm -f listen-rhythm.swf remoting.n

@@ -12,19 +12,21 @@ class ListenRhythm {
 	var results : List<String>;
 
 	var loader : flash.net.URLLoader;
+	var url : String;
 
 	public function new() {
 		phase = 0;
 		results = new List();
 		attempt = null;
 		userSkill = 0;
+		url = '';
 
 		ui = new ui.UI(flash.Lib.current);
 
 		// network setup
 		loader = new flash.net.URLLoader();
 		loader.addEventListener(flash.events.Event.COMPLETE, ask_ping);
-		var url = Config.url + '?ping=1';
+		url = Config.url + '?ping=1';
 		loader.load(new flash.net.URLRequest(url));
 	}
 
@@ -33,7 +35,7 @@ class ListenRhythm {
 		if (response == "pong\n") {
 			ui.showMain(advanceLevel, setUserSkill);
 		} else {
-			ui.networkError(null);
+			ui.networkError(url);
 		}
 	}
 
@@ -41,7 +43,7 @@ class ListenRhythm {
 	function sendData() {
 		loader = new flash.net.URLLoader();
 		loader.addEventListener(flash.events.Event.COMPLETE, ask_data);
-		var url = Config.url + '?action=record';
+		url = Config.url + '?action=record';
 		url += '&skill=' + userSkill;
 		url += '&1=' + results.pop();
 		url += '&2=' + results.pop();
@@ -56,7 +58,7 @@ class ListenRhythm {
 		if (response == "written\n") {
 			ui.showThanks();
 		} else {
-			ui.networkError(null);
+			ui.networkError(url);
 		}
 	}
 
