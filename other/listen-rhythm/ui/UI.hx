@@ -80,6 +80,18 @@ class UI {
 		var root = arcticView.display(true);
 	}
 
+	// the extra space is deliberate for spacing issues.
+	function numToLetter(num : Int) : String {
+		if (num == 1)
+			return ' A';
+		if (num == 2)
+			return ' B';
+		if (num == 3)
+			return ' C';
+		if (num == 4)
+			return ' D';
+		return '  ';
+	}
 
 	function drawAttempt(number : Int, data : Attempt) {
 		var rightSide : Dynamic;
@@ -117,7 +129,11 @@ class UI {
 			backgroundAttempt = 0xeeeeee;
 		}
 		// arctic 1.0.1 has problems with two fillers
-		var center = 100;
+		var center = 80;
+		// this is getting really ugly
+		if (number == 0) {
+			center += 37;
+		}
 
 		var playControls = ColumnStack( [
 					ConstrainWidth(center,center, Filler),
@@ -137,9 +153,16 @@ class UI {
 				playControls
 			]);
 		} else {
-			leftSide = LineStack( [
-				Filler,
-				playControls
+			leftSide = ColumnStack([
+				LineStack ([
+					Filler,
+					Arctic.makeText(numToLetter(number), 36),
+					Filler
+				]),
+				LineStack ([
+					Filler,
+					playControls
+				])
 			]);
 		}
 
