@@ -3,7 +3,7 @@ all: compile.hxml
 	echo *****  if this is the final build, Secret.hx  *****
 	haxe compile.hxml
 	mkdir -p ~/public_html/
-	cp listen-rhythm.html ~/public_html/
+	cp index.html ~/public_html/
 	cp listen-rhythm.swf ~/public_html/
 	#
 	mkdir -p ~/public_html/cgi-bin/
