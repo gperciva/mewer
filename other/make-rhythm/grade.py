@@ -5,9 +5,9 @@ import Image
 import ImageDraw
 import glob
 
-WIDTH = 300
-X_OFFSET = 30
-HEIGHT = 40
+WIDTH = 323
+X_OFFSET = 32
+HEIGHT = 50
 ERROR_SCALE = 500.0
 
 try:
@@ -61,7 +61,8 @@ def gradeExercise(perfect, exercise, offset):
 perfect = getOnsets(perfect_name)
 
 scores = []
-for exp in glob.glob(attempt_name + '-*.exp'):
+for i in range(1,6):
+	exp = attempt_name + '-' + str(i) + '.exp'
 	base = exp.split('.')[0]
 
 	onsets = getOnsets(exp)
@@ -76,6 +77,7 @@ for exp in glob.glob(attempt_name + '-*.exp'):
 	for o in onsets:
 		xpos = (o + offset) * (WIDTH-X_OFFSET) / 4.0 + X_OFFSET
 		draw.line((xpos,0, xpos,HEIGHT),fill='blue')
+		draw.line((xpos+1,0, xpos+1,HEIGHT),fill='blue')
 	image.save(base+'.png', 'png')
 
 	grade = gradeExercise(perfect, onsets, offset)

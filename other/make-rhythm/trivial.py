@@ -4,7 +4,7 @@ import os
 import random
 random.seed()
 
-tolerances = [0.00, 0.02, 0.08, 0.13, 0.17]
+tolerances = [0.00, 0.02, 0.07, 0.12, 0.16]
 
 inpositions_name = "trivial.exp"
 try:

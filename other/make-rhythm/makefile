@@ -4,8 +4,8 @@ all:
 	python trivial.py 1
 	python grade.py trivial.exp 1
 	#
-	lilypond -dpreview easy.ly
-	mv easy.preview.png 2-notation.png
+	lilypond -dpreview 2-notation.ly
+	mv 2-notation-preview.png 2-notation.png
 	python easy.py 2
 	python grade.py easy.exp 2
 	#
@@ -25,6 +25,6 @@ all:
 clean:
 	rm -f *.eps *.pdf *.swf *.png clap.wav.mp3
 	rm -f 1-* trivial.wav*
-	rm -f 2-* easy.wav*
-	rm -f 3-*.wav* 4-*.wav* 3-scores.txt 4-scores.txt
+	rm -f 3-*.wav* 4-*.wav* 2-*.wav*
+	rm -f 2-scores.txt 3-scores.txt 4-scores.txt
 
