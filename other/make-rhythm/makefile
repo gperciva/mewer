@@ -5,9 +5,8 @@ all:
 	python grade.py trivial.exp 1
 	#
 	lilypond -dpreview 2-notation.ly
-	mv 2-notation-preview.png 2-notation.png
-	python easy.py 2
-	python grade.py easy.exp 2
+	mv 2-notation.preview.png 2-notation.png
+	python grade.py 2-1.exp 2
 	#
 	lilypond -dpreview 3-notation.ly
 	mv 3-notation.preview.png 3-notation.png
