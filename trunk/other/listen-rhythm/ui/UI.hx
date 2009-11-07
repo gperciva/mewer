@@ -50,9 +50,9 @@ class UI {
 					Border(1,1, Background(0xffffcc,
 				LineStack( [
 				Arctic.makeText("1. Instructions", 30),
-				Arctic.makeText("On each of the next few screens, you will be asked to rank    ", 16),
-				Arctic.makeText("how well each of 4 rhythms match the notated rhythm.", 16),
-				Arctic.makeText("The correct rhythm is provided.", 16),
+				Arctic.makeText("On each of the next few screens, please rank how  ", 18),
+				Arctic.makeText("well each of 4 rhythms match the notated rhythm.", 18),
+				Arctic.makeText("The correct rhythm is provided.", 18),
 				])))),
 				Filler,
 			]),
@@ -61,11 +61,11 @@ class UI {
 				Filler,
 				Background(0x777777,
 				Border(1,1, Background(0xccffff,LineStack([
-				Arctic.makeText("2. Your musical skill:",30),
+				Arctic.makeText("2. Your musical skill ",30),
 				Arctic.makeTextChoice(
 					["Unskilled", "Student or Amateur",
 					"Professional"], setUserSkill,
-					0, 16).block,
+					0, 18).block,
 				])))),
 				Filler,
 				Background(0x777777,
@@ -111,14 +111,17 @@ class UI {
 			var choices = Arctic.makeTextChoiceBlocks([
 				"1    ", "2    ", "3    ",
 				"4    ", "5    ", "6    ", "7"],
-				data.setResult, 8, 18);
+				data.setResult, 9, 18);
 			var choicesBox = { block: ColumnStack(choices.blocks),
 				selectFn: choices.selectFn};
 			rightSide = LineStack( [
 				Filler,
+//				ColumnStack( [
+//					Arctic.makeText("Very", 14), Filler,
+//					Arctic.makeText("Very", 14),
+//				]),
 				ColumnStack( [
 					Arctic.makeText("Bad", 18), Filler,
-					Arctic.makeText("Ok", 18), Filler,
 					Arctic.makeText("Good", 18),
 				]),
 				GradientBackground("linear",
@@ -130,17 +133,21 @@ class UI {
 		}
 		// arctic 1.0.1 has problems with two fillers
 		var center = 80;
+		var colorStop = 0xCC0000;
+		var colorPlay = 0x00CC00;
 		// this is getting really ugly
 		if (number == 0) {
 			center += 37;
+			//colorStop = 0xCC7777;
+			//colorPlay = 0x77CC77;
 		}
 
 		var playControls = ColumnStack( [
 					ConstrainWidth(center,center, Filler),
-					Background(0xCC0000,
+					Background(colorStop,
 						Arctic.makeSimpleButton("Stop",
 						data.stopPlay, 16)),
-					Background(0x00CC00,
+					Background(colorPlay,
 						Arctic.makeSimpleButton("Play",
 						data.startPlay, 16)),
 					ConstrainWidth(center,center, Filler),
@@ -149,7 +156,7 @@ class UI {
 		var leftSide : Dynamic;
 		if (number == 0) {
 			leftSide = LineStack( [
-				Picture(data.imageName(),300,40,1.0),
+				Picture(data.imageName(),323,50,1.0),
 				playControls
 			]);
 		} else {
@@ -186,9 +193,17 @@ class UI {
 		}
 
 		var notation = ColumnStack( [
-			Picture(phase+"_notation_png",300,48,1.0),
+			LineStack([
+				Filler,
+				Picture(phase+"_notation_png",323,50,1.0),
+				Filler
+			]),
 			Filler,
-			Arctic.makeText("Rank these exercise attempts", 20),
+			LineStack([
+				Filler,
+				Arctic.makeText("Rank exercises A-D", 30),
+				Filler
+			]),
 			Filler
 		]);
 
@@ -199,10 +214,13 @@ class UI {
 				Filler
 			]),
 			Filler,
+			LineStack([Filler,
 			Background(0x444444,
 				Border(3,3, Background(0xaaeeaa,
 					Arctic.makeSimpleButton(
-					"Next screen", advanceLevel, 18))))
+					"Next screen", advanceLevel, 18)))),
+				Filler
+			])
 		]));
 		var scene = Background(0xeeeeee, LineStack( [
 			notation,
