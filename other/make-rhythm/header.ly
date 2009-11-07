@@ -13,7 +13,7 @@
 
 \layout {
   \context { \Score
-    proportionalNotationDuration = #(ly:make-moment 1 16)
+    proportionalNotationDuration = #(ly:make-moment 1 8)
     \override SpacingSpanner #'strict-note-spacing = ##t
     \override TimeSignature #'style = #'()
   }
