@@ -21,6 +21,12 @@ all:
 	for f in *.wav; do lame -b 64 $$f; done;
 	swfmill simple phases.xml phases.swf
 
+diff-grade:
+	python diff-grade.py 1-1.exp 1
+	python diff-grade.py 2-1.exp 2
+	python diff-grade.py 3-1.exp 3
+	python diff-grade.py 4-1.exp 4
+
 clean:
 	rm -f *.eps *.pdf *.swf *.png clap.wav.mp3
 	rm -f 1-* trivial.wav*
