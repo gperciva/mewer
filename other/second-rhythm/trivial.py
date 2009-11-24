@@ -4,17 +4,11 @@ import os
 import random
 random.seed()
 
-tolerances = [0.00, 0.02, 0.07, 0.11, 0.16]
+tolerances = [20, 60, 100, 140] # in milliseconds
 
-inpositions_name = "trivial.exp"
-try:
-        outfile_name = sys.argv[1]
-except:
-        print "Please enter output base filename"
-        sys.exit(1)
+inpositions_name = "ideal-1-0.exp"
+outfile_name = "ideal-1"
 
-
-print "Reading clap position file " + inpositions_name
 positions_read = open(inpositions_name, 'r').readlines()
 
 positions = []
@@ -38,11 +32,11 @@ for j in range(len(tolerances)):
 	i = j+1
 	newpos = []
 	for pos in positions:
-		rand_abs = random.uniform(tol*3/4, tol)
+		rand_abs = random.uniform(tol*3/4, tol) / 1000.0
 		rand = random.choice([-1, 1]) * rand_abs
+#		print pos, rand, pos+rand
 		newpos.append( pos + rand )
-	shift = -1*newpos[0]
-	for n in range(len(newpos)):
-		newpos[n] += shift
+#	print "-----------"
 	writePos(outfile_name+"-"+str(i)+".exp", newpos)
+
 
