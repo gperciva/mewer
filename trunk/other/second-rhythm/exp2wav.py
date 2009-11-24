@@ -27,41 +27,39 @@ positions = open(inpositions_name, 'r').readlines()
 #print "Reading input clap file " + inclap_name
 inclap_file = wave.open(inclap_name, 'rb')
 clap = inclap_file.readframes(4410)
+clap_list = list(struct.unpack(str(len(clap)/2)+'h', clap))
 inclap_file.close()
 
 metro_dur = 441
 inmetro_high_file = wave.open('metro-high.wav', 'rb')
 metro_high = inmetro_high_file.readframes(4410)
+metro_high_list = list(struct.unpack(str(len(metro_high)/2)+'h', metro_high))
 inmetro_high_file.close()
 
 inmetro_low_file = wave.open('metro-low.wav', 'rb')
 metro_low = inmetro_low_file.readframes(4410)
+metro_low_list = list(struct.unpack(str(len(metro_low)/2)+'h', metro_low))
 inmetro_low_file.close()
 
 
-print "Writing output file " + outfile_name
-out_file = wave.open(outfile_name, 'wb')
-out_file.sr = 44100
-out_file.setparams((1, 2, 44100, 44100*4, 'NONE', 'noncompressed'))
-
 
 def silenceSamples(samples):
-	fill_zeros = ''
+	fill_zeros = []
 	for i in range(int(samples)):
-		fill_zeros += struct.pack('h', 0)
+		fill_zeros.append(0)
 	return fill_zeros
 
 
 # two bars of 4/4 time
-metronome = ''
+metronome = []
 for bar in range(2):
-	metronome += metro_high
-	metronome += silenceSamples(beat_samples - metro_dur)
+	metronome.extend(metro_high_list)
+	metronome.extend(silenceSamples(beat_samples - metro_dur))
 	for offbeat in range(3):
-		metronome += metro_low
-		metronome += silenceSamples(beat_samples - metro_dur)
+		metronome.extend(metro_low_list)
+		metronome.extend(silenceSamples(beat_samples - metro_dur))
 
-claps = ''
+claps = []
 now = 0
 for line in positions:
 	splitline = line.split()
@@ -71,34 +69,35 @@ for line in positions:
 	if (note > 0):
 		num_zeros = int( 44100.0*(time-now))
 		if (num_zeros > 0):
-			claps += silenceSamples(num_zeros)
+			claps.extend(silenceSamples(num_zeros))
 		now = time
-		claps += clap
+		claps.extend(clap_list)
 		now += 0.1   # length of clap
 # fill remainder with zeros
-remaining_zeros = (len(metronome) - len(claps))/2
+remaining_zeros = len(metronome) - len(claps)
 if (remaining_zeros < 0):
 	print "ERROR: claps exceed a bar!"
 	sys.exit()
 if (remaining_zeros > 0):
-	claps += silenceSamples(remaining_zeros)
+	claps.extend(silenceSamples(remaining_zeros))
 
 
 # mix them together
+size = len(metronome)
 audioframes = ''
-size = len(metronome)/2
-metro_values = struct.unpack(str(size)+'h', metronome)
-clap_values = struct.unpack(str(size)+'h', claps)
 for i in range(size):
-	sum = metro_values[i] + clap_values[i]
+	sum = metronome[i] + claps[i]
 	if (sum > SHRT_MAX):
 		sum = SHRT_MAX
-		print "clipping"
 	if (sum < SHRT_MIN):
 		sum = SHRT_MIN
-		print "clipping"
 	audioframes += struct.pack('h',sum)
 	
+print "Writing output file " + outfile_name
+out_file = wave.open(outfile_name, 'wb')
+out_file.sr = 44100
+out_file.setparams((1, 2, 44100, 44100*4, 'NONE', 'noncompressed'))
 out_file.writeframes(audioframes)
+out_file.close()
 
 
