@@ -2,6 +2,8 @@
 import wave
 import sys
 import struct
+SHRT_MAX = 32767
+SHRT_MIN = -32768
 
 inclap_name = "clap.wav"
 try:
@@ -88,7 +90,14 @@ size = len(metronome)/2
 metro_values = struct.unpack(str(size)+'h', metronome)
 clap_values = struct.unpack(str(size)+'h', claps)
 for i in range(size):
-	audioframes += struct.pack('h',metro_values[i]+clap_values[i])
+	sum = metro_values[i] + clap_values[i]
+	if (sum > SHRT_MAX):
+		sum = SHRT_MAX
+		print "clipping"
+	if (sum < SHRT_MIN):
+		sum = SHRT_MIN
+		print "clipping"
+	audioframes += struct.pack('h',sum)
 	
 out_file.writeframes(audioframes)
 
