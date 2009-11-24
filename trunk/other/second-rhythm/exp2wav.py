@@ -15,10 +15,18 @@ try:
 	inpositions_name = sys.argv[2]
 except:
 	print "Please enter input position filename"
-	sys.exit(2)
+	sys.exit(1)
+try:
+	add_metro = int(sys.argv[3])
+except:
+	print "Add a metronome or not?"
+	sys.exit(1)
 
 beat_samples = 44100.0 / (60.0/tempo)
-outfile_name = inpositions_name[:-4] + ".wav"
+if (add_metro == 1):
+	outfile_name = inpositions_name[:-4] + ".wav"
+else:
+	outfile_name = inpositions_name[:-4] + "-no-metro.wav"
 
 
 #print "Reading clap position file " + inpositions_name
@@ -51,20 +59,28 @@ def silenceSamples(samples):
 
 
 # two bars of 4/4 time
-metronome = []
-for bar in range(2):
-	metronome.extend(metro_high_list)
-	metronome.extend(silenceSamples(beat_samples - metro_dur))
-	for offbeat in range(3):
-		metronome.extend(metro_low_list)
+if (add_metro ==1):
+	metronome = []
+	for bar in range(2):
+		metronome.extend(metro_high_list)
 		metronome.extend(silenceSamples(beat_samples - metro_dur))
+		for offbeat in range(3):
+			metronome.extend(metro_low_list)
+			metronome.extend(silenceSamples(beat_samples - metro_dur))
 
 claps = []
 now = 0
+adjust = -9
 for line in positions:
 	splitline = line.split()
 	note = float(line.split()[0])
 	time = float(line.split()[1])
+	if (adjust == -9):
+		if (add_metro == 1):
+			adjust = 0
+		else:
+			adjust = 0.25 - time
+	time = time + adjust
 
 	if (note > 0):
 		num_zeros = int( 44100.0*(time-now))
@@ -73,31 +89,36 @@ for line in positions:
 		now = time
 		claps.extend(clap_list)
 		now += 0.1   # length of clap
-# fill remainder with zeros
-remaining_zeros = len(metronome) - len(claps)
-if (remaining_zeros < 0):
-	print "ERROR: claps exceed a bar!"
-	sys.exit()
-if (remaining_zeros > 0):
-	claps.extend(silenceSamples(remaining_zeros))
+if (add_metro == 1):
+	# fill remainder with zeros
+	remaining_zeros = len(metronome) - len(claps)
+	if (remaining_zeros < 0):
+		print "ERROR: claps exceed a bar!"
+		sys.exit()
+	if (remaining_zeros > 0):
+		claps.extend(silenceSamples(remaining_zeros))
 
 
-# mix them together
-size = len(metronome)
 audioframes = ''
+# mix them together
+size = len(claps)
 for i in range(size):
-	sum = metronome[i] + claps[i]
+	if (add_metro == 1):
+		sum = metronome[i] + claps[i]
+	else:
+		sum = claps[i]
 	if (sum > SHRT_MAX):
 		sum = SHRT_MAX
 	if (sum < SHRT_MIN):
 		sum = SHRT_MIN
 	audioframes += struct.pack('h',sum)
-	
+
 print "Writing output file " + outfile_name
 out_file = wave.open(outfile_name, 'wb')
 out_file.sr = 44100
 out_file.setparams((1, 2, 44100, 44100*4, 'NONE', 'noncompressed'))
 out_file.writeframes(audioframes)
 out_file.close()
+
 
 
