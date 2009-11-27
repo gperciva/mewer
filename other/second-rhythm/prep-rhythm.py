@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 import sys
 
-tolerance = 20  # in milliseconds
+std = 10  # in milliseconds
+          # values more than 3 STDs will be regenerated
 try:
 	inpositions_name = sys.argv[1]
 except:
@@ -27,9 +28,10 @@ for line in positions:
 	else:
 		import random
 		random.seed()
-		rand_abs = random.uniform(tolerance*3/4, tolerance)/1000.0
-		rand = random.choice([-1,1]) * rand_abs
-		newtime = time + 4.0 + rand
+		newtime = 0
+		while (abs(newtime - (time + 4.0)) > 3.0*(std/1000.0)):
+			newtime = random.gauss(time+4.0, std)
+		print 1000.0 * (newtime - (time + 4.0))
 		changed_line = str(int(note)) + ' ' + str(newtime) + '\n'
 	out_file.write(changed_line)
 
