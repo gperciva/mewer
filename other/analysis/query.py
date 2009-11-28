@@ -4,6 +4,8 @@ from scipy import stats
 import Bio.Cluster
 import friedman
 
+P_VALUE_DIGITS = 5
+
 conn = sqlite3.connect('/tmp/markov.db')
 c = conn.cursor()
 
@@ -95,19 +97,19 @@ def makeRanking(level, skill):
 		''') % locals()
 	query = c.execute(query_string).fetchall()
 	chi_square, p_value, means = friedman.friedman(query)
-	print "p_value: ", p_value, "   mean rankings: ",
+	print ("p_value: %."+str(P_VALUE_DIGITS)+"f") % p_value,
+	print "\tmean rankings: ",
 	printList(means,1)
 
 
 def individualRankings():
-#	for i in range(4):
-	for i in range(1):
+	for i in range(4):
 		print "Level " + str(i+1)
 		print "   skilled"
-#		print "      ",
+		print "      ",
 		makeRanking(i+1,1)
 		print "   unskilled"
-#		print "      ",
+		print "      ",
 		makeRanking(i+1,0)
 
 
