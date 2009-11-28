@@ -2,6 +2,7 @@
 import sqlite3
 from scipy import stats
 import Bio.Cluster
+import friedman
 
 conn = sqlite3.connect('/tmp/markov.db')
 c = conn.cursor()
@@ -10,6 +11,9 @@ c = conn.cursor()
 #for row in c:
 #	print row
 
+def printList(list, digits=2):
+        for x in list: print ("%0."+str(digits)+"f" )% (x),
+        print ""
 
 def exercise(one, two):
 	return 'e' + str(one) + '_' + str(two)
@@ -90,17 +94,9 @@ def makeRanking(level, skill):
 		where skill = %(skill)s
 		''') % locals()
 	query = c.execute(query_string).fetchall()
-#	print query
-	for q in query:
-		ranked = stats.rankdata( list(q) )
-		print ranked
-	#print "------"
-	spearman = Bio.Cluster.distancematrix(query, dist="s")[1][0]
-	print "spearman: ", 1 - spearman
-	kendall = Bio.Cluster.distancematrix(query, dist="k")[1][0]
-	print "kendall tau: ", kendall
-#		printSortedRanks(list(q))
-#	print
+	chi_square, p_value, means = friedman.friedman(query)
+	print "p_value: ", p_value, "   mean rankings: ",
+	printList(means,1)
 
 
 def individualRankings():
