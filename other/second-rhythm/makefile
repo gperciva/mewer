@@ -1,14 +1,21 @@
 all:
-	./prep-rhythm.py ideal-1-0.exp 1
-	./exp2wav.py 60 1-0.exp 1
-	./exp2png.py 1-0.exp
 	lilypond -dpreview ideal-1-0.ly
 	mv ideal-1-0.preview.png 1-notation.png
+	lilypond -dpreview ideal-2-0.ly
+	mv ideal-2-0.preview.png 2-notation.png
+	lilypond -dpreview ideal-3-0.ly
+	mv ideal-3-0.preview.png 3-notation.png
+	lilypond -dpreview ideal-4-0.ly
+	mv ideal-4-0.preview.png 4-notation.png
+	lilypond -dpreview ideal-5-0.ly
+	mv ideal-5-0.preview.png 5-notation.png
 	#
-	for f in ideal-*.exp; do ./prep-rhythm.py $$f; done;
+	for f in ideal-[1-5]-0.exp; do ./prep-rhythm.py $$f 1; done;
+	for f in ideal-[1-5]-[1-4].exp; do ./prep-rhythm.py $$f; done;
+	for f in [1-5]-0.exp; do ./exp2png.py $$f; done;
+	#
 	for f in [1-5]-*.exp; do ./exp2wav.py 60 $$f 1; done;
 	for f in [1-5]-*.wav; do lame -b 64 $$f; done;
-	#
 	#
 	swfmill simple phases.xml phases.swf
 
