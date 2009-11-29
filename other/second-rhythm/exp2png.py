@@ -35,7 +35,6 @@ draw = ImageDraw.Draw(image)
 offset = -onsets[0]
 for o in onsets:
 	xpos = (o + offset) * (WIDTH-X_OFFSET) / 4.0 + X_OFFSET
-	print xpos
 	draw.line((xpos,0, xpos,HEIGHT),fill='blue')
 	draw.line((xpos+1,0, xpos+1,HEIGHT),fill='blue')
 image.save(base+'.png', 'png')
