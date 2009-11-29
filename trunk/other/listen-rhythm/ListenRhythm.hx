@@ -1,6 +1,6 @@
 
 class ListenRhythm {
-	static inline var MAX_PHASE = 1;
+	static inline var MAX_PHASE = 5;
 
 	var ui : ui.UI;
 	var cnx : haxe.remoting.HttpAsyncConnection;
@@ -52,6 +52,7 @@ class ListenRhythm {
 		url += '&2=' + results.pop();
 		url += '&3=' + results.pop();
 		url += '&4=' + results.pop();
+		url += '&5=' + results.pop();
 
 		loader.load(new flash.net.URLRequest(url));
 	}
@@ -121,7 +122,6 @@ class ListenRhythm {
 				}
 			}
 		}
-		trace(order);
 
 		attempt[0] = new Attempt(phase, 0, stopSounds);
 		for (i in 0...4) {
