@@ -4,7 +4,7 @@ import os
 import random
 random.seed()
 
-tolerances = [20, 60, 100, 140] # in milliseconds
+tolerances = [30, 70, 100, 140] # in milliseconds
 
 inpositions_name = "ideal-1-0.exp"
 outfile_name = "ideal-1"

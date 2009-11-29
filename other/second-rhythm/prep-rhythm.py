@@ -31,7 +31,7 @@ for line in positions:
 		newtime = 0
 		while (abs(newtime - (time + 4.0)) > 3.0*(std/1000.0)):
 			newtime = random.gauss(time+4.0, std)
-		print 1000.0 * (newtime - (time + 4.0))
+#		print 1000.0 * (newtime - (time + 4.0))
 		changed_line = str(int(note)) + ' ' + str(newtime) + '\n'
 	out_file.write(changed_line)
 
