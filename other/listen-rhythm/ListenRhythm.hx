@@ -29,8 +29,36 @@ class ListenRhythm {
 		// network setup
 		loader = new flash.net.URLLoader();
 		loader.addEventListener(flash.events.Event.COMPLETE, ask_ping);
-		url = Config.url + '?ping=1';
+		url = getURL('?ping=1');
 		loader.load(new flash.net.URLRequest(url));
+	}
+
+	function getURL(command : String) : String {
+		url = Config.url;
+#if A
+		url += 'A';
+#end
+#if B
+		url += 'B';
+#end
+#if C
+		url += 'C';
+#end
+#if D
+		url += 'D';
+#end
+#if E
+		url += 'E';
+#end
+#if F
+		url += 'F';
+#end
+#if G
+		url += 'G';
+#end
+		url += Config.url_ext;
+		url += command;
+		return url;
 	}
 
 	function ask_ping(event:flash.events.Event) {
@@ -46,13 +74,14 @@ class ListenRhythm {
 	function sendData() {
 		loader = new flash.net.URLLoader();
 		loader.addEventListener(flash.events.Event.COMPLETE, ask_data);
-		url = Config.url + '?action=record';
-		url += '&skill=' + userSkill;
-		url += '&1=' + results.pop();
-		url += '&2=' + results.pop();
-		url += '&3=' + results.pop();
-		url += '&4=' + results.pop();
-		url += '&5=' + results.pop();
+		var command = '?action=record';
+		command += '&skill=' + userSkill;
+		command += '&1=' + results.pop();
+		command += '&2=' + results.pop();
+		command += '&3=' + results.pop();
+		command += '&4=' + results.pop();
+		command += '&5=' + results.pop();
+		url = getURL(command);
 
 		loader.load(new flash.net.URLRequest(url));
 	}
