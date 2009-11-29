@@ -3,7 +3,7 @@
 
 \score{
   \new RhythmicStaff {
-    c'8 c'16 c' c'4 c'4. c'16
+    c'8 c'16 c' c'4 c'4. c'8
   }
   \layout{}
 }

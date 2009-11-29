@@ -1,8 +1,8 @@
 #! /usr/bin/env python
 import sys
 
-std = 10  # in milliseconds
-          # values more than 3 STDs will be regenerated
+std = 12.5 # in milliseconds
+           # values more than 3 STDs will be regenerated
 try:
 	inpositions_name = sys.argv[1]
 except:

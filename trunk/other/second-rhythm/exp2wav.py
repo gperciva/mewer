@@ -5,7 +5,8 @@ import struct
 SHRT_MAX = 32767
 SHRT_MIN = -32768
 
-inclap_name = "clap.wav"
+inclap_name = "clap-short.wav"
+clap_length = 0.050
 try:
 	tempo = float(sys.argv[1])
 except:
@@ -88,7 +89,7 @@ for line in positions:
 			claps.extend(silenceSamples(num_zeros))
 		now = time
 		claps.extend(clap_list)
-		now += 0.1   # length of clap
+		now += clap_length
 if (add_metro == 1):
 	# fill remainder with zeros
 	remaining_zeros = len(metronome) - len(claps)
