@@ -17,12 +17,14 @@ all:
 	for f in [1-5]-*.exp; do ./exp2wav.py 60 $$f 1; done;
 	for f in [1-5]-*.wav; do lame -b 64 $$f; done;
 	#
+	rm -f *.eps *.pdf
 	swfmill simple phases.xml phases.swf
 
 clean:
-	rm -f 1-*.wav
-	rm -f *.eps *.pdf
+	rm -f [1-5]-*.wav [1-5]-*.mp3
+	rm -f *.png
+	rm -f phases.swf
 
 distclean: clean
-	rm -f 1-?.exp
+	rm -f [1-5]-?.exp
 
