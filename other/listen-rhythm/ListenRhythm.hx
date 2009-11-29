@@ -83,7 +83,7 @@ class ListenRhythm {
 			var resultsPrevious = new Array<Int>();
 			resultsPrevious[0] = 0;
 			resultsPrevious[1] = 0;
-			for (i in 0...4) {
+			for (i in 1...5) {
 				var res = attempt[i].getResult();
 				var pos = attempt[i].getRealNumber();
 				resultsPrevious[pos] = res;
