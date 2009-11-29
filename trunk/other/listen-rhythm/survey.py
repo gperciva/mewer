@@ -1,6 +1,8 @@
 #!/usr/bin/python
 import cgi
 
+base = 'data'
+
 num_phases = 5
 num_fields = 2 + num_phases
 
@@ -24,7 +26,7 @@ def verify_write(form):
 def write_log(log_line):
 	import time
 	nowtime = str(int(time.time()))
-	outfilename = "data-"+nowtime+".txt"
+	outfilename = base+'-'+nowtime+".txt"
 	outfile = open(outfilename,'a')
 	outfile.write(log_line)
 	outfile.close()
