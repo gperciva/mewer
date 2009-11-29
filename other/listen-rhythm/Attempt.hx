@@ -1,9 +1,10 @@
+class Attempt_1_0_mp3 extends flash.media.Sound {}
 class Attempt_1_1_mp3 extends flash.media.Sound {}
 class Attempt_1_2_mp3 extends flash.media.Sound {}
 class Attempt_1_3_mp3 extends flash.media.Sound {}
 class Attempt_1_4_mp3 extends flash.media.Sound {}
-class Attempt_1_5_mp3 extends flash.media.Sound {}
 
+/*
 class Attempt_2_1_mp3 extends flash.media.Sound {}
 class Attempt_2_2_mp3 extends flash.media.Sound {}
 class Attempt_2_3_mp3 extends flash.media.Sound {}
@@ -21,8 +22,7 @@ class Attempt_4_2_mp3 extends flash.media.Sound {}
 class Attempt_4_3_mp3 extends flash.media.Sound {}
 class Attempt_4_4_mp3 extends flash.media.Sound {}
 class Attempt_4_5_mp3 extends flash.media.Sound {}
-
-
+*/
 
 
 class Attempt {
@@ -41,7 +41,7 @@ class Attempt {
 		phaseNumber = phaseNumberGet;
 		realNumber = realNumberGet;
 		callbackStopSounds = callbackStopSoundsGet;
-		result = 4; // default choice from UI
+		result = 9; // default choice from UI
 
 		name = "Attempt_" + Std.string(phaseNumber)
 			+ "_"+Std.string(realNumber);
@@ -50,7 +50,7 @@ class Attempt {
 	}
 
 	public function isPerfect() {
-		if (realNumber == 1)
+		if (realNumber == 0)
 			return 1;
 		return 0;
 	}

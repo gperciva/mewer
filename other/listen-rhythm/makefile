@@ -1,6 +1,6 @@
 
 all: compile.hxml
-	echo *****  if this is the final build, Secret.hx  *****
+	echo *****  if this is the final build, secret in Config.hx  *****
 	haxe compile.hxml
 	mkdir -p ~/public_html/
 	cp index.html ~/public_html/

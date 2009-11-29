@@ -122,7 +122,7 @@ class UI {
 //				]),
 				ColumnStack( [
 					Arctic.makeText("Bad", 18), Filler,
-					Arctic.makeText("Good", 18),
+					Arctic.makeText("Good    ", 18),
 				]),
 				GradientBackground("linear",
 					[0xbbbbee, 0xeeeeaa], 0, 0,
