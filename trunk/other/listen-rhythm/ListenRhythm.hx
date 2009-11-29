@@ -1,6 +1,6 @@
 
 class ListenRhythm {
-	static inline var MAX_PHASE = 4;
+	static inline var MAX_PHASE = 1;
 
 	var ui : ui.UI;
 	var cnx : haxe.remoting.HttpAsyncConnection;
@@ -83,7 +83,7 @@ class ListenRhythm {
 			var resultsPrevious = new Array<Int>();
 			resultsPrevious[0] = 0;
 			resultsPrevious[1] = 0;
-			for (i in 1...5) {
+			for (i in 0...4) {
 				var res = attempt[i].getResult();
 				var pos = attempt[i].getRealNumber();
 				resultsPrevious[pos] = res;
@@ -91,7 +91,7 @@ class ListenRhythm {
 
 			// convert to string
 			var store : String = '';
-			for (i in 2...6) {
+			for (i in 1...5) {
 				store += resultsPrevious[i];
 			}
 			results.add( store );
@@ -107,7 +107,7 @@ class ListenRhythm {
 		// randomize order
 		var order : Array<Int> = new Array();
 		while (order.length < 4) {
-			var tryInt : Int = Std.random(4) + 2;
+			var tryInt : Int = Std.random(4) + 1;
 			for (i in 0...4) {
 				if (order[i] == tryInt) {
 					tryInt = 0;
@@ -121,8 +121,9 @@ class ListenRhythm {
 				}
 			}
 		}
+		trace(order);
 
-		attempt[0] = new Attempt(phase, 1, stopSounds);
+		attempt[0] = new Attempt(phase, 0, stopSounds);
 		for (i in 0...4) {
 			attempt[i+1] = new Attempt(phase, order[i], stopSounds);
 		}
