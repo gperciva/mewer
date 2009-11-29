@@ -4,7 +4,12 @@ import numpy
 
 bpm = int(sys.argv[1])
 
-claps_file_lines = open('claps'+str(bpm)+'.txt').readlines()
+try:
+	filename = sys.argv[2]
+except:
+	filename = 'claps'
+
+claps_file_lines = open(filename+str(bpm)+'.txt').readlines()
 claps_list = []
 for line in claps_file_lines:
 	claps_list.append( float(line) )

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import cgi
 
-num_phases = 4
+num_phases = 5
 num_fields = 2 + num_phases
 
 def sorry():
@@ -18,6 +18,7 @@ def verify_write(form):
 	log_line += str( int( form["2"].value )) + '\t'
 	log_line += str( int( form["3"].value )) + '\t'
 	log_line += str( int( form["4"].value )) + '\t'
+	log_line += str( int( form["5"].value )) + '\t'
 	write_log(log_line)
 
 def write_log(log_line):
